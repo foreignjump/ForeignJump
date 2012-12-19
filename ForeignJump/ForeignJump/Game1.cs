@@ -19,10 +19,25 @@ namespace ForeignJump
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Texture2D bg;
+        Texture2D obstacleh;
+        Texture2D obstacleb;
+        Texture2D voiture;
+        Texture2D hero;
+        
+
+        KeyboardState oldState;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            graphics.PreferredBackBufferWidth = 900;
+            graphics.PreferredBackBufferHeight = 474;
+            graphics.ApplyChanges();
+
+            oldState = Keyboard.GetState();
         }
 
         /// <summary>
@@ -48,6 +63,11 @@ namespace ForeignJump
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            bg = this.Content.Load<Texture2D>("bg");
+            obstacleb = this.Content.Load<Texture2D>("obstacleb");
+            obstacleh = this.Content.Load<Texture2D>("obstacleh");
+            hero = this.Content.Load<Texture2D>("hero");
+            voiture = this.Content.Load<Texture2D>("voiture");
         }
 
         /// <summary>
@@ -70,10 +90,16 @@ namespace ForeignJump
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
-
+            //Utilisation Clavier
+            KeyboardState newState = Keyboard.GetState();
+            //Souris
+            this.IsMouseVisible = true;
+            
+            Physique.Update(gameTime);
+            
             base.Update(gameTime);
         }
+    }
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -81,11 +107,21 @@ namespace ForeignJump
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.White);
 
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+            
+            spriteBatch.Begin();
+                spriteBatch.Draw(bg, new Rectangle(0, 0, 1200, 474), Color.White);
+                spriteBatch.Draw(bg, bgPosition, Color.White);                
+                spriteBatch.Draw(obstacleb, obstaclebPosition, Color.White);
+                spriteBatch.Draw(obstacleh, obstaclehPosition, Color.White);
+                spriteBatch.Draw(voiture, voiturePosition, Color.White);
+                spriteBatch.Draw(hero, heroPosition, Color.White);
+            spriteBatch.End();
         }
     }
 }
+

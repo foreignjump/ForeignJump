@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Graphique.cs" />
+    <Compile Include="Input.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Physique.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
