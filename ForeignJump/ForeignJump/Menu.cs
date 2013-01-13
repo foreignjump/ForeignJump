@@ -178,7 +178,7 @@ namespace ForeignJump
         }
         if (newState.IsKeyDown(Keys.Enter) && selection == 4)
         {
-          //Exit();
+            System.Environment.Exit(0);
         }
 
         if (gameState.Get() == "load")
