@@ -13,9 +13,6 @@ namespace ForeignJump
 {
     public class Menu
     {
-        public GameState gameState;
-        public GameState realGameState;
-
         //BG
         private Texture2D menubg;
         private Texture2D idle;
@@ -102,11 +99,6 @@ namespace ForeignJump
             positionAide = new Vector2(milieu, -500);
             positionExit = new Vector2(milieu, -300);
 
-            gameState = new GameState();
-            gameState.Initialize();
-
-            realGameState = gameState;
-
             selection = 1;
             appuye = 1;
             relache = 1;
@@ -172,16 +164,35 @@ namespace ForeignJump
             relache = 0;
         }
 
-        if (newState.IsKeyDown(Keys.Enter) && selection == 1)
+        if (GameState.State == "pause")
         {
-            gameState.Update("load");
+            if (newState.IsKeyDown(Keys.Enter) && selection == 1)
+                GameState.State = "inGame";
         }
+        else
+        {
+            if (newState.IsKeyDown(Keys.Enter) && selection == 1)
+                GameState.State = "load";
+        }
+
+           
+
         if (newState.IsKeyDown(Keys.Enter) && selection == 4)
         {
             System.Environment.Exit(0);
         }
 
-        if (gameState.Get() == "load")
+        if (positionExit.Y <= -300 && GameState.State == "load")
+        {
+            GameState.State = "inGame";
+        }
+
+        if (newState.IsKeyDown(Keys.Escape))
+        {
+            GameState.State = "pause";
+        }
+
+        if (GameState.State == "load")
         {
              if (positionJouer.Y > -900)
              {  
@@ -203,7 +214,7 @@ namespace ForeignJump
                 positionExit.Y -= vitesse - 1;
              }
         }
-        else
+        else if (GameState.State == "pause" || GameState.State != "inGame")
         {
 
             if (positionJouer.Y < 240)
@@ -225,52 +236,48 @@ namespace ForeignJump
 
         }
 
-        if (positionExit.Y <= -300 && gameState.Get() == "load")
-        {
-            gameState.Update("inGame");
         }
 
-        realGameState = gameState;
-
-
-        }
-
-        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime, bool background)
         {
-            spriteBatch.Draw(menubg,new Rectangle(0,0, 1280,800),Color.White);
-
-            if (selection == 1)
+            if (background == true)
             {
-                buttonJouerH.DrawButton(spriteBatch);
+                spriteBatch.Draw(menubg, new Rectangle(0, 0, 1280, 800), Color.White);
             }
-            else
-            {
-                buttonJouer.DrawButton(spriteBatch);
-            }
-            if (selection == 2)
-            {
-                buttonOptionsH.DrawButton(spriteBatch);
-            }
-            else
-            {
-                buttonOptions.DrawButton(spriteBatch);
-            }
-            if (selection == 3)
-            {
-                buttonAideH.DrawButton(spriteBatch);
-            }
-            else
-            {
-                buttonAide.DrawButton(spriteBatch);
-            }
-            if (selection == 4)
-            {
-                buttonExitH.DrawButton(spriteBatch);
-            }
-            else
-            {
-                buttonExit.DrawButton(spriteBatch);
+                
+                if (selection == 1)
+                {
+                    buttonJouerH.DrawButton(spriteBatch);
+                }
+                else
+                {
+                    buttonJouer.DrawButton(spriteBatch);
+                }
+                if (selection == 2)
+                {
+                    buttonOptionsH.DrawButton(spriteBatch);
+                }
+                else
+                {
+                    buttonOptions.DrawButton(spriteBatch);
+                }
+                if (selection == 3)
+                {
+                    buttonAideH.DrawButton(spriteBatch);
+                }
+                else
+                {
+                    buttonAide.DrawButton(spriteBatch);
+                }
+                if (selection == 4)
+                {
+                    buttonExitH.DrawButton(spriteBatch);
+                }
+                else
+                {
+                    buttonExit.DrawButton(spriteBatch);
+                }
             }
         }
     }
-}
+

@@ -50,6 +50,7 @@ namespace ForeignJump
             menu = new Menu();
             menu.Initialize(540);
 
+            GameState.State = "initial";
             
             base.Initialize();
         }
@@ -73,26 +74,23 @@ namespace ForeignJump
             mouseStateCurrent = Mouse.GetState();
             KeyboardState newState = Keyboard.GetState();
 
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || newState.IsKeyDown(Keys.Escape))
-                this.Exit();
-
             //menu
-            menu.Update(gameTime, 9);
-            
-            //position & animation hero
-            hero.Update(gameTime, 0.6f);
-          
-            //animation ennemi
-            ennemi.Update(gameTime, 0.5f);
-            
-            //faire defiler la map
-            bgPosition.X -= 10;
+            menu.Update(gameTime, 39);
+            if (GameState.State == "inGame")
+            {
+                //position & animation hero
+                hero.Update(gameTime, 0.6f);
 
-            //faire repeter la map
-            if (bgPosition.X == -100)
-                bgPosition.X = 0;
+                //animation ennemi
+                ennemi.Update(gameTime, 0.5f);
 
+                //faire defiler la map
+                bgPosition.X -= 10;
+
+                //faire repeter la map
+                if (bgPosition.X == -100)
+                    bgPosition.X = 0;
+            }
             base.Update(gameTime);
         }
 
@@ -102,11 +100,9 @@ namespace ForeignJump
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin(); //DEBUT
-
-            if (menu.realGameState.State != "inGame")
-            {
-                menu.Draw(spriteBatch, gameTime);
-            }
+            
+            if (GameState.State == "initial" || GameState.State == "load")
+                menu.Draw(spriteBatch, gameTime, true);
             else
             {
                 spriteBatch.Draw(bg, new Rectangle(0, 0, 1280, 800), Color.White);
@@ -115,6 +111,8 @@ namespace ForeignJump
                 hero.Draw(spriteBatch, gameTime);
                 ennemi.Draw(spriteBatch, gameTime);
             }
+
+                menu.Draw(spriteBatch, gameTime, false);
            
             spriteBatch.End(); //FIN
             base.Draw(gameTime);

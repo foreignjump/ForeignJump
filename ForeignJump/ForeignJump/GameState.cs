@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-    public class GameState : Menu
+   /* public class GameState : Menu
     {
         //Texture
         public string State
@@ -40,5 +40,16 @@ namespace ForeignJump
             return gameState;
         }
         
+    }
+     */
+    public static class GameState
+    {
+        static string gameState;
+
+        public static string State
+        { 
+          get {return gameState;}
+          set {gameState = value;}
+        }
     }
 }
