@@ -11,117 +11,99 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-    /// <summary>
-    /// This is the main type for your game
-    /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Texture2D bg;
-        Texture2D obstacleh;
-        Texture2D obstacleb;
-        Texture2D voiture;
-        Texture2D hero;
         
+        Texture2D bg;
+        Vector2 bgPosition = new Vector2(30, 0);
 
         KeyboardState oldState;
+        MouseState mouseStateCurrent;
+        
+        private Hero hero;
+        private Ennemi ennemi;
 
+        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
-            graphics.PreferredBackBufferWidth = 900;
-            graphics.PreferredBackBufferHeight = 474;
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 800;
             graphics.ApplyChanges();
-
             oldState = Keyboard.GetState();
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            this.IsMouseVisible = true;
+
+            hero = new Hero();
+            hero.Initialize(488, 494);
+
+            ennemi = new Ennemi();
+            ennemi.Initialize(0, 489);
 
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
             bg = this.Content.Load<Texture2D>("bg");
-            obstacleb = this.Content.Load<Texture2D>("obstacleb");
-            obstacleh = this.Content.Load<Texture2D>("obstacleh");
-            hero = this.Content.Load<Texture2D>("hero");
-            voiture = this.Content.Load<Texture2D>("voiture");
-        }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
-        protected override void UnloadContent()
-        {
-            // TODO: Unload any non ContentManager content here
-        }
+            hero.LoadContent(Content,"hero", "heroanime", 1, 16);
+            ennemi.LoadContent(Content, "voitureanime", 1, 4);
+           }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void UnloadContent() {}
+
         protected override void Update(GameTime gameTime)
         {
+            mouseStateCurrent = Mouse.GetState();
+            KeyboardState newState = Keyboard.GetState();
+
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || newState.IsKeyDown(Keys.Escape))
                 this.Exit();
 
-            //Utilisation Clavier
-            KeyboardState newState = Keyboard.GetState();
-            //Souris
-            this.IsMouseVisible = true;
             
-            Physique.Update(gameTime);
+            //position & animation hero
+            hero.Update(gameTime, 0.6f);
+          
+            //animation ennemi
+            ennemi.Update(gameTime, 0.5f);
             
+            //faire defiler la map
+            bgPosition.X -= 10;
+
+            //faire repeter la map
+            if (bgPosition.X == -100)
+                bgPosition.X = 0;
+
             base.Update(gameTime);
         }
-    }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.White);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin(); //DEBUT
 
+            spriteBatch.Draw(bg, new Rectangle(0, 0, 1280, 800), Color.White);
+            spriteBatch.Draw(bg, bgPosition, Color.White);
+
+            hero.Draw(spriteBatch, gameTime);
+            ennemi.Draw(spriteBatch, gameTime);
+          
+            spriteBatch.End(); //FIN
             base.Draw(gameTime);
-            
-            spriteBatch.Begin();
-                spriteBatch.Draw(bg, new Rectangle(0, 0, 1200, 474), Color.White);
-                spriteBatch.Draw(bg, bgPosition, Color.White);                
-                spriteBatch.Draw(obstacleb, obstaclebPosition, Color.White);
-                spriteBatch.Draw(obstacleh, obstaclehPosition, Color.White);
-                spriteBatch.Draw(voiture, voiturePosition, Color.White);
-                spriteBatch.Draw(hero, heroPosition, Color.White);
-            spriteBatch.End();
         }
     }
 }
-

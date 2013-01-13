@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForeignJump", "ForeignJump\ForeignJump\ForeignJump.csproj", "{BF589E53-FB64-4E16-B021-BD242B49A5ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForeignJump", "ForeignJump\ForeignJump\ForeignJump.csproj", "{2293B488-1890-4C2F-9D14-CEFD9230F404}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "ForeignJumpContent", "ForeignJump\ForeignJumpContent\ForeignJumpContent.contentproj", "{B725623C-C60A-48A9-A6B4-ED626FDFABC7}"
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "ForeignJumpContent", "ForeignJump\ForeignJumpContent\ForeignJumpContent.contentproj", "{18781658-281E-41F3-A974-216C79A52CC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +11,12 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BF589E53-FB64-4E16-B021-BD242B49A5ED}.Debug|x86.ActiveCfg = Debug|x86
-		{BF589E53-FB64-4E16-B021-BD242B49A5ED}.Debug|x86.Build.0 = Debug|x86
-		{BF589E53-FB64-4E16-B021-BD242B49A5ED}.Release|x86.ActiveCfg = Release|x86
-		{BF589E53-FB64-4E16-B021-BD242B49A5ED}.Release|x86.Build.0 = Release|x86
-		{B725623C-C60A-48A9-A6B4-ED626FDFABC7}.Debug|x86.ActiveCfg = Debug|x86
-		{B725623C-C60A-48A9-A6B4-ED626FDFABC7}.Release|x86.ActiveCfg = Release|x86
+		{2293B488-1890-4C2F-9D14-CEFD9230F404}.Debug|x86.ActiveCfg = Debug|x86
+		{2293B488-1890-4C2F-9D14-CEFD9230F404}.Debug|x86.Build.0 = Debug|x86
+		{2293B488-1890-4C2F-9D14-CEFD9230F404}.Release|x86.ActiveCfg = Release|x86
+		{2293B488-1890-4C2F-9D14-CEFD9230F404}.Release|x86.Build.0 = Release|x86
+		{18781658-281E-41F3-A974-216C79A52CC2}.Debug|x86.ActiveCfg = Debug|x86
+		{18781658-281E-41F3-A974-216C79A52CC2}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
