@@ -15,18 +15,19 @@ namespace ForeignJump
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
-        
-        Texture2D bg;
-        Vector2 bgPosition = new Vector2(30, 0);
-
+      
+        //Menu
+       
         KeyboardState oldState;
         MouseState mouseStateCurrent;
         
         private Hero hero;
         private Ennemi ennemi;
-
+        private Menu menu;
         
+        Texture2D bg;
+        Vector2 bgPosition = new Vector2(30, 0);
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -48,6 +49,9 @@ namespace ForeignJump
             ennemi = new Ennemi();
             ennemi.Initialize(0, 489);
 
+            menu = new Menu();
+            menu.Initialize(540);
+
             base.Initialize();
         }
 
@@ -60,6 +64,7 @@ namespace ForeignJump
 
             hero.LoadContent(Content,"hero", "heroanime", 1, 16);
             ennemi.LoadContent(Content, "voitureanime", 1, 4);
+            menu.LoadContent(Content);
            }
 
         protected override void UnloadContent() {}
@@ -96,12 +101,13 @@ namespace ForeignJump
 
             spriteBatch.Begin(); //DEBUT
 
-            spriteBatch.Draw(bg, new Rectangle(0, 0, 1280, 800), Color.White);
+            /*spriteBatch.Draw(bg, new Rectangle(0, 0, 1280, 800), Color.White);
             spriteBatch.Draw(bg, bgPosition, Color.White);
 
             hero.Draw(spriteBatch, gameTime);
             ennemi.Draw(spriteBatch, gameTime);
-          
+          */
+            menu.Draw(spriteBatch, gameTime);
             spriteBatch.End(); //FIN
             base.Draw(gameTime);
         }
