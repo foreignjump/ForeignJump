@@ -15,8 +15,6 @@ namespace ForeignJump
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-      
-        //Menu
        
         KeyboardState oldState;
         MouseState mouseStateCurrent;
@@ -24,7 +22,7 @@ namespace ForeignJump
         private Hero hero;
         private Ennemi ennemi;
         private Menu menu;
-        
+
         Texture2D bg;
         Vector2 bgPosition = new Vector2(30, 0);
 
@@ -52,6 +50,7 @@ namespace ForeignJump
             menu = new Menu();
             menu.Initialize(540);
 
+            
             base.Initialize();
         }
 
@@ -78,6 +77,8 @@ namespace ForeignJump
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || newState.IsKeyDown(Keys.Escape))
                 this.Exit();
 
+            //menu
+            menu.Update(gameTime, 9);
             
             //position & animation hero
             hero.Update(gameTime, 0.6f);
@@ -95,19 +96,26 @@ namespace ForeignJump
             base.Update(gameTime);
         }
 
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin(); //DEBUT
 
-            /*spriteBatch.Draw(bg, new Rectangle(0, 0, 1280, 800), Color.White);
-            spriteBatch.Draw(bg, bgPosition, Color.White);
+            if (menu.realGameState.State != "inGame")
+            {
+                menu.Draw(spriteBatch, gameTime);
+            }
+            else
+            {
+                spriteBatch.Draw(bg, new Rectangle(0, 0, 1280, 800), Color.White);
+                spriteBatch.Draw(bg, bgPosition, Color.White);
 
-            hero.Draw(spriteBatch, gameTime);
-            ennemi.Draw(spriteBatch, gameTime);
-          */
-            menu.Draw(spriteBatch, gameTime);
+                hero.Draw(spriteBatch, gameTime);
+                ennemi.Draw(spriteBatch, gameTime);
+            }
+           
             spriteBatch.End(); //FIN
             base.Draw(gameTime);
         }

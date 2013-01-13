@@ -13,13 +13,11 @@ namespace ForeignJump
 {
     class Button
     {
-        Vector2 position;
         Rectangle countainer;
         Texture2D texture;
 
-        public Button(Vector2 position, Texture2D texture, Rectangle countainer)
+        public Button(Texture2D texture, Rectangle countainer)
         {
-            this.position = position;
             this.countainer = countainer;
             this.texture = texture;
         }
