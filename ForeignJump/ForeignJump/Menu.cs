@@ -230,6 +230,7 @@ namespace ForeignJump
             if (newState.IsKeyDown(Keys.Escape))
             {
                 GameState.State = "pause";
+                selection = 1;
             }
 
             if (GameState.State == "load" || GameState.State == "load1")
