@@ -48,7 +48,7 @@ namespace ForeignJump
             ennemi.Initialize(0, 489);
 
             menu = new Menu();
-            menu.Initialize(540);
+            menu.Initialize(-37);
 
             GameState.State = "initial";
             
@@ -76,7 +76,7 @@ namespace ForeignJump
 
             //menu
 
-            menu.Update(gameTime, 39);
+            menu.Update(gameTime, 10);
             
             if (GameState.State == "inGame")
             {

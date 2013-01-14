@@ -68,35 +68,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="hover.jpg">
-      <Name>hover</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="idle.png">
-      <Name>idle</Name>
+    <Compile Include="menubg.png">
+      <Name>menubg</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="idle2.png">
-      <Name>idle2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ButtonAide.PNG">
-      <Name>ButtonAide</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="ButtonAideH.PNG">
-      <Name>ButtonAideH</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="ButtonExit.PNG">
       <Name>ButtonExit</Name>
       <Importer>TextureImporter</Importer>
@@ -104,6 +82,16 @@
     </Compile>
     <Compile Include="ButtonExitH.PNG">
       <Name>ButtonExitH</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ButtonHelp.PNG">
+      <Name>ButtonHelp</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ButtonHelpH.PNG">
+      <Name>ButtonHelpH</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -124,11 +112,6 @@
     </Compile>
     <Compile Include="ButtonStartH.PNG">
       <Name>ButtonStartH</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="menubg.png">
-      <Name>menubg</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

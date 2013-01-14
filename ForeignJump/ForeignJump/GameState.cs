@@ -11,37 +11,6 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-   /* public class GameState : Menu
-    {
-        //Texture
-        public string State
-        {
-            get { return gameState; }
-            set { gameState = value; }
-        }
-        public string gameState;
-        
-        public GameState()
-        {
-        }
-
-        public void Initialize()
-        {
-            gameState = "initial";
-        }
-
-        public void Update(string state)
-        {
-            gameState = state;
-        }
-
-        public string Get()
-        {
-            return gameState;
-        }
-        
-    }
-     */
     public static class GameState
     {
         static string gameState;
