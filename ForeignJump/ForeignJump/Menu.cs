@@ -16,6 +16,7 @@ namespace ForeignJump
         //BG
         private Texture2D menubg;
         private Texture2D idle;
+        private Texture2D idle2;
         private Texture2D hover;
 
         #region Button positions
@@ -51,7 +52,7 @@ namespace ForeignJump
         #endregion
 
         #region Buttons
-        
+
         private Button buttonJouer;
         private Button buttonOptions;
         private Button buttonAide;
@@ -60,6 +61,15 @@ namespace ForeignJump
         private Button buttonOptionsH;
         private Button buttonAideH;
         private Button buttonExitH;
+
+        private Button buttonPauseJouer;
+        private Button buttonPauseOptions;
+        private Button buttonPauseAide;
+        private Button buttonPauseExit;
+        private Button buttonPauseJouerH;
+        private Button buttonPauseOptionsH;
+        private Button buttonPauseAideH;
+        private Button buttonPauseExitH;
         
         #endregion
 
@@ -108,6 +118,7 @@ namespace ForeignJump
         {
             menubg = Content.Load<Texture2D>("menubg");
             idle = Content.Load<Texture2D>("idle");
+            idle2 = Content.Load<Texture2D>("idle2");
             hover = Content.Load<Texture2D>("hover");
 
         }
@@ -125,6 +136,16 @@ namespace ForeignJump
         buttonAideH = new Button(hover, new Rectangle((int)positionAide.X, (int)positionAide.Y, 200, 140));
         buttonExitH = new Button(hover, new Rectangle((int)positionExit.X, (int)positionExit.Y, 200, 140));
 
+        buttonPauseJouer = new Button(idle2, new Rectangle((int)positionJouer.X, (int)positionJouer.Y, 200, 140));
+        buttonPauseOptions = new Button(idle2, new Rectangle((int)positionOptions.X, (int)positionOptions.Y, 200, 140));
+        buttonPauseAide = new Button(idle2, new Rectangle((int)positionAide.X, (int)positionAide.Y, 200, 140));
+        buttonPauseExit = new Button(idle2, new Rectangle((int)positionExit.X, (int)positionExit.Y, 200, 140));
+        buttonPauseJouerH = new Button(hover, new Rectangle((int)positionJouer.X, (int)positionJouer.Y, 200, 140));
+        buttonPauseOptionsH = new Button(hover, new Rectangle((int)positionOptions.X, (int)positionOptions.Y, 200, 140));
+        buttonPauseAideH = new Button(hover, new Rectangle((int)positionAide.X, (int)positionAide.Y, 200, 140));
+        buttonPauseExitH = new Button(hover, new Rectangle((int)positionExit.X, (int)positionExit.Y, 200, 140));
+    
+        #region Selection
 
         if (newState.IsKeyDown(Keys.Up) && appuye == 0)
         {
@@ -152,7 +173,6 @@ namespace ForeignJump
                 selection = selection + 1;
             }
             relache = 1;
-
         }
 
         if (newState.IsKeyUp(Keys.Up))
@@ -164,18 +184,23 @@ namespace ForeignJump
             relache = 0;
         }
 
+        #endregion
+
         if (GameState.State == "pause")
         {
             if (newState.IsKeyDown(Keys.Enter) && selection == 1)
-                GameState.State = "inGame";
+                GameState.State = "load1";
         }
-        else
+        else if (GameState.State == "initial")
         {
             if (newState.IsKeyDown(Keys.Enter) && selection == 1)
                 GameState.State = "load";
         }
 
-           
+        if (positionExit.Y <= -300 && GameState.State == "load1")
+        {
+            GameState.State = "inGame";
+        }
 
         if (newState.IsKeyDown(Keys.Enter) && selection == 4)
         {
@@ -192,27 +217,27 @@ namespace ForeignJump
             GameState.State = "pause";
         }
 
-        if (GameState.State == "load")
+        if (GameState.State == "load" || GameState.State == "load1")
         {
-             if (positionJouer.Y > -900)
-             {  
+            if (positionJouer.Y > -900)
+            {
                 positionJouer.Y -= vitesse + 2;
-             }
+            }
 
-             if (positionOptions.Y > -700)
-             {
-                 positionOptions.Y -= vitesse + 1;
-             }
-            
-             if (positionAide.Y > -500)
-             {  
-                 positionAide.Y -= vitesse;
-             }
-             
-             if (positionExit.Y > -300)
-             {
+            if (positionOptions.Y > -700)
+            {
+                positionOptions.Y -= vitesse + 1;
+            }
+
+            if (positionAide.Y > -500)
+            {
+                positionAide.Y -= vitesse;
+            }
+
+            if (positionExit.Y > -300)
+            {
                 positionExit.Y -= vitesse - 1;
-             }
+            }
         }
         else if (GameState.State == "pause" || GameState.State != "inGame")
         {
@@ -240,11 +265,47 @@ namespace ForeignJump
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime, bool background)
         {
-            if (background == true)
+            if (GameState.State == "initial" || GameState.State == "load")
             {
                 spriteBatch.Draw(menubg, new Rectangle(0, 0, 1280, 800), Color.White);
             }
-                
+            if (GameState.State == "pause")
+            {
+                if (selection == 1)
+                {
+                    buttonPauseJouerH.DrawButton(spriteBatch);
+                }
+                else
+                {
+                    buttonPauseJouer.DrawButton(spriteBatch);
+                }
+                if (selection == 2)
+                {
+                    buttonPauseOptionsH.DrawButton(spriteBatch);
+                }
+                else
+                {
+                    buttonPauseOptions.DrawButton(spriteBatch);
+                }
+                if (selection == 3)
+                {
+                    buttonPauseAideH.DrawButton(spriteBatch);
+                }
+                else
+                {
+                    buttonPauseAide.DrawButton(spriteBatch);
+                }
+                if (selection == 4)
+                {
+                    buttonPauseExitH.DrawButton(spriteBatch);
+                }
+                else
+                {
+                    buttonPauseExit.DrawButton(spriteBatch);
+                }
+            }
+            else
+            {
                 if (selection == 1)
                 {
                     buttonJouerH.DrawButton(spriteBatch);
@@ -277,6 +338,7 @@ namespace ForeignJump
                 {
                     buttonExit.DrawButton(spriteBatch);
                 }
+            }
             }
         }
     }

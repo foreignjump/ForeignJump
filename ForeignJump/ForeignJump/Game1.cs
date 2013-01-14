@@ -75,7 +75,9 @@ namespace ForeignJump
             KeyboardState newState = Keyboard.GetState();
 
             //menu
+
             menu.Update(gameTime, 39);
+            
             if (GameState.State == "inGame")
             {
                 //position & animation hero
@@ -100,22 +102,40 @@ namespace ForeignJump
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin(); //DEBUT
-            
+
             if (GameState.State == "initial" || GameState.State == "load")
+            {
                 menu.Draw(spriteBatch, gameTime, true);
+            }
             else
             {
-                spriteBatch.Draw(bg, new Rectangle(0, 0, 1280, 800), Color.White);
-                spriteBatch.Draw(bg, bgPosition, Color.White);
+                if (GameState.State == "load1")
+                {
+                    spriteBatch.Draw(bg, new Rectangle(0, 0, 1280, 800), Color.White);
+                    spriteBatch.Draw(bg, bgPosition, Color.White);
 
-                hero.Draw(spriteBatch, gameTime);
-                ennemi.Draw(spriteBatch, gameTime);
+                    hero.Draw(spriteBatch, gameTime);
+                    ennemi.Draw(spriteBatch, gameTime);
+                    menu.Draw(spriteBatch, gameTime, false);
+                }
+                else
+                {
+                    spriteBatch.Draw(bg, new Rectangle(0, 0, 1280, 800), Color.White);
+                    spriteBatch.Draw(bg, bgPosition, Color.White);
+
+                    hero.Draw(spriteBatch, gameTime);
+                    ennemi.Draw(spriteBatch, gameTime);
+                }
+
+                if (GameState.State == "pause")
+                {
+                    menu.Draw(spriteBatch, gameTime, false);
+                }
+
+              
             }
-
-                menu.Draw(spriteBatch, gameTime, false);
-           
-            spriteBatch.End(); //FIN
-            base.Draw(gameTime);
-        }
+                 spriteBatch.End(); //FIN
+                    base.Draw(gameTime);
+         }
     }
 }
