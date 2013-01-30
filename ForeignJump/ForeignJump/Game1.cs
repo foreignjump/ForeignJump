@@ -18,7 +18,7 @@ namespace ForeignJump
        
         KeyboardState oldState;
         MouseState mouseStateCurrent;
-        
+
         private Hero hero;
         private Ennemi ennemi;
         private Menu menu;
@@ -43,7 +43,7 @@ namespace ForeignJump
 
             hero = new Hero();
             hero.Initialize(488, 494);
-
+            
             ennemi = new Ennemi();
             ennemi.Initialize(0, 489);
 
@@ -62,7 +62,7 @@ namespace ForeignJump
 
             bg = this.Content.Load<Texture2D>("bg");
 
-            hero.LoadContent(Content,"hero", "heroanime", 1, 16);
+            hero.LoadContent(Content, "hero", "heroanime", 1, 16);
             ennemi.LoadContent(Content, "voitureanime", 1, 4);
             menu.LoadContent(Content);
            }
@@ -81,8 +81,8 @@ namespace ForeignJump
             if (GameState.State == "inGame")
             {
                 //position & animation hero
-                hero.Update(gameTime, 0.6f);
-
+                hero.Update(gameTime, 0.6f, 1);
+            
                 //animation ennemi
                 ennemi.Update(gameTime, 0.5f);
 

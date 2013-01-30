@@ -13,6 +13,8 @@ namespace ForeignJump
 {
     class Hero
     {
+        bool jump;
+
         //Texture
         public Texture2D TextureStatic
         {
@@ -95,18 +97,17 @@ namespace ForeignJump
 
         public void Initialize(float x, float y)
         {
-            position = new Vector2(x, y); 
-            position = new Vector2(488, 494);
-            vitesse = new Vector2(0, 0);
-            force = new Vector2(0, 0);
-            poids = new Vector2(0, 600);
+            Position = new Vector2(x, y);
+            Vitesse = new Vector2(0, 0);
+            Force = new Vector2(0, 0);
+            Poids = new Vector2(0, 600);
         }
 
         public void LoadContent(ContentManager Content, string Static, string Anime, int rows, int columns)
         {
-            textureStatic = Content.Load<Texture2D>("hero");
-            textureAnime = Content.Load<Texture2D>("heroanime");
-            heroAnime = new Animate(textureAnime, 1, 16);
+            TextureStatic = Content.Load<Texture2D>("hero");
+            TextureAnime = Content.Load<Texture2D>("heroanime");
+            HeroAnime = new Animate(textureAnime, 1, 16);
         }
 
         public void Jump(int x, int y)
@@ -116,7 +117,7 @@ namespace ForeignJump
             force.Y = y;
         }
 
-        public void Update(GameTime gameTime, float speed)
+        public void Update(GameTime gameTime, float speed, int joueur)
         {
             KeyboardState newState = Keyboard.GetState(); //Gestion clavier
 
@@ -127,42 +128,43 @@ namespace ForeignJump
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             //Reaction du sol
-            if (position.Y >= 494)                    //si il est au sol
-                reaction = new Vector2(0, -(poids.Y));
+            if (Position.Y >= 494)                    //si il est au sol
+                Reaction = new Vector2(0, -(Poids.Y));
             else                                      //si il est en air (reaction = 0)
-                reaction = new Vector2(0, 0);
+                Reaction = new Vector2(0, 0);
 
             //acceleration = somme des forces / masse (=1kg dans l'exemple)
-            Vector2 acceleration = poids + reaction;
+            Vector2 acceleration = Poids + Reaction;
 
-            bool jump = newState.IsKeyDown(Keys.Up) || newState.IsKeyDown(Keys.Space);
 
+            jump = newState.IsKeyDown(Keys.Up);
+            
             if (jump)
                 Jump(0,-20000);
 
-            if (jump && position.Y < 500 && position.Y > 493)
+            if (jump && Position.Y < 500 && Position.Y > 493)
             {
                 //si j'apuie sur up on applique la force
-                acceleration += force + poids;
+                acceleration += Force + Poids;
             }
 
-            if (position.Y < 0)
+            if (Position.Y < 0)
             {
                 //si je touche le bord haut le mec s'annule
-                vitesse = new Vector2(0, 0);
-                acceleration = poids + reaction;
+                Vitesse = new Vector2(0, 0);
+                acceleration = Poids + Reaction;
             }
 
             //si il arrive a la position initiale il ne descend pas plus bas
-            if (position.Y >= 494)
+            if (Position.Y >= 494)
             {
                 jumpState = "no";
-                vitesse = new Vector2(0, 0);
+                Vitesse = new Vector2(0, 0);
                 position.Y = 494;
             }
 
-            vitesse += acceleration * dt;
-            position += vitesse * dt;
+            Vitesse += acceleration * dt;
+            Position += Vitesse * dt;
 
             #endregion
         }
@@ -171,9 +173,9 @@ namespace ForeignJump
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
           if (jumpState == "yes")
-              spriteBatch.Draw(textureStatic, position, Color.White);
+              spriteBatch.Draw(textureStatic, Position, Color.White);
           else
-              heroAnime.Draw(spriteBatch, position);
+              heroAnime.Draw(spriteBatch, Position);
         }
     }
 }
