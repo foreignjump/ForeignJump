@@ -15,7 +15,7 @@ namespace ForeignJump
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-       
+
         KeyboardState oldState;
         MouseState mouseStateCurrent;
 
@@ -43,7 +43,7 @@ namespace ForeignJump
 
             hero = new Hero();
             hero.Initialize(488, 494);
-            
+
             ennemi = new Ennemi();
             ennemi.Initialize(0, 489);
 
@@ -51,7 +51,7 @@ namespace ForeignJump
             menu.Initialize(-37);
 
             GameState.State = "initial";
-            
+
             base.Initialize();
         }
 
@@ -65,9 +65,9 @@ namespace ForeignJump
             hero.LoadContent(Content, "hero", "heroanime", 1, 16);
             ennemi.LoadContent(Content, "voitureanime", 1, 4);
             menu.LoadContent(Content);
-           }
+        }
 
-        protected override void UnloadContent() {}
+        protected override void UnloadContent() { }
 
         protected override void Update(GameTime gameTime)
         {
@@ -77,12 +77,12 @@ namespace ForeignJump
             //menu
 
             menu.Update(gameTime, 10);
-            
+
             if (GameState.State == "inGame")
             {
                 //position & animation hero
                 hero.Update(gameTime, 0.6f, 1);
-            
+
                 //animation ennemi
                 ennemi.Update(gameTime, 0.5f);
 
@@ -137,5 +137,8 @@ namespace ForeignJump
                  spriteBatch.End(); //FIN
                     base.Draw(gameTime);
          }
+        
+
+       
     }
 }
