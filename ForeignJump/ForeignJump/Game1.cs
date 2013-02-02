@@ -16,15 +16,12 @@ namespace ForeignJump
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        KeyboardState oldState;
+        KeyboardState oldState; //gestion clavier
         MouseState mouseStateCurrent;
 
-        private Hero hero;
-        private Ennemi ennemi;
-        private Menu menu;
-
-        Texture2D bg;
-        Vector2 bgPosition = new Vector2(30, 0);
+        private Menu menu; //déclaration de menu initial
+        private Menupause menupause; //déclaration de menu pause
+        private Gameplay game; //déclaration du gameplay
 
         public Game1()
         {
@@ -32,67 +29,59 @@ namespace ForeignJump
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 800;
+
+            //this.graphics.IsFullScreen = true;
+
             graphics.ApplyChanges();
-            oldState = Keyboard.GetState();
+            oldState = Keyboard.GetState(); //initialisation clavier
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             this.IsMouseVisible = true;
 
-            hero = new Hero();
-            hero.Initialize(488, 494);
-
-            ennemi = new Ennemi();
-            ennemi.Initialize(0, 489);
-
             menu = new Menu();
-            menu.Initialize(-37);
+            menu.Initialize(-37, 0); //initialisation menu
 
-            GameState.State = "initial";
+            game = new Gameplay();
+            game.Initialize(); //initialisation game
+
+            menupause = new Menupause();
+            menupause.Initialize(450, 0); //initialisation menu pause
+
+            GameState.State = 0; //mise à l'état initial
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            bg = this.Content.Load<Texture2D>("bg");
-
-            hero.LoadContent(Content, "hero", "heroanime", 1, 16);
-            ennemi.LoadContent(Content, "voitureanime", 1, 4);
-            menu.LoadContent(Content);
+            menu.LoadContent(Content); //charger menu
+            game.LoadContent(Content); //charger game
+            menupause.LoadContent(Content); //charger menu pause
         }
 
         protected override void UnloadContent() { }
 
         protected override void Update(GameTime gameTime)
         {
-            mouseStateCurrent = Mouse.GetState();
-            KeyboardState newState = Keyboard.GetState();
+            mouseStateCurrent = Mouse.GetState(); //gestion souris
+            KeyboardState newState = Keyboard.GetState(); //verification clavier
 
-            //menu
+            if (GameState.State == 1 && newState.IsKeyDown(Keys.Escape)) //jouer
+                GameState.State = 2;
 
-            menu.Update(gameTime, 10);
+            if (GameState.State == 0) //mise à jour menu
+                menu.Update(gameTime, 10);
 
-            if (GameState.State == "inGame")
-            {
-                //position & animation hero
-                hero.Update(gameTime, 0.6f, 1);
+            if (GameState.State == 1) //mise à jour game
+                game.Update(gameTime);
 
-                //animation ennemi
-                ennemi.Update(gameTime, 0.5f);
+            if (GameState.State == 2) //mise à jour menu pause
+                menupause.Update(gameTime, 5);
 
-                //faire defiler la map
-                bgPosition.X -= 10;
-
-                //faire repeter la map
-                if (bgPosition.X == -100)
-                    bgPosition.X = 0;
-            }
             base.Update(gameTime);
         }
 
@@ -103,42 +92,20 @@ namespace ForeignJump
 
             spriteBatch.Begin(); //DEBUT
 
-            if (GameState.State == "initial" || GameState.State == "load")
-            {
-                menu.Draw(spriteBatch, gameTime, true);
-            }
-            else
-            {
-                if (GameState.State == "load1")
-                {
-                    spriteBatch.Draw(bg, new Rectangle(0, 0, 1280, 800), Color.White);
-                    spriteBatch.Draw(bg, bgPosition, Color.White);
+            menu.Draw(spriteBatch, gameTime, true); //afficher menu
 
-                    hero.Draw(spriteBatch, gameTime);
-                    ennemi.Draw(spriteBatch, gameTime);
-                    menu.Draw(spriteBatch, gameTime, false);
-                }
-                else
-                {
-                    spriteBatch.Draw(bg, new Rectangle(0, 0, 1280, 800), Color.White);
-                    spriteBatch.Draw(bg, bgPosition, Color.White);
+            if (GameState.State == 1 || GameState.State == 2) //afficher jeu
+                game.Draw(spriteBatch, gameTime);
 
-                    hero.Draw(spriteBatch, gameTime);
-                    ennemi.Draw(spriteBatch, gameTime);
-                }
+            if (GameState.State == 2) //afficher menu pause
+                menupause.Draw(spriteBatch, gameTime);
 
-                if (GameState.State == "pause")
-                {
-                    menu.Draw(spriteBatch, gameTime, false);
-                }
+            spriteBatch.End(); //FIN
+            
+            base.Draw(gameTime);
+        }
 
-              
-            }
-                 spriteBatch.End(); //FIN
-                    base.Draw(gameTime);
-         }
-        
 
-       
+
     }
 }

@@ -124,10 +124,11 @@
     <Compile Include="Button.cs" />
     <Compile Include="ButtonNew.cs" />
     <Compile Include="Ennemi.cs" />
+    <Compile Include="Gameplay.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="Menu.cs" />
-    <Compile Include="MenuNew.cs" />
+    <Compile Include="Menupause.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />

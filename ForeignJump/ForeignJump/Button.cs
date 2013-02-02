@@ -13,25 +13,18 @@ namespace ForeignJump
 {
     class Button
     {
-        Rectangle countainer;
         Texture2D texture;
+        Rectangle rectangle;
 
-        public Button(Texture2D texture, Rectangle countainer)
+        public Button(Texture2D texture, int posX, int posY)
         {
-            this.countainer = countainer;
-            this.texture = texture;
+            this.texture = texture; //prend la texture du parametre
+            rectangle = new Rectangle(posX, posY, texture.Width, texture.Height); //prend la position du button
         }
 
-        public Rectangle getcountainer() // RENVOI LA POSITION DU BOUTON
+        public void Draw(SpriteBatch spriteBatch) //AFFICHAGE DU BOUTON
         {
-
-            countainer = new Rectangle((int)countainer.X, (int)countainer.Y, ((int)countainer.Width), ((int)countainer.Height));
-            return countainer;
-        }
-
-        public void DrawButton(SpriteBatch spriteBatch)//AFFICHAGE DU BOUTON
-        {
-            spriteBatch.Draw(texture, countainer, Color.White);
+            spriteBatch.Draw(texture, rectangle, Color.White);
         }
     }
 }

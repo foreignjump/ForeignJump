@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-    public class Menu
+    public class Menupause
     {
         KeyboardState oldState;
 
@@ -59,22 +59,20 @@ namespace ForeignJump
 
         #endregion
 
-        private int selection; //selection du button actuel
+        private int selection;
 
-        public Menu()
+        public Menupause()
         { }
 
         public void Initialize(int x, int y)
         {
             oldState = Keyboard.GetState();
 
-            //positionner bouttons
             positionStart = new Vector2(x, y);
             positionOptions = new Vector2(x, y);
             positionHelp = new Vector2(x, y);
             positionExit = new Vector2(x, y);
-            
-            //initialiser la selection à 0 donc sur start
+
             selection = 0;
 
         }
@@ -82,8 +80,7 @@ namespace ForeignJump
         public void LoadContent(ContentManager Content)
         {
             menubg = Content.Load<Texture2D>("menubg");
-            
-            //charger buttons
+
             buttonTextureStartH = Content.Load<Texture2D>("ButtonStartH");
             buttonTextureStartI = Content.Load<Texture2D>("ButtonStart");
             buttonTextureOptionsH = Content.Load<Texture2D>("ButtonOptionsH");
@@ -101,7 +98,7 @@ namespace ForeignJump
 
         public void Update(GameTime gameTime, int vitesse)
         {
-            
+
             #region Déclaration de bouttons
             buttonStart = new Button(buttonTextureStart, (int)positionStart.X, (int)positionStart.Y);
             buttonOptions = new Button(buttonTextureOptions, (int)positionOptions.X, (int)positionOptions.Y);
@@ -116,10 +113,10 @@ namespace ForeignJump
             #region Entrée slide buttons
             if (positionStart.Y <= 105)
                 positionStart.Y += vitesse;
-            
+
             if (positionOptions.Y <= 234)
                 positionOptions.Y += vitesse + 6;
-            
+
             if (positionHelp.Y <= 363)
                 positionHelp.Y += vitesse + 8;
 
@@ -128,7 +125,7 @@ namespace ForeignJump
             #endregion
 
             #region Survoler le menu
-            
+
             if (selection == -1) //pour que la selection ne dépasse pas les negatifs
                 selection = 3;
             else
@@ -142,13 +139,12 @@ namespace ForeignJump
             if (newState.IsKeyDown(Keys.Up) && !oldState.IsKeyDown(Keys.Up))
                 selection--;
 
-                
             
             #endregion
-            
+
             #region Changer la texture du bouton survolé
 
-                if (selection == 0)
+            if (selection == 0)
                 buttonTextureStart = buttonTextureStartH;
             else
                 buttonTextureStart = buttonTextureStartI;
@@ -171,38 +167,31 @@ namespace ForeignJump
             #endregion
 
             #region Entrée
-            if (GameState.State == 0 && selection == 0) //jouer
+            if (GameState.State == 2 && selection == 0) //jouer
+            {
+                if (newState.IsKeyDown(Keys.Enter) && !oldState.IsKeyDown(Keys.Enter))
+                    GameState.State = 1;
+            }
+
+            if (GameState.State == 2 && selection == 3) //quitter
             {
                 if (newState.IsKeyDown(Keys.Enter) && !oldState.IsKeyDown(Keys.Enter))
                 {
-                    GameState.State = 1;
+                    selection = 0; //remettre sur jouer le menu pause
+                    GameState.State = 0;
                 }
             }
-
-            if (GameState.State == 0 && selection == 3) //quitter
-            {
-                if (newState.IsKeyDown(Keys.Enter) && !oldState.IsKeyDown(Keys.Enter))
-                    System.Environment.Exit(0);
-            }
+            
             //options
 
             //aide
-            #endregion
-
-
-
-            if (newState.IsKeyDown(Keys.Enter) && !oldState.IsKeyDown(Keys.Enter))
-            {
-                //Sortie slide buttons
-            }
 
             oldState = newState;
-
+            #endregion
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime, bool background)
+        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.Draw(menubg, new Rectangle(0, 0, 1280, 800), Color.White);
             buttonStart.Draw(spriteBatch);
             buttonOptions.Draw(spriteBatch);
             buttonHelp.Draw(spriteBatch);
