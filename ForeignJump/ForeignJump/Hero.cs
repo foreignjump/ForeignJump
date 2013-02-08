@@ -90,10 +90,7 @@ namespace ForeignJump
 
         #endregion
         
-        public Hero()
-        {
-
-        }
+        public Hero() { }
 
         public void Initialize(float x, float y)
         {
@@ -110,12 +107,12 @@ namespace ForeignJump
             HeroAnime = new Animate(textureAnime, 1, 16);
         }
 
-        public void Jump(int x, int y)
+        public void Jump(int x, int y) //fonction sauter
         {
             jumpState = "yes";
             force.X = x;
             force.Y = y;
-        }
+        } 
 
         public void Update(GameTime gameTime, float speed, int joueur)
         {

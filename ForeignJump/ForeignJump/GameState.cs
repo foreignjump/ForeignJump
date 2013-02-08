@@ -13,15 +13,9 @@ namespace ForeignJump
 {
     public static class GameState
     {
-        static int gameState;
+        static string gameState;
         
-        /*
-         * 0 - initial
-         * 1 - ingame
-         * 2 - pause
-        */
-
-        public static int State
+        public static string State
         { 
           get {return gameState;}
           set {gameState = value;}

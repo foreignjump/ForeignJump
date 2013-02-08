@@ -11,9 +11,14 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-    public class Menupause
+    public class MenuPause
     {
         KeyboardState oldState;
+
+        bool EntreeButtons;
+        bool ButtonsIn;
+        bool SortieButtons;
+        bool ButtonsOut;
 
         #region Déclaration buttons
 
@@ -59,9 +64,9 @@ namespace ForeignJump
 
         #endregion
 
-        private int selection;
+        private int selection; //selection du button actuel
 
-        public Menupause()
+        public MenuPause()
         { }
 
         public void Initialize(int x, int y)
@@ -73,8 +78,14 @@ namespace ForeignJump
             positionHelp = new Vector2(x, y);
             positionExit = new Vector2(x, y);
 
+            //initialiser la selection à 0 donc sur start
             selection = 0;
 
+            //entrée des buttons
+            EntreeButtons = true;
+            ButtonsIn = false;
+            SortieButtons = false;
+            ButtonsOut = false;
         }
 
         public void LoadContent(ContentManager Content)
@@ -110,20 +121,6 @@ namespace ForeignJump
             buttonExitH = new Button(buttonTextureExitH, (int)positionExit.X, (int)positionExit.Y);
             #endregion
 
-            #region Entrée slide buttons
-            if (positionStart.Y <= 105)
-                positionStart.Y += vitesse;
-
-            if (positionOptions.Y <= 234)
-                positionOptions.Y += vitesse + 6;
-
-            if (positionHelp.Y <= 363)
-                positionHelp.Y += vitesse + 8;
-
-            if (positionExit.Y <= 492)
-                positionExit.Y += vitesse + 12;
-            #endregion
-
             #region Survoler le menu
 
             if (selection == -1) //pour que la selection ne dépasse pas les negatifs
@@ -139,7 +136,8 @@ namespace ForeignJump
             if (newState.IsKeyDown(Keys.Up) && !oldState.IsKeyDown(Keys.Up))
                 selection--;
 
-            
+
+
             #endregion
 
             #region Changer la texture du bouton survolé
@@ -166,27 +164,97 @@ namespace ForeignJump
 
             #endregion
 
+            #region Entrée sortie slide buttons
+
+            if (EntreeButtons && !ButtonsIn) //entree
+            {
+                if (positionStart.Y <= 105)
+                    positionStart.Y += vitesse;
+
+                if (positionOptions.Y <= 234)
+                    positionOptions.Y += vitesse + 6;
+
+                if (positionHelp.Y <= 363)
+                    positionHelp.Y += vitesse + 8;
+
+                if (positionExit.Y <= 492)
+                    positionExit.Y += vitesse + 12;
+
+                if (positionExit.Y >= 492)
+                    ButtonsIn = true;
+            }
+
+            if (SortieButtons && !ButtonsOut) //sortie
+            {
+                if (positionStart.Y >= -buttonTextureExit.Height)
+                    positionStart.Y -= vitesse;
+
+                if (positionOptions.Y >= -buttonTextureExit.Height)
+                    positionOptions.Y -= vitesse + 6;
+
+                if (positionHelp.Y >= -buttonTextureExit.Height)
+                    positionHelp.Y -= vitesse + 8;
+
+                if (positionExit.Y >= -buttonTextureExit.Height)
+                    positionExit.Y -= vitesse + 12;
+
+                if (positionExit.Y <= -buttonTextureExit.Height)
+                    ButtonsOut = true;
+            }
+            #endregion
+
             #region Entrée
-            if (GameState.State == 2 && selection == 0) //jouer
-            {
-                if (newState.IsKeyDown(Keys.Enter) && !oldState.IsKeyDown(Keys.Enter))
-                    GameState.State = 1;
-            }
 
-            if (GameState.State == 2 && selection == 3) //quitter
+            if (newState.IsKeyDown(Keys.Enter) && !oldState.IsKeyDown(Keys.Enter)) //confirmation
             {
-                if (newState.IsKeyDown(Keys.Enter) && !oldState.IsKeyDown(Keys.Enter))
-                {
-                    selection = 0; //remettre sur jouer le menu pause
-                    GameState.State = 0;
-                }
+                EntreeButtons = false;
+                SortieButtons = true;
             }
-            
-            //options
-
-            //aide
 
             oldState = newState;
+
+            if (ButtonsOut) //si les buttons sont sortis
+            {
+                if (selection == 0) //si c'est sur start
+                {
+                    GameState.State = "inGame";
+
+                    //mise à 0 des variables
+                    EntreeButtons = true;
+                    ButtonsIn = false;
+                    SortieButtons = false;
+                    ButtonsOut = false;
+                    selection = 0;
+                }
+
+                if (selection == 2) //si c'est sur aide
+                {
+                    GameState.State = "menuAide";
+
+                    //mise à 0 des variables
+                    EntreeButtons = true;
+                    ButtonsIn = false;
+                    SortieButtons = false;
+                    ButtonsOut = false;
+                    selection = 0;
+                }
+
+                if (selection == 3) //si c'est sur exit (back to menu dans ce cas)
+                {
+                    GameState.State = "initial";
+
+                    //mise à 0 des variables
+                    EntreeButtons = true;
+                    ButtonsIn = false;
+                    SortieButtons = false;
+                    ButtonsOut = false;
+                    selection = 0;
+                }
+                
+            }
+
+            oldState = newState;
+
             #endregion
         }
 
