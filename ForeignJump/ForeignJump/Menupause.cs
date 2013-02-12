@@ -229,7 +229,7 @@ namespace ForeignJump
 
                 if (selection == 2) //si c'est sur aide
                 {
-                    GameState.State = "menuAide";
+                    GameState.State = "menuPauseAide";
 
                     //mise à 0 des variables
                     EntreeButtons = true;
