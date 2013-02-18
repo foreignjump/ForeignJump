@@ -240,6 +240,19 @@ namespace ForeignJump
                     ButtonsOut = false;
                 }
 
+                if (selection == 1) //options
+                {
+                    GameState.State = "menuOptions";
+                    //initialiser la selection à 0 donc sur start
+                    selection = 0;
+
+                    //entrée des buttons
+                    EntreeButtons = true;
+                    ButtonsIn = false;
+                    SortieButtons = false;
+                    ButtonsOut = false;
+                }
+
                 if (selection == 3) //exit
                 {
                     System.Environment.Exit(0);

@@ -2,6 +2,9 @@ Content\bg.xnb
 Content\hero.xnb
 Content\heroanime.xnb
 Content\voitureanime.xnb
+Content\hero2.xnb
+Content\heroanime2.xnb
+Content\help.xnb
 Content\menubg.xnb
 Content\ButtonExit.xnb
 Content\ButtonExitH.xnb
@@ -12,7 +15,7 @@ Content\ButtonOptionsH.xnb
 Content\ButtonStart.xnb
 Content\ButtonStartH.xnb
 Content\MenuAide.xnb
-Content\hero2.xnb
-Content\heroanime2.xnb
-Content\help.xnb
 Content\MenuPauseAide.xnb
+Content\menuOptions.xnb
+Content\OptionsFullscreenOff.xnb
+Content\OptionsFullscreenOn.xnb

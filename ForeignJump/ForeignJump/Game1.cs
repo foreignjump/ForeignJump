@@ -13,7 +13,7 @@ namespace ForeignJump
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
+        public GraphicsDeviceManager graphics { get; set; }
         SpriteBatch spriteBatch;
 
         KeyboardState oldState; //gestion clavier
@@ -23,6 +23,7 @@ namespace ForeignJump
         private MenuPause menupause; //déclaration de menu pause
         private MenuPauseAide menupauseaide; //déclaration de menu pause
         private MenuAide menuaide; //déclaration du menu aide
+        private MenuOptions menuoptions; //déclaration du menu options
         private Gameplay game; //déclaration du gameplay
 
         public Game1()
@@ -31,9 +32,7 @@ namespace ForeignJump
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 800;
-
-            //this.graphics.IsFullScreen = true; //fullscreen
-
+            
             graphics.ApplyChanges();
             oldState = Keyboard.GetState(); //initialisation clavier
         }
@@ -57,6 +56,9 @@ namespace ForeignJump
             menuaide = new MenuAide();
             menuaide.Initialize(); //initialisation menu aide
 
+            menuoptions = new MenuOptions();
+            menuoptions.Initialize(); //initialisation menu options
+
             GameState.State = "initial"; //mise à l'état initial
 
             base.Initialize();
@@ -71,6 +73,7 @@ namespace ForeignJump
             menupause.LoadContent(Content); //charger menu pause
             menupauseaide.LoadContent(Content); //charger menu pause aide
             menuaide.LoadContent(Content); //charger menu aide
+            menuoptions.LoadContent(Content); //charger menu options
         }
 
         protected override void UnloadContent() { }
@@ -79,7 +82,7 @@ namespace ForeignJump
         {
             mouseStateCurrent = Mouse.GetState(); //gestion souris
             KeyboardState newState = Keyboard.GetState(); //verification clavier
-
+            
             if (GameState.State == "inGame" && newState.IsKeyDown(Keys.Escape)) //jouer
                 GameState.State = "menuPause";
 
@@ -100,6 +103,9 @@ namespace ForeignJump
 
             if (GameState.State == "menuAide") //mise à jour menu aide
                 menuaide.Update(gameTime, 5);
+
+            if (GameState.State == "menuOptions") //mise à jour menu aide
+                menuoptions.Update(gameTime, 5, graphics);
 
             base.Update(gameTime);
         }
@@ -128,6 +134,9 @@ namespace ForeignJump
 
             if (GameState.State == "menuAide") //afficher menu pause
                 menuaide.Draw(spriteBatch, gameTime);
+
+            if (GameState.State == "menuOptions") //afficher menu pause
+                menuoptions.Draw(spriteBatch, gameTime);
 
             spriteBatch.End(); //FIN
             

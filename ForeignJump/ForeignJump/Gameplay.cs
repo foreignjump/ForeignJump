@@ -57,7 +57,7 @@ namespace ForeignJump
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-                spriteBatch.Draw(bg, new Rectangle(0, 0, 1280, 800), Color.White);
+                spriteBatch.Draw(bg, new Rectangle(0, 0, 1280, 800), Color.Black);
                 spriteBatch.Draw(bg, bgPosition, Color.White);
 
                 hero.Draw(spriteBatch, gameTime);
