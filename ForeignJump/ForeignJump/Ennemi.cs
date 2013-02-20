@@ -65,8 +65,6 @@ namespace ForeignJump
 
         public void Update(GameTime gameTime, float vitesse)
         {
-            KeyboardState newState = Keyboard.GetState(); //Gestion clavier
-
             ennemiAnime.Update(vitesse);
         }
 

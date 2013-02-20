@@ -116,8 +116,6 @@ namespace ForeignJump
 
         public void Update(GameTime gameTime, float speed, int joueur)
         {
-            KeyboardState newState = Keyboard.GetState(); //Gestion clavier
-
             heroAnime.Update(speed); //Animation
 
             #region Physique
@@ -134,7 +132,7 @@ namespace ForeignJump
             Vector2 acceleration = Poids + Reaction;
 
 
-            jump = newState.IsKeyDown(Keys.Up);
+            jump = KB.New.IsKeyDown(Keys.Up);
             
             if (jump)
                 Jump(0,-20000);

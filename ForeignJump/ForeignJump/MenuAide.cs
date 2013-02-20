@@ -13,8 +13,6 @@ namespace ForeignJump
 {
     public class MenuAide
     {
-        KeyboardState oldState; //gestion clavier
-
         private Texture2D menubg; //image
         
         public MenuAide()
@@ -22,22 +20,18 @@ namespace ForeignJump
 
         public void Initialize()
         {
-            oldState = Keyboard.GetState();
+
         }
 
         public void LoadContent(ContentManager Content)
         {
-            menubg = Content.Load<Texture2D>("MenuAide");
+            menubg = Content.Load<Texture2D>("Menu/MenuAide");
         }
 
         public void Update(GameTime gameTime, int vitesse)
         {
-            var newState = Keyboard.GetState(); //mettre à jour le clavier
-
-            if (newState.IsKeyDown(Keys.Escape) && !oldState.IsKeyDown(Keys.Escape))
+            if (KB.New.IsKeyDown(Keys.Escape) && !KB.Old.IsKeyDown(Keys.Escape))
                 GameState.State = "initial"; //retour au menu
-
-            oldState = newState;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)

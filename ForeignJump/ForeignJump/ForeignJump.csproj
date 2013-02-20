@@ -121,11 +121,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Animate.cs" />
+    <Compile Include="Audio.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="Ennemi.cs" />
+    <Compile Include="GameOver.cs" />
     <Compile Include="Gameplay.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Hero.cs" />
+    <Compile Include="InputKeyboard.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="MenuAide.cs" />
     <Compile Include="MenuOptions.cs" />

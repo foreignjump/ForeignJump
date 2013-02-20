@@ -68,56 +68,56 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="menubg.png">
+    <Compile Include="Menu\menubg.png">
       <Name>menubg</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ButtonExit.PNG">
+    <Compile Include="Menu\ButtonExit.PNG">
       <Name>ButtonExit</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="ButtonExitH.PNG">
+    <Compile Include="Menu\ButtonExitH.PNG">
       <Name>ButtonExitH</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="ButtonHelp.PNG">
+    <Compile Include="Menu\ButtonHelp.PNG">
       <Name>ButtonHelp</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="ButtonHelpH.PNG">
+    <Compile Include="Menu\ButtonHelpH.PNG">
       <Name>ButtonHelpH</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="ButtonOptions.PNG">
+    <Compile Include="Menu\ButtonOptions.PNG">
       <Name>ButtonOptions</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="ButtonOptionsH.PNG">
+    <Compile Include="Menu\ButtonOptionsH.PNG">
       <Name>ButtonOptionsH</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="ButtonStart.PNG">
+    <Compile Include="Menu\ButtonStart.PNG">
       <Name>ButtonStart</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="ButtonStartH.PNG">
+    <Compile Include="Menu\ButtonStartH.PNG">
       <Name>ButtonStartH</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MenuAide.png">
+    <Compile Include="Menu\MenuAide.png">
       <Name>MenuAide</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -143,27 +143,89 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MenuPauseAide.png">
+    <Compile Include="Menu\MenuPauseAide.png">
       <Name>MenuPauseAide</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="menuOptions.png">
+    <Compile Include="Menu\Options\menuOptions.png">
       <Name>menuOptions</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OptionsFullscreenOff.png">
-      <Name>OptionsFullscreenOff</Name>
+    <Compile Include="Menu\Options\fullscreenH.PNG">
+      <Name>fullscreenH</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="OptionsFullscreenOn.png">
-      <Name>OptionsFullscreenOn</Name>
+    <Compile Include="Menu\Options\fullscreenN.PNG">
+      <Name>fullscreenN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Menu\Options\soundH.png">
+      <Name>soundH</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Menu\Options\soundN.PNG">
+      <Name>soundN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Menu\Options\off.PNG">
+      <Name>off</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Menu\Options\on.PNG">
+      <Name>on</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Menu\Options\Copie de on.PNG">
+      <Name>Copie de on</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Menu\Options\Copie %282%29 de on.PNG">
+      <Name>Copie %282%29 de on</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Font.spritefont">
+      <Name>Font</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="glass.png">
+      <Name>glass</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="green.png">
+      <Name>green</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameOver.png">
+      <Name>GameOver</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

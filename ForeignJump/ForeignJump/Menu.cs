@@ -13,8 +13,6 @@ namespace ForeignJump
 {
     public class Menu
     {
-        KeyboardState oldState;
-
         bool EntreeButtons;
         bool ButtonsIn;
         bool SortieButtons;
@@ -66,12 +64,13 @@ namespace ForeignJump
 
         private int selection; //selection du button actuel
 
-        public Menu()  { }
+        public Menu() 
+        {
+
+        }
 
         public void Initialize(int x, int y)
         {
-            oldState = Keyboard.GetState();
-
             //positionner bouttons
             positionStart = new Vector2(x, y);
             positionOptions = new Vector2(x, y);
@@ -90,17 +89,17 @@ namespace ForeignJump
 
         public void LoadContent(ContentManager Content)
         {
-            menubg = Content.Load<Texture2D>("menubg");
+            menubg = Content.Load<Texture2D>("Menu/menubg");
 
             //charger buttons
-            buttonTextureStartH = Content.Load<Texture2D>("ButtonStartH");
-            buttonTextureStartI = Content.Load<Texture2D>("ButtonStart");
-            buttonTextureOptionsH = Content.Load<Texture2D>("ButtonOptionsH");
-            buttonTextureOptionsI = Content.Load<Texture2D>("ButtonOptions");
-            buttonTextureHelpH = Content.Load<Texture2D>("ButtonHelpH");
-            buttonTextureHelpI = Content.Load<Texture2D>("ButtonHelp");
-            buttonTextureExitH = Content.Load<Texture2D>("ButtonExitH");
-            buttonTextureExitI = Content.Load<Texture2D>("ButtonExit");
+            buttonTextureStartH = Content.Load<Texture2D>("Menu/ButtonStartH");
+            buttonTextureStartI = Content.Load<Texture2D>("Menu/ButtonStart");
+            buttonTextureOptionsH = Content.Load<Texture2D>("Menu/ButtonOptionsH");
+            buttonTextureOptionsI = Content.Load<Texture2D>("Menu/ButtonOptions");
+            buttonTextureHelpH = Content.Load<Texture2D>("Menu/ButtonHelpH");
+            buttonTextureHelpI = Content.Load<Texture2D>("Menu/ButtonHelp");
+            buttonTextureExitH = Content.Load<Texture2D>("Menu/ButtonExitH");
+            buttonTextureExitI = Content.Load<Texture2D>("Menu/ButtonExit");
 
             buttonTextureStart = buttonTextureStartI;
             buttonTextureOptions = buttonTextureOptionsI;
@@ -128,12 +127,10 @@ namespace ForeignJump
             else
                 selection = selection % 4; //pour que la selection ne dépasse pas 4
 
-            var newState = Keyboard.GetState(); //mettre à jour le nouveau 
-
-            if (newState.IsKeyDown(Keys.Down) && !oldState.IsKeyDown(Keys.Down))
+            if (KB.New.IsKeyDown(Keys.Down) && !KB.Old.IsKeyDown(Keys.Down))
                 selection++;
 
-            if (newState.IsKeyDown(Keys.Up) && !oldState.IsKeyDown(Keys.Up))
+            if (KB.New.IsKeyDown(Keys.Up) && !KB.Old.IsKeyDown(Keys.Up))
                 selection--;
 
 
@@ -204,13 +201,11 @@ namespace ForeignJump
 
             #region Entrée
 
-            if (newState.IsKeyDown(Keys.Enter) && !oldState.IsKeyDown(Keys.Enter))
+            if (KB.New.IsKeyDown(Keys.Enter) && !KB.Old.IsKeyDown(Keys.Enter))
             {
                 EntreeButtons = false; //arreter l'entrée
                 SortieButtons = true;  //démarrer la sortie
             }
-
-            oldState = newState;
 
             if (ButtonsOut)
             {

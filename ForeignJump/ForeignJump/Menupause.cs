@@ -13,12 +13,16 @@ namespace ForeignJump
 {
     public class MenuPause
     {
-        KeyboardState oldState;
+        Gameplay game;
+
+        #region animationButtons
 
         bool EntreeButtons;
         bool ButtonsIn;
         bool SortieButtons;
         bool ButtonsOut;
+
+        #endregion
 
         #region Déclaration buttons
 
@@ -66,13 +70,13 @@ namespace ForeignJump
 
         private int selection; //selection du button actuel
 
-        public MenuPause()
-        { }
+        public MenuPause(Gameplay game)
+        {
+            this.game = game;
+        }
 
         public void Initialize(int x, int y)
         {
-            oldState = Keyboard.GetState();
-
             positionStart = new Vector2(x, y);
             positionOptions = new Vector2(x, y);
             positionHelp = new Vector2(x, y);
@@ -90,16 +94,16 @@ namespace ForeignJump
 
         public void LoadContent(ContentManager Content)
         {
-            menubg = Content.Load<Texture2D>("menubg");
+            menubg = Content.Load<Texture2D>("Menu/menubg");
 
-            buttonTextureStartH = Content.Load<Texture2D>("ButtonStartH");
-            buttonTextureStartI = Content.Load<Texture2D>("ButtonStart");
-            buttonTextureOptionsH = Content.Load<Texture2D>("ButtonOptionsH");
-            buttonTextureOptionsI = Content.Load<Texture2D>("ButtonOptions");
-            buttonTextureHelpH = Content.Load<Texture2D>("ButtonHelpH");
-            buttonTextureHelpI = Content.Load<Texture2D>("ButtonHelp");
-            buttonTextureExitH = Content.Load<Texture2D>("ButtonExitH");
-            buttonTextureExitI = Content.Load<Texture2D>("ButtonExit");
+            buttonTextureStartH = Content.Load<Texture2D>("Menu/ButtonStartH");
+            buttonTextureStartI = Content.Load<Texture2D>("Menu/ButtonStart");
+            buttonTextureOptionsH = Content.Load<Texture2D>("Menu/ButtonOptionsH");
+            buttonTextureOptionsI = Content.Load<Texture2D>("Menu/ButtonOptions");
+            buttonTextureHelpH = Content.Load<Texture2D>("Menu/ButtonHelpH");
+            buttonTextureHelpI = Content.Load<Texture2D>("Menu/ButtonHelp");
+            buttonTextureExitH = Content.Load<Texture2D>("Menu/ButtonExitH");
+            buttonTextureExitI = Content.Load<Texture2D>("Menu/ButtonExit");
 
             buttonTextureStart = buttonTextureStartI;
             buttonTextureOptions = buttonTextureOptionsI;
@@ -128,15 +132,11 @@ namespace ForeignJump
             else
                 selection = selection % 4; //pour que la selection ne dépasse pas 4
 
-            var newState = Keyboard.GetState(); //mettre à jour le nouveau 
-
-            if (newState.IsKeyDown(Keys.Down) && !oldState.IsKeyDown(Keys.Down))
+            if (KB.New.IsKeyDown(Keys.Down) && !KB.Old.IsKeyDown(Keys.Down))
                 selection++;
 
-            if (newState.IsKeyDown(Keys.Up) && !oldState.IsKeyDown(Keys.Up))
+            if (KB.New.IsKeyDown(Keys.Up) && !KB.Old.IsKeyDown(Keys.Up))
                 selection--;
-
-
 
             #endregion
 
@@ -205,13 +205,11 @@ namespace ForeignJump
 
             #region Entrée
 
-            if (newState.IsKeyDown(Keys.Enter) && !oldState.IsKeyDown(Keys.Enter)) //confirmation
+            if (KB.New.IsKeyDown(Keys.Enter) && !KB.Old.IsKeyDown(Keys.Enter)) //confirmation
             {
                 EntreeButtons = false;
                 SortieButtons = true;
             }
-
-            oldState = newState;
 
             if (ButtonsOut) //si les buttons sont sortis
             {
@@ -242,7 +240,7 @@ namespace ForeignJump
                 if (selection == 3) //si c'est sur exit (back to menu dans ce cas)
                 {
                     GameState.State = "initial";
-
+                    game.NewGame();
                     //mise à 0 des variables
                     EntreeButtons = true;
                     ButtonsIn = false;
@@ -250,10 +248,8 @@ namespace ForeignJump
                     ButtonsOut = false;
                     selection = 0;
                 }
-                
-            }
 
-            oldState = newState;
+            }
 
             #endregion
         }

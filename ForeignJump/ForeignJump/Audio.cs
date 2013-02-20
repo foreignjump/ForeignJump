@@ -11,32 +11,39 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-    class MenuPauseAide
+    class Audio
     {
-        private Texture2D menuPauseAidebg; //image
-        
-        public MenuPauseAide()
+        KeyboardState oldState; //gestion clavier
+
+        private AudioEngine engine;
+        private WaveBank music;
+        private SoundBank sound;
+        private Cue track;
+
+        public Audio()
         { }
 
         public void Initialize()
         {
+            oldState = Keyboard.GetState();
 
         }
 
         public void LoadContent(ContentManager Content)
         {
-            menuPauseAidebg = Content.Load<Texture2D>("Menu/MenuPauseAide");
+           
         }
 
-        public void Update(GameTime gameTime, int vitesse)
+        public void Update(GameTime gameTime, int vitesse, GraphicsDeviceManager graphics)
         {
-            if (KB.New.IsKeyDown(Keys.Escape) && !KB.Old.IsKeyDown(Keys.Escape))
-                GameState.State = "menuPause"; //retour au menu
+            var newState = Keyboard.GetState(); //mettre à jour le clavier
+
+            oldState = newState;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.Draw(menuPauseAidebg, new Rectangle(440, 185, 400, 431), Color.White);
+            
         }
     }
 }
