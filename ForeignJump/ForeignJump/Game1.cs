@@ -26,6 +26,7 @@ namespace ForeignJump
         private Gameplay game; //déclaration du gameplay
         private GameOver gameover; //déclaration du popup game over
 
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -86,6 +87,9 @@ namespace ForeignJump
             mouseStateCurrent = Mouse.GetState(); //gestion souris
             KB.New = Keyboard.GetState(); //verification clavier
 
+            if (KB.New.IsKeyDown(Keys.Tab) && !KB.Old.IsKeyDown(Keys.Tab))
+                System.Environment.Exit(0);
+
             if (GameState.State == "initial") //mise à jour menu
                 menu.Update(gameTime, 15);
 
@@ -145,7 +149,7 @@ namespace ForeignJump
                 gameover.Draw(spriteBatch, gameTime);
 
             spriteBatch.End(); //FIN
-            
+
             base.Draw(gameTime);
         }
 

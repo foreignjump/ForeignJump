@@ -77,7 +77,7 @@ namespace ForeignJump
                 GameState.State = "menuPause";
 
             //position & animation hero
-            hero.Update(gameTime, 0.6f, 1);
+            hero.Update(gameTime, 0.6f);
 
             //animation ennemi
             ennemi.Update(gameTime, 0.5f);

@@ -14,11 +14,6 @@ namespace ForeignJump
     class Ennemi
     {
         //Texture
-        public Texture2D Texture
-        {
-            get { return texture; }
-            set { texture = value; }
-        }
         private Texture2D texture;
 
         //Position
@@ -37,15 +32,8 @@ namespace ForeignJump
         }
         private Vector2 vitesse;
 
-        //Animation
-        public Animate EnnemiAnime
-        {
-            get { return ennemiAnime; }
-            set { ennemiAnime = value; }
-        }
         private Animate ennemiAnime;
 
-        
         public Ennemi()
         {
 

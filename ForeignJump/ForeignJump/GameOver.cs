@@ -37,7 +37,7 @@ namespace ForeignJump
             if (KB.New.IsKeyDown(Keys.Enter) && !KB.Old.IsKeyDown(Keys.Enter))
             {
                 game.NewGame();
-                
+
                 KB.Old = KB.New;
 
                 GameState.State = "initial";
@@ -47,7 +47,6 @@ namespace ForeignJump
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            if (GameState.State == "GameOver")
             spriteBatch.Draw(image, new Rectangle(440, 185, 400, 431), Color.White);
         }
     }

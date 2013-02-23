@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-    class Hero
+    public class Hero
     {
         bool jump;
 
@@ -57,37 +57,20 @@ namespace ForeignJump
         }
         private Vector2 force;
 
-        //Reaction
-        public Vector2 Reaction
-        {
-            get { return reaction; }
-            set { reaction = value; }
-        }
+        //reaction
         private Vector2 reaction;
 
         //Saut?
-        string jumpState = "no";
+        string jumpState;
 
         #endregion
 
         #region Animation
-
         //Animation
-        public Animate HeroAnime
-        {
-            get { return heroAnime; }
-            set { heroAnime = value; }
-        }
         private Animate heroAnime;
 
         //Texture
-        public Texture2D TextureAnime
-        {
-            get { return textureAnime; }
-            set { textureAnime = value; }
-        }
         private Texture2D textureAnime;
-
         #endregion
         
         public Hero() { }
@@ -98,13 +81,15 @@ namespace ForeignJump
             Vitesse = new Vector2(0, 0);
             Force = new Vector2(0, 0);
             Poids = new Vector2(0, 600);
+            jumpState = "no";
         }
 
         public void LoadContent(ContentManager Content, string Static, string Anime, int rows, int columns)
         {
             TextureStatic = Content.Load<Texture2D>("hero");
-            TextureAnime = Content.Load<Texture2D>("heroanime");
-            HeroAnime = new Animate(textureAnime, 1, 16);
+            textureAnime = Content.Load<Texture2D>("heroanime");
+
+            heroAnime = new Animate(textureAnime, 1, 16);
         }
 
         public void Jump(int x, int y) //fonction sauter
@@ -114,7 +99,7 @@ namespace ForeignJump
             force.Y = y;
         } 
 
-        public void Update(GameTime gameTime, float speed, int joueur)
+        public void Update(GameTime gameTime, float speed)
         {
             heroAnime.Update(speed); //Animation
 
@@ -122,14 +107,14 @@ namespace ForeignJump
 
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            //Reaction du sol
+            //reaction du sol
             if (Position.Y >= 494)                    //si il est au sol
-                Reaction = new Vector2(0, -(Poids.Y));
+                reaction = new Vector2(0, -(Poids.Y));
             else                                      //si il est en air (reaction = 0)
-                Reaction = new Vector2(0, 0);
+                reaction = new Vector2(0, 0);
 
             //acceleration = somme des forces / masse (=1kg dans l'exemple)
-            Vector2 acceleration = Poids + Reaction;
+            Vector2 acceleration = Poids + reaction;
 
 
             jump = KB.New.IsKeyDown(Keys.Up);
@@ -147,7 +132,7 @@ namespace ForeignJump
             {
                 //si je touche le bord haut le mec s'annule
                 Vitesse = new Vector2(0, 0);
-                acceleration = Poids + Reaction;
+                acceleration = Poids + reaction;
             }
 
             //si il arrive a la position initiale il ne descend pas plus bas
