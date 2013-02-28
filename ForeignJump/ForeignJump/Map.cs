@@ -48,7 +48,7 @@ namespace ForeignJump
             sousterre = Ressources.GetPerso(Perso.Choisi).sousterre;
             piece1 = Ressources.GetPerso(Perso.Choisi).piece;
             terre1 = Ressources.GetPerso(Perso.Choisi).terre1;
-            terre2 = Content.Load<Texture2D>("terre2");
+            terre2 = Ressources.GetPerso(Perso.Choisi).terre2;
             #endregion
 
             //Traitement du texte

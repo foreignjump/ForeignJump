@@ -38,6 +38,7 @@ namespace ForeignJump
             renoi.nulle = Content.Load<Texture2D>("Perso/renoi/rien");
             renoi.terre = Content.Load<Texture2D>("Perso/renoi/terre");
             renoi.terre1 = Content.Load<Texture2D>("Perso/renoi/terre1");
+            renoi.terre2 = Content.Load<Texture2D>("Perso/renoi/terre3");
             renoi.sousterre = Content.Load<Texture2D>("Perso/renoi/terre2");
             renoi.piece = Content.Load<Texture2D>("Perso/renoi/piece");
             renoi.path = "map.txt";
@@ -75,6 +76,7 @@ namespace ForeignJump
             roumain.terre = Content.Load<Texture2D>("Perso/roumain/terre");
             roumain.terre1 = Content.Load<Texture2D>("Perso/roumain/terre1");
             roumain.sousterre = Content.Load<Texture2D>("Perso/roumain/terre2");
+            roumain.terre2 = Content.Load<Texture2D>("Perso/renoi/terre3");
             roumain.piece = Content.Load<Texture2D>("Perso/roumain/piece");
             roumain.path = "map2.txt";
 

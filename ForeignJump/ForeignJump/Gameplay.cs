@@ -214,7 +214,7 @@ namespace ForeignJump
 
             //affiche STATS
             spriteBatch.DrawString(font, "Distance: " + (int)((hero.position.X - hero.positionInitiale.X) / 25) + " m", new Vector2(20, 45), Color.White);
-            spriteBatch.DrawString(font, "Piece: " + nombre_de_piece, new Vector2(20, 85), Color.White);
+            spriteBatch.DrawString(font, "Pieces: " + nombre_de_piece, new Vector2(20, 85), Color.White);
             spriteBatch.Draw(barre, new Rectangle(860, 50, (int)barreWidth, 41), Color.White);
             spriteBatch.Draw(glass, new Rectangle(860, 50, 375, 41), Color.White);
         }
