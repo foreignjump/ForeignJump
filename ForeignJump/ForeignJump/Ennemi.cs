@@ -11,54 +11,35 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-    class Ennemi
+    class Ennemi : Object
     {
-        //Texture
-        private Texture2D texture;
-
-        //Position
-        public Vector2 Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
-        private Vector2 position;
-
-        //Vitesse
-        public Vector2 Vitesse
-        {
-            get { return vitesse; }
-            set { vitesse = value; }
-        }
-        private Vector2 vitesse;
-
         private Animate ennemiAnime;
 
-        public Ennemi()
+        public Ennemi(int x, int y)
         {
-
+            positionInitiale = new Vector2(x, y);
         }
 
-        public void Initialize(float x, float y)
+        public void Initialize()
         {
-            position = new Vector2(x, y);
+            position = positionInitiale;
             vitesse = new Vector2(0, 0);
         }
 
-        public void LoadContent(ContentManager Content, string nom, int rows, int columns)
+        public void LoadContent(ContentManager Content)
         {
-            texture = Content.Load<Texture2D>(nom);
-            ennemiAnime = new Animate(texture, rows, columns);
+            texture = Ressources.GetPerso(Perso.Choisi).texture;
+            ennemiAnime = Ressources.GetPerso(Perso.Choisi).ennemiAnime;
         }
 
-        public void Update(GameTime gameTime, float vitesse)
+        public void Update(float vitesse)
         {
             ennemiAnime.Update(vitesse);
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            ennemiAnime.Draw(spriteBatch, position);
+            ennemiAnime.Draw(spriteBatch, position, 1);
         }
     }
 }

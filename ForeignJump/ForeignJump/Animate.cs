@@ -40,7 +40,7 @@ namespace ForeignJump
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 location)
+        public void Draw(SpriteBatch spriteBatch, Vector2 location, int ratio)
         {
             int width = Texture.Width / Columns;
             int height = Texture.Height / Rows;
@@ -48,7 +48,7 @@ namespace ForeignJump
             int column = currentFrame % Columns;
 
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-            Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, width, height);
+            Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, width/ratio, height/ratio);
 
             spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
 

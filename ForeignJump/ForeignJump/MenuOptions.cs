@@ -109,12 +109,12 @@ namespace ForeignJump
             #endregion
 
             #region fullscreenToggle
-            
+
             if (selection == 0) //si fullscreen selectionné
             {
                 if (KB.New.IsKeyDown(Keys.Left) && !KB.Old.IsKeyDown(Keys.Left) && selectionFullscreen == 1) //si appuye gauche
                 {
-                    selectionFullscreen = 0; 
+                    selectionFullscreen = 0;
                     fullscreenToggle = fullscreenToggleOn;
                     graphics.ToggleFullScreen(); //changer fullscreen
                 }
@@ -136,12 +136,14 @@ namespace ForeignJump
                 if (KB.New.IsKeyDown(Keys.Left) && !KB.Old.IsKeyDown(Keys.Left) && selectionSound == 1)
                 {
                     selectionSound = 0;
+                    AudioRessources.volume = 1f;
                     soundToggle = soundToggleOn;
                 }
 
                 if (KB.New.IsKeyDown(Keys.Right) && !KB.Old.IsKeyDown(Keys.Right) && selectionSound == 0)
                 {
                     selectionSound = 1;
+                    AudioRessources.volume = 0f;
                     soundToggle = soundToggleOff;
                 }
             }

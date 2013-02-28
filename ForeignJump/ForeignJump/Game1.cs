@@ -23,9 +23,11 @@ namespace ForeignJump
         private MenuPauseAide menupauseaide; //déclaration de menu pause
         private MenuAide menuaide; //déclaration du menu aide
         private MenuOptions menuoptions; //déclaration du menu options
+        private MenuChoose menuchoose; //déclaration du menu de choix de personnage
         private Gameplay game; //déclaration du gameplay
         private GameOver gameover; //déclaration du popup game over
 
+        private AudioPlay audioPlay;
 
         public Game1()
         {
@@ -34,6 +36,9 @@ namespace ForeignJump
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 800;
             graphics.ApplyChanges();
+
+            Ressources.Content = Content;
+            AudioRessources.Content = Content;
         }
 
         protected override void Initialize()
@@ -45,13 +50,12 @@ namespace ForeignJump
             menu.Initialize(-37, 0); //initialisation menu
 
             game = new Gameplay();
-            game.Initialize(); //initialisation game
+            //game.Initialize(); //initialisation game
 
             menupause = new MenuPause(game);
             menupause.Initialize(450, 0); //initialisation menu pause
 
             menupauseaide = new MenuPauseAide();
-            menupauseaide.Initialize(); //initialisation menu aide
 
             menuaide = new MenuAide();
             menuaide.Initialize(); //initialisation menu aide
@@ -59,8 +63,13 @@ namespace ForeignJump
             menuoptions = new MenuOptions();
             menuoptions.Initialize(); //initialisation menu options
 
+            menuchoose = new MenuChoose(game, Content);
+            menuchoose.Initialize(); //initialisation menu options
+
             gameover = new GameOver(game);
             gameover.Initialize(); //initialisation menu options
+
+            audioPlay = new AudioPlay(1f);
 
             GameState.State = "initial"; //mise à l'état initial
 
@@ -71,12 +80,16 @@ namespace ForeignJump
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            Ressources.Load();
+            AudioRessources.Load();
+
             menu.LoadContent(Content); //charger menu
-            game.LoadContent(Content); //charger game
+            //game.LoadContent(Content); //charger game
             menupause.LoadContent(Content); //charger menu pause
             menupauseaide.LoadContent(Content); //charger menu pause aide
             menuaide.LoadContent(Content); //charger menu aide
             menuoptions.LoadContent(Content); //charger menu options
+            menuchoose.LoadContent(); //charger menu choix de personnage
             gameover.LoadContent(Content);
         }
 
@@ -86,6 +99,8 @@ namespace ForeignJump
         {
             mouseStateCurrent = Mouse.GetState(); //gestion souris
             KB.New = Keyboard.GetState(); //verification clavier
+
+            audioPlay.Update();
 
             if (KB.New.IsKeyDown(Keys.Tab) && !KB.Old.IsKeyDown(Keys.Tab))
                 System.Environment.Exit(0);
@@ -101,7 +116,7 @@ namespace ForeignJump
                 menupause.Update(gameTime, 5);
 
             if (GameState.State == "menuPauseAide") //mise à jour menu pause aide
-                menupauseaide.Update(gameTime, 5);
+                menupauseaide.Update();
             //menuPause
 
             if (GameState.State == "menuAide") //mise à jour menu aide
@@ -109,6 +124,9 @@ namespace ForeignJump
 
             if (GameState.State == "menuOptions") //mise à jour menu aide
                 menuoptions.Update(gameTime, 5, graphics);
+
+            if (GameState.State == "menuChoose") //mise à jour menu aide
+                menuchoose.Update(gameTime, 5);
 
             if (GameState.State == "GameOver") //mise à jour du game over
                 gameover.Update(gameTime);
@@ -136,7 +154,7 @@ namespace ForeignJump
             if (GameState.State == "menuPauseAide") //afficher menu pause
             {
                 game.Draw(spriteBatch, gameTime);
-                menupauseaide.Draw(spriteBatch, gameTime);
+                menupauseaide.Draw(spriteBatch);
             }
 
             if (GameState.State == "menuAide") //afficher menu pause
@@ -144,6 +162,9 @@ namespace ForeignJump
 
             if (GameState.State == "menuOptions") //afficher menu pause
                 menuoptions.Draw(spriteBatch, gameTime);
+
+            if (GameState.State == "menuChoose") //afficher menu pause
+                menuchoose.Draw(spriteBatch, gameTime);
 
             if (GameState.State == "GameOver") //afficher le popup game over
                 gameover.Draw(spriteBatch, gameTime);

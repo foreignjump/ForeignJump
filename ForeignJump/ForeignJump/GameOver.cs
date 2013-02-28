@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-    public class GameOver
+    class GameOver
     {
         Gameplay game;
 

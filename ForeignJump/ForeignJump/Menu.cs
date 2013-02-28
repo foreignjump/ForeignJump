@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-    public class Menu
+    class Menu
     {
         bool EntreeButtons;
         bool ButtonsIn;
@@ -64,7 +64,7 @@ namespace ForeignJump
 
         private int selection; //selection du button actuel
 
-        public Menu() 
+        public Menu()
         {
 
         }
@@ -132,8 +132,6 @@ namespace ForeignJump
 
             if (KB.New.IsKeyDown(Keys.Up) && !KB.Old.IsKeyDown(Keys.Up))
                 selection--;
-
-
 
             #endregion
 
@@ -211,7 +209,7 @@ namespace ForeignJump
             {
                 if (selection == 0) //play
                 {
-                    GameState.State = "inGame";
+                    GameState.State = "menuChoose";
                     //initialiser la selection à 0 donc sur start
                     selection = 0;
 

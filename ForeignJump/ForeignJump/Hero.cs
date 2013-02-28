@@ -11,33 +11,11 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-    public class Hero
+    class Hero : Object
     {
         bool jump;
 
-        //Texture
-        public Texture2D TextureStatic
-        {
-            get { return textureStatic; }
-            set { textureStatic = value; }
-        }
-        private Texture2D textureStatic;
-
-        //Position
-        public Vector2 Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
-        private Vector2 position;
-        
-        //Vitesse
-        public Vector2 Vitesse
-        {
-            get { return vitesse; }
-            set { vitesse = value; }
-        }
-        private Vector2 vitesse;
+        public Vector2 posSol;
 
         #region Forces
 
@@ -61,101 +39,108 @@ namespace ForeignJump
         private Vector2 reaction;
 
         //Saut?
-        string jumpState;
+        bool jumping;
 
         #endregion
 
         #region Animation
         //Animation
-        private Animate heroAnime;
+        public Animate heroAnime;
 
         //Texture
         private Texture2D textureAnime;
         #endregion
-        
-        public Hero() { }
 
-        public void Initialize(float x, float y)
+        public Hero(int x, int y)
         {
-            Position = new Vector2(x, y);
-            Vitesse = new Vector2(0, 0);
-            Force = new Vector2(0, 0);
-            Poids = new Vector2(0, 600);
-            jumpState = "no";
+            positionInitiale.X = x;
+            positionInitiale.Y = y;
+
+            posSol.X = x;
+            posSol.Y = y;
         }
 
-        public void LoadContent(ContentManager Content, string Static, string Anime, int rows, int columns)
+        public void Initialize()
         {
-            TextureStatic = Content.Load<Texture2D>("hero");
-            textureAnime = Content.Load<Texture2D>("heroanime");
+            position = new Vector2(positionInitiale.X, positionInitiale.Y);
+            vitesse = new Vector2(0, 0);
+            Force = new Vector2(0, 0);
+            Poids = new Vector2(0, 600);
+            jumping = false;
+        }
 
-            heroAnime = new Animate(textureAnime, 1, 16);
+        public void LoadContent(ContentManager Content)
+        {
+            texture = Ressources.GetPerso(Perso.Choisi).heroTexture;
+            textureAnime = Ressources.GetPerso(Perso.Choisi).heroTextureAnime;
+            heroAnime = Ressources.GetPerso(Perso.Choisi).heroAnime;
         }
 
         public void Jump(int x, int y) //fonction sauter
         {
-            jumpState = "yes";
+            jumping = true;
             force.X = x;
             force.Y = y;
-        } 
+        }
 
         public void Update(GameTime gameTime, float speed)
         {
             heroAnime.Update(speed); //Animation
 
-            #region Physique
+            container = new Rectangle(Convert.ToInt32(position.X + posSol.X), Convert.ToInt32(position.Y), 60, texture.Height);
+
+            #region Jump
 
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             //reaction du sol
-            if (Position.Y >= 494)                    //si il est au sol
+            if (position.Y >= posSol.Y)                    //si il est au sol
                 reaction = new Vector2(0, -(Poids.Y));
-            else                                      //si il est en air (reaction = 0)
+            else                                               //si il est en air (reaction = 0)
                 reaction = new Vector2(0, 0);
 
             //acceleration = somme des forces / masse (=1kg dans l'exemple)
             Vector2 acceleration = Poids + reaction;
 
-
             jump = KB.New.IsKeyDown(Keys.Up);
-            
-            if (jump)
-                Jump(0,-20000);
 
-            if (jump && Position.Y < 500 && Position.Y > 493)
+            if (jump)
+                Jump(1000, -22000);
+
+            if (jump && position.Y < posSol.Y + 5 && position.Y > posSol.Y - 5)
             {
                 //si j'apuie sur up on applique la force
                 acceleration += Force + Poids;
             }
 
-            if (Position.Y < 0)
+            if (position.Y < 0)
             {
                 //si je touche le bord haut le mec s'annule
-                Vitesse = new Vector2(0, 0);
+                vitesse = new Vector2(0, 0);
                 acceleration = Poids + reaction;
             }
 
             //si il arrive a la position initiale il ne descend pas plus bas
-            if (Position.Y >= 494)
+            if (position.Y >= posSol.Y)
             {
-                jumpState = "no";
-                Vitesse = new Vector2(0, 0);
-                position.Y = 494;
+                jumping = false;
+                vitesse = new Vector2(0, 0);
+                position.Y = posSol.Y;
             }
 
-            Vitesse += acceleration * dt;
-            Position += Vitesse * dt;
+            vitesse += acceleration * dt;
+            position += vitesse * dt;
 
             #endregion
         }
 
 
-        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 cameraPosition)
         {
-          if (jumpState == "yes")
-              spriteBatch.Draw(textureStatic, Position, Color.White);
-          else
-              heroAnime.Draw(spriteBatch, Position);
+            if (jumping)
+                spriteBatch.Draw(texture, new Vector2((int)((position.X + 550 - cameraPosition.X)), (int)(position.Y - cameraPosition.Y)), Color.White);
+            else
+                heroAnime.Draw(spriteBatch, new Vector2((int)((position.X + 550 - cameraPosition.X)), (int)(position.Y - cameraPosition.Y)), 3);
         }
     }
 }

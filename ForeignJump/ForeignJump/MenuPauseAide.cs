@@ -18,23 +18,18 @@ namespace ForeignJump
         public MenuPauseAide()
         { }
 
-        public void Initialize()
-        {
-
-        }
-
         public void LoadContent(ContentManager Content)
         {
             menuPauseAidebg = Content.Load<Texture2D>("Menu/MenuPauseAide");
         }
 
-        public void Update(GameTime gameTime, int vitesse)
+        public void Update()
         {
             if (KB.New.IsKeyDown(Keys.Escape) && !KB.Old.IsKeyDown(Keys.Escape))
                 GameState.State = "menuPause"; //retour au menu
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(menuPauseAidebg, new Rectangle(440, 185, 400, 431), Color.White);
         }
