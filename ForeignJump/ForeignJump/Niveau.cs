@@ -17,6 +17,7 @@ namespace ForeignJump
         public Texture2D persoMenu;
         public Texture2D nameMenu;
         public Texture2D drapeauMenu;
+        public string description;
 
         //map
         public Object[,] objets;
@@ -24,6 +25,8 @@ namespace ForeignJump
         public Texture2D nuage;
         public Texture2D nulle;
         public Texture2D terre;
+        public Texture2D terre1;
+        public Texture2D piece;
         public Texture2D sousterre;
         public String path;
         

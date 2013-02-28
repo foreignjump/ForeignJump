@@ -29,14 +29,17 @@ namespace ForeignJump
             renoi.persoMenu = Content.Load<Texture2D>("Menu/Choose/renoi/perso");
             renoi.drapeauMenu = Content.Load<Texture2D>("Menu/Choose/renoi/drapeau");
             renoi.nameMenu = Content.Load<Texture2D>("Menu/Choose/renoi/name");
+            renoi.description = "       Moussa, le renoi. \n \n    Donec urna sem, semper \n ut bibendum in, malesuada \n sit amet diam. Vivamus id  \n convallis mi. Mauris con \n    Donec urna sem, semper \n ut bibendum in, malesuada \n sit amet diam. Vivamus id  \n convallis mi. Mauris con";
 
             //map
-            renoi.objets = new Object[100, 19];
+            renoi.objets = new Object[300, 19];
             renoi.obstacle = Content.Load<Texture2D>("Perso/renoi/brique");
             renoi.nuage = Content.Load<Texture2D>("Perso/renoi/nuage");
             renoi.nulle = Content.Load<Texture2D>("Perso/renoi/rien");
             renoi.terre = Content.Load<Texture2D>("Perso/renoi/terre");
+            renoi.terre1 = Content.Load<Texture2D>("Perso/renoi/terre1");
             renoi.sousterre = Content.Load<Texture2D>("Perso/renoi/terre2");
+            renoi.piece = Content.Load<Texture2D>("Perso/renoi/piece");
             renoi.path = "map.txt";
 
             //hero
@@ -62,14 +65,17 @@ namespace ForeignJump
             roumain.persoMenu = Content.Load<Texture2D>("Menu/Choose/roumain/perso");
             roumain.drapeauMenu = Content.Load<Texture2D>("Menu/Choose/roumain/drapeau");
             roumain.nameMenu = Content.Load<Texture2D>("Menu/Choose/roumain/name");
+            roumain.description = "       Andrei, le roumain. \n \n    Donec urna sem, semper \n ut bibendum in, malesuada \n sit amet diam. Vivamus id  \n convallis mi. Mauris con \n    Donec urna sem, semper \n ut bibendum in, malesuada \n sit amet diam. Vivamus id  \n convallis mi. Mauris con";
 
             //map
-            roumain.objets = new Object[100, 19];
+            roumain.objets = new Object[300, 19];
             roumain.obstacle = Content.Load<Texture2D>("Perso/roumain/brique");
             roumain.nuage = Content.Load<Texture2D>("Perso/roumain/nuage");
             roumain.nulle = Content.Load<Texture2D>("Perso/roumain/rien");
             roumain.terre = Content.Load<Texture2D>("Perso/roumain/terre");
+            roumain.terre1 = Content.Load<Texture2D>("Perso/roumain/terre1");
             roumain.sousterre = Content.Load<Texture2D>("Perso/roumain/terre2");
+            roumain.piece = Content.Load<Texture2D>("Perso/roumain/piece");
             roumain.path = "map2.txt";
 
             //hero

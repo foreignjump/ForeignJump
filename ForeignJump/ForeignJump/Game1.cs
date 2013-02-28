@@ -106,14 +106,14 @@ namespace ForeignJump
                 System.Environment.Exit(0);
 
             if (GameState.State == "initial") //mise à jour menu
-                menu.Update(gameTime, 15);
+                menu.Update(gameTime, 8);
 
             if (GameState.State == "inGame") //mise à jour game
                 game.Update(gameTime);
 
             //menuPause
             if (GameState.State == "menuPause") //mise à jour menu pause
-                menupause.Update(gameTime, 5);
+                menupause.Update(gameTime, 3);
 
             if (GameState.State == "menuPauseAide") //mise à jour menu pause aide
                 menupauseaide.Update();

@@ -29,7 +29,7 @@ namespace ForeignJump
             //affichage des obstacles
             foreach (Object objet in Ressources.GetPerso(Perso.Choisi).objets)
             {
-                spriteBatch.Draw(objet.texture, new Rectangle((int)(objet.position.X - position.X), (int)(objet.position.Y - position.Y), 45, 45/*objet.tex.Width, objet.tex.Height*/), Color.White);
+                spriteBatch.Draw(objet.texture, new Rectangle((int)(objet.position.X - position.X), (int)(objet.position.Y - position.Y), 45, 45), Color.White);
             }
 
             //affichage de l'hero

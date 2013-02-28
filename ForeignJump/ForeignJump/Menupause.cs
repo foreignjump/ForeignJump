@@ -26,14 +26,12 @@ namespace ForeignJump
 
         #region Déclaration buttons
 
-        private Button buttonStart;
-        private Button buttonOptions;
+        private Button buttonBack;
         private Button buttonHelp;
-        private Button buttonExit;
-        private Button buttonStartH;
-        private Button buttonOptionsH;
+        private Button buttonMenu;
+        private Button buttonBackH;
         private Button buttonHelpH;
-        private Button buttonExitH;
+        private Button buttonMenuH;
 
         #endregion
 
@@ -45,26 +43,21 @@ namespace ForeignJump
         private Texture2D buttonTextureStartH;
         private Texture2D buttonTextureStartI;
 
-        private Texture2D buttonTextureOptions;
-        private Texture2D buttonTextureOptionsH;
-        private Texture2D buttonTextureOptionsI;
-
         private Texture2D buttonTextureHelp;
         private Texture2D buttonTextureHelpH;
         private Texture2D buttonTextureHelpI;
 
-        private Texture2D buttonTextureExit;
-        private Texture2D buttonTextureExitH;
-        private Texture2D buttonTextureExitI;
+        private Texture2D buttonTextureMenu;
+        private Texture2D buttonTextureMenuH;
+        private Texture2D buttonTextureMenuI;
 
         #endregion
 
         #region positions
 
         private Vector2 positionStart;
-        private Vector2 positionOptions;
         private Vector2 positionHelp;
-        private Vector2 positionExit;
+        private Vector2 positionMenu;
 
         #endregion
 
@@ -78,9 +71,8 @@ namespace ForeignJump
         public void Initialize(int x, int y)
         {
             positionStart = new Vector2(x, y);
-            positionOptions = new Vector2(x, y);
             positionHelp = new Vector2(x, y);
-            positionExit = new Vector2(x, y);
+            positionMenu = new Vector2(x, y);
 
             //initialiser la selection à 0 donc sur start
             selection = 0;
@@ -98,39 +90,34 @@ namespace ForeignJump
 
             buttonTextureStartH = Content.Load<Texture2D>("Menu/ButtonStartH");
             buttonTextureStartI = Content.Load<Texture2D>("Menu/ButtonStart");
-            buttonTextureOptionsH = Content.Load<Texture2D>("Menu/ButtonOptionsH");
-            buttonTextureOptionsI = Content.Load<Texture2D>("Menu/ButtonOptions");
             buttonTextureHelpH = Content.Load<Texture2D>("Menu/ButtonHelpH");
             buttonTextureHelpI = Content.Load<Texture2D>("Menu/ButtonHelp");
-            buttonTextureExitH = Content.Load<Texture2D>("Menu/ButtonExitH");
-            buttonTextureExitI = Content.Load<Texture2D>("Menu/ButtonExit");
+            buttonTextureMenuH = Content.Load<Texture2D>("Menu/ButtonMenuH");
+            buttonTextureMenuI = Content.Load<Texture2D>("Menu/ButtonMenu");
 
             buttonTextureStart = buttonTextureStartI;
-            buttonTextureOptions = buttonTextureOptionsI;
             buttonTextureHelp = buttonTextureHelpI;
-            buttonTextureExit = buttonTextureExitI;
+            buttonTextureMenu = buttonTextureMenuI;
         }
 
         public void Update(GameTime gameTime, int vitesse)
         {
 
             #region Déclaration de bouttons
-            buttonStart = new Button(buttonTextureStart, (int)positionStart.X, (int)positionStart.Y);
-            buttonOptions = new Button(buttonTextureOptions, (int)positionOptions.X, (int)positionOptions.Y);
+            buttonBack = new Button(buttonTextureStart, (int)positionStart.X, (int)positionStart.Y);
             buttonHelp = new Button(buttonTextureHelp, (int)positionHelp.X, (int)positionHelp.Y);
-            buttonExit = new Button(buttonTextureExit, (int)positionExit.X, (int)positionExit.Y);
-            buttonStartH = new Button(buttonTextureStartH, (int)positionStart.X, (int)positionStart.Y);
-            buttonOptionsH = new Button(buttonTextureOptionsH, (int)positionOptions.X, (int)positionOptions.Y);
+            buttonMenu = new Button(buttonTextureMenu, (int)positionMenu.X, (int)positionMenu.Y);
+            buttonBackH = new Button(buttonTextureStartH, (int)positionStart.X, (int)positionStart.Y);
             buttonHelpH = new Button(buttonTextureHelpH, (int)positionHelp.X, (int)positionHelp.Y);
-            buttonExitH = new Button(buttonTextureExitH, (int)positionExit.X, (int)positionExit.Y);
+            buttonMenuH = new Button(buttonTextureMenuH, (int)positionMenu.X, (int)positionMenu.Y);
             #endregion
 
             #region Survoler le menu
 
             if (selection == -1) //pour que la selection ne dépasse pas les negatifs
-                selection = 3;
+                selection = 2;
             else
-                selection = selection % 4; //pour que la selection ne dépasse pas 4
+                selection = selection % 3; //pour que la selection ne dépasse pas 4
 
             if (KB.New.IsKeyDown(Keys.Down) && !KB.Old.IsKeyDown(Keys.Down))
                 selection++;
@@ -146,21 +133,16 @@ namespace ForeignJump
                 buttonTextureStart = buttonTextureStartH;
             else
                 buttonTextureStart = buttonTextureStartI;
-
+            
             if (selection == 1)
-                buttonTextureOptions = buttonTextureOptionsH;
-            else
-                buttonTextureOptions = buttonTextureOptionsI;
-
-            if (selection == 2)
                 buttonTextureHelp = buttonTextureHelpH;
             else
                 buttonTextureHelp = buttonTextureHelpI;
 
-            if (selection == 3)
-                buttonTextureExit = buttonTextureExitH;
+            if (selection == 2)
+                buttonTextureMenu = buttonTextureMenuH;
             else
-                buttonTextureExit = buttonTextureExitI;
+                buttonTextureMenu = buttonTextureMenuI;
 
             #endregion
 
@@ -170,35 +152,29 @@ namespace ForeignJump
             {
                 if (positionStart.Y <= 105)
                     positionStart.Y += vitesse;
+                
+                if (positionHelp.Y <= 234)
+                    positionHelp.Y += vitesse + 6;
 
-                if (positionOptions.Y <= 234)
-                    positionOptions.Y += vitesse + 6;
+                if (positionMenu.Y <= 363)
+                    positionMenu.Y += vitesse + 8;
 
-                if (positionHelp.Y <= 363)
-                    positionHelp.Y += vitesse + 8;
-
-                if (positionExit.Y <= 492)
-                    positionExit.Y += vitesse + 12;
-
-                if (positionExit.Y >= 492)
+                if (positionMenu.Y >= 363)
                     ButtonsIn = true;
             }
 
             if (SortieButtons && !ButtonsOut) //sortie
             {
-                if (positionStart.Y >= -buttonTextureExit.Height)
+                if (positionStart.Y >= -buttonTextureMenu.Height)
                     positionStart.Y -= vitesse;
 
-                if (positionOptions.Y >= -buttonTextureExit.Height)
-                    positionOptions.Y -= vitesse + 6;
+                if (positionHelp.Y >= -buttonTextureMenu.Height)
+                    positionHelp.Y -= vitesse + 6;
 
-                if (positionHelp.Y >= -buttonTextureExit.Height)
-                    positionHelp.Y -= vitesse + 8;
+                if (positionMenu.Y >= -buttonTextureMenu.Height)
+                    positionMenu.Y -= vitesse + 8;
 
-                if (positionExit.Y >= -buttonTextureExit.Height)
-                    positionExit.Y -= vitesse + 12;
-
-                if (positionExit.Y <= -buttonTextureExit.Height)
+                if (positionMenu.Y <= -buttonTextureMenu.Height)
                     ButtonsOut = true;
             }
             #endregion
@@ -225,7 +201,7 @@ namespace ForeignJump
                     selection = 0;
                 }
 
-                if (selection == 2) //si c'est sur aide
+                if (selection == 1) //si c'est sur aide
                 {
                     GameState.State = "menuPauseAide";
 
@@ -237,7 +213,7 @@ namespace ForeignJump
                     selection = 0;
                 }
 
-                if (selection == 3) //si c'est sur exit (back to menu dans ce cas)
+                if (selection == 2) //si c'est sur Menu (back to menu dans ce cas)
                 {
                     GameState.State = "initial";
                     game.NewGame();
@@ -256,10 +232,9 @@ namespace ForeignJump
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            buttonStart.Draw(spriteBatch);
-            buttonOptions.Draw(spriteBatch);
+            buttonBack.Draw(spriteBatch);
             buttonHelp.Draw(spriteBatch);
-            buttonExit.Draw(spriteBatch);
+            buttonMenu.Draw(spriteBatch);
         }
     }
 }

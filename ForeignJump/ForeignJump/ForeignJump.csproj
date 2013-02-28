@@ -139,7 +139,7 @@
     <Compile Include="MenuAide.cs" />
     <Compile Include="MenuChoose.cs" />
     <Compile Include="MenuOptions.cs" />
-    <Compile Include="Menupause.cs" />
+    <Compile Include="MenuPause.cs" />
     <Compile Include="MenuPauseAide.cs" />
     <Compile Include="Niveau.cs" />
     <Compile Include="Object.cs" />

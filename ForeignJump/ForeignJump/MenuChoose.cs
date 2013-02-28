@@ -17,6 +17,8 @@ namespace ForeignJump
         private Texture2D drapeau; //drapeau
         private Texture2D perso; //personnage
         private Texture2D name; //nom
+        private string description; //description du perso
+        private SpriteFont fontmenuchoose; //font description
 
         private ContentManager Content;
         private Gameplay game;
@@ -38,6 +40,7 @@ namespace ForeignJump
         public void LoadContent()
         {
             menubg = Content.Load<Texture2D>("Menu/Choose/MenuChoose");
+            fontmenuchoose = Content.Load<SpriteFont>("Menu/Choose/FontMenuChoose");
         }
 
         public void Update(GameTime gameTime, int vitesse)
@@ -72,6 +75,7 @@ namespace ForeignJump
                 drapeau = Ressources.GetPerso("renoi").drapeauMenu;
                 perso = Ressources.GetPerso("renoi").persoMenu;
                 name = Ressources.GetPerso("renoi").nameMenu;
+                description = Ressources.GetPerso("renoi").description;
 
                 Perso.Choisi = "renoi";
             }
@@ -80,6 +84,7 @@ namespace ForeignJump
                 drapeau = Ressources.GetPerso("roumain").drapeauMenu;
                 perso = Ressources.GetPerso("roumain").persoMenu;
                 name = Ressources.GetPerso("roumain").nameMenu;
+                description = Ressources.GetPerso("roumain").description;
 
                 Perso.Choisi = "roumain";
             }
@@ -92,6 +97,7 @@ namespace ForeignJump
             spriteBatch.Draw(drapeau, new Rectangle(900, 580, drapeau.Width, drapeau.Height), Color.White);
             spriteBatch.Draw(perso, new Rectangle(920, 145, perso.Width, perso.Height), Color.White);
             spriteBatch.Draw(name, new Rectangle(800, 57, name.Width, name.Height), Color.White);
+            spriteBatch.DrawString(fontmenuchoose, description, new Vector2(150, 150), Color.White);
         }
     }
 }

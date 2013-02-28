@@ -20,6 +20,7 @@ namespace ForeignJump
         public static SoundEffect pas;
         public static SoundEffect turn;
         public static SoundEffect escape;
+        public static SoundEffect wingold;
 
         public static float volume;
 
@@ -33,6 +34,7 @@ namespace ForeignJump
             selectionup = Content.Load<SoundEffect>("Sound/selectionUp");
             turn = Content.Load<SoundEffect>("Sound/turn");
             escape = Content.Load<SoundEffect>("Sound/escape");
+            wingold = Content.Load<SoundEffect>("Sound/wingold");
             volume = 1f;
         }
 

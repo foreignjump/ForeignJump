@@ -29,11 +29,24 @@ namespace ForeignJump
         //collision
         private bool toucheTop; //collision avec le haut de l'obstacle
         private int a; //obstacle entré en collision
-        
-        
+
+        //piece
+        public int nombre_de_piece;
+        Rectangle poss;
+        //
+        public List<Rectangle> Piece
+        {
+            get { return piece; }
+            set { piece = value; }
+        }
+        private List<Rectangle> piece;
+        //
         private bool collision;
+        private bool vatefairefoutre; //quand ça tombe ça avance pas
+        private bool tombe; //s'il n'est pas tombé
 
         private Texture2D bg;
+
 
         public void Initialize()
         {
@@ -70,9 +83,11 @@ namespace ForeignJump
         {
             hero.Initialize();
             ennemi.Initialize();
-            
+            hero.posSol.Y = 511;
+            tombe = false;
             metres = 0;
             barreWidth = 0;
+            nombre_de_piece = 0;
         }
 
         public void GameOver()
@@ -82,11 +97,13 @@ namespace ForeignJump
 
         public void Update(GameTime gameTime)
         {
+            poss = new Rectangle(Convert.ToInt32(hero.position.X + 550), Convert.ToInt32(hero.position.Y), 60, 163);
+ 
             if (GameState.State == "inGame" && KB.New.IsKeyDown(Keys.Escape) && !KB.Old.IsKeyDown(Keys.Escape)) //jouer
                 GameState.State = "menuPause";
-           
-            if (collision == false)
-                hero.position.X += 6;
+
+            if ((tombe == false))
+                hero.position.X += 4;
 
             //position & animation hero
             hero.Update(gameTime, 0.6f);
@@ -121,6 +138,11 @@ namespace ForeignJump
                     toucheTop = true;
                     a = i;
                     i = map.nombobs(); //forcer de sortir de la boucle (pour ne pas tester le reste)
+
+                }
+                else
+                {
+                    toucheTop = false;
                 }
             }
 
@@ -139,17 +161,46 @@ namespace ForeignJump
             }
             #endregion
 
+            if ((toucheTop == false) && tombe == false)
+            {
+                hero.posSol.Y = 511;
+            }
+
             #region detection du trou
 
-            List<Rectangle> position_trou = map.getpos_eau();
-
+            List<Rectangle> postion_eau = map.getpos_eau();
             for (int i = 0; i < map.nombre_vide; i++)
             {
-                Rectangle obsTrou = position_trou[i];
-                obsTrou.Y = obsTrou.Y - 2;
-                obsTrou.Width = obsTrou.Width / 2;
-                if ((hero.container.Intersects(obsTrou)))
-                    GameOver();
+                Rectangle obseau = map.list_eau[i];
+                obseau.Y = obseau.Y - 3;
+                obseau.Width = obseau.Width / 2;
+                if ((poss.Intersects(obseau)))
+                {
+
+                    hero.posSol.Y = 1100;
+                    vatefairefoutre = true;
+                    tombe = true;
+
+                }
+            }
+            if ((hero.position.Y >= 1000) || collision)
+            {
+                GameOver();
+            }
+
+            #endregion
+
+            #region détection de la pièce
+
+            for (int i = 0; i < map.nombre_de_piece; i++)
+            {
+                if ((poss.Intersects(map.Piece[i])))
+                {
+                    map.objets[(map.Piece[i].X) / 45, (map.Piece[i].Y) / 45] = map.objets[10, 10];
+                    map.Piece[i] = new Rectangle(Convert.ToInt32(32), Convert.ToInt32(32), 45, 45);
+                    AudioRessources.wingold.Play(AudioRessources.volume, 0f, 0f);
+                    nombre_de_piece = nombre_de_piece + 1;
+                }
             }
             #endregion
         }
@@ -163,6 +214,7 @@ namespace ForeignJump
 
             //affiche STATS
             spriteBatch.DrawString(font, "Distance: " + (int)((hero.position.X - hero.positionInitiale.X) / 25) + " m", new Vector2(20, 45), Color.White);
+            spriteBatch.DrawString(font, "Piece: " + nombre_de_piece, new Vector2(20, 85), Color.White);
             spriteBatch.Draw(barre, new Rectangle(860, 50, (int)barreWidth, 41), Color.White);
             spriteBatch.Draw(glass, new Rectangle(860, 50, 375, 41), Color.White);
         }
