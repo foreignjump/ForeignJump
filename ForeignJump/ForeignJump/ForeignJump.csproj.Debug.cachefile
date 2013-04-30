@@ -27,6 +27,7 @@ Content\Menu\Options\Copie (2) de on.xnb
 Content\Menu\Options\Copie de on.xnb
 Content\Menu\Options\fullscreenH.xnb
 Content\Menu\Options\fullscreenN.xnb
+Content\Menu\Options\imgres.xnb
 Content\Menu\Options\menuOptions.xnb
 Content\Menu\Options\off.xnb
 Content\Menu\Options\on.xnb
@@ -52,6 +53,7 @@ Content\Perso\roumain\barre.xnb
 Content\Perso\roumain\bg.xnb
 Content\Perso\roumain\brique.xnb
 Content\Perso\roumain\drapeau.xnb
+Content\Perso\roumain\fusee.xnb
 Content\Perso\roumain\glass.xnb
 Content\Perso\roumain\hero6.xnb
 Content\Perso\roumain\hero6anime.xnb
@@ -65,10 +67,11 @@ Content\Perso\roumain\terre1.xnb
 Content\Perso\roumain\terre2.xnb
 Content\Perso\roumain\terre3.xnb
 Content\Perso\roumain\voitureanime.xnb
+Content\fire.xnb
 Content\Sound\confirmation.xnb
 Content\Sound\escape.xnb
 Content\Sound\gameover.xnb
-Content\Sound\jump.xnb
+Content\Sound\Jump.xnb
 Content\Sound\selectionDown.xnb
 Content\Sound\selectionUp.xnb
 Content\Sound\turn.xnb
@@ -76,3 +79,4 @@ Content\Sound\wingold.xnb
 Content\Menu\Choose\FontMenuChoose.xnb
 Content\Perso\renoi\Font.xnb
 Content\Perso\roumain\Font.xnb
+GameThumbnail.png

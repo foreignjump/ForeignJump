@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-    public class MenuPause
+    class MenuPause
     {
         Gameplay game;
 
@@ -216,7 +216,7 @@ namespace ForeignJump
                 if (selection == 2) //si c'est sur Menu (back to menu dans ce cas)
                 {
                     GameState.State = "initial";
-                    game.NewGame();
+                    
                     //mise à 0 des variables
                     EntreeButtons = true;
                     ButtonsIn = false;

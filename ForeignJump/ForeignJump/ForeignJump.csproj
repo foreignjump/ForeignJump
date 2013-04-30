@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{346E61AD-0A7D-423D-AD4B-0919F27A7C86}</ProjectGuid>
+    <ProjectGuid>{FF72C43A-95D0-4957-9AFC-50EC6CA023ED}</ProjectGuid>
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -14,7 +14,7 @@
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
     <XnaProfile>HiDef</XnaProfile>
-    <XnaCrossPlatformGroupID>a0139c21-87b3-4ad0-9a65-62cb92d93398</XnaCrossPlatformGroupID>
+    <XnaCrossPlatformGroupID>27c82c1f-3e74-4503-9d99-73fe06df28a7</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
     <Thumbnail>GameThumbnail.png</Thumbnail>
@@ -112,9 +112,7 @@
     <Compile Include="AudioRessources.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="Camera.cs" />
-    <Compile Include="Ennemi.cs" />
-    <Compile Include="GameOver.cs" />
-    <Compile Include="Gameplay.cs" />
+    <Compile Include="ContentLoad.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="InputKeyboard.cs" />
@@ -123,11 +121,13 @@
     <Compile Include="MenuAide.cs" />
     <Compile Include="MenuChoose.cs" />
     <Compile Include="MenuOptions.cs" />
-    <Compile Include="MenuPause.cs" />
+    <Compile Include="Menupause.cs" />
     <Compile Include="MenuPauseAide.cs" />
     <Compile Include="Niveau.cs" />
-    <Compile Include="Object.cs" />
+    <Compile Include="Objet.cs" />
+    <Compile Include="Particule.cs" />
     <Compile Include="Perso.cs" />
+    <Compile Include="Personnage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
@@ -135,9 +135,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
+    <Compile Include="Gameplay.cs" />
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Particles\Particles\Particles\Particles.csproj">
+      <Project>{114B81A8-BBED-403C-9C49-905EB8803549}</Project>
+      <Name>Particles</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ForeignJumpContent\ForeignJumpContent.contentproj">
       <Name>ForeignJumpContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>

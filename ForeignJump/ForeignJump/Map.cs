@@ -14,128 +14,101 @@ namespace ForeignJump
 {
     class Map
     {
-        public Texture2D obstacle, nuage, nulle, terre, sousterre, piece1, terre1, terre2;
-        public Object[,] objets;
-        //
-        public List<Rectangle> list_obstacle;
-        public List<Rectangle> list_eau;
-        public int nombreobs;
-        public int nombre_vide;
-        //
-        public List<Rectangle> Piece
+        StreamReader stream;
+
+        private Objet[,] objets;
+        public Objet[,] Objets
         {
-            get { return piece; }
-            set { piece = value; }
+            get { return objets; }
+            set { objets = value; }
         }
-        private List<Rectangle> piece;
-        public int nombre_de_piece;
 
-        public void LoadContent(ContentManager Content, string name)
+        public Map(string file)
         {
-            //
-            list_obstacle = new List<Rectangle>();
-            list_eau = new List<Rectangle>();
-            piece = new List<Rectangle>();
+            stream = new StreamReader(file);
+        }
 
-            //tableau d'obstacles
+        public void Load()
+        {
             objets = Ressources.GetPerso(Perso.Choisi).objets;
 
-            #region Textures
-            obstacle = Ressources.GetPerso(Perso.Choisi).obstacle;
-            nuage = Ressources.GetPerso(Perso.Choisi).nuage;
-            nulle = Ressources.GetPerso(Perso.Choisi).nulle;
-            terre = Ressources.GetPerso(Perso.Choisi).terre;
-            sousterre = Ressources.GetPerso(Perso.Choisi).sousterre;
-            piece1 = Ressources.GetPerso(Perso.Choisi).piece;
-            terre1 = Ressources.GetPerso(Perso.Choisi).terre1;
-            terre2 = Ressources.GetPerso(Perso.Choisi).terre2;
-            #endregion
-
-            //Traitement du texte
-            StreamReader rd = new StreamReader(name);
             string line;
 
-            int posX = 0, posY = 0;
-            while ((line = rd.ReadLine()) != null)
+            int i = 0, j = 0;
+
+            while ((line = stream.ReadLine()) != null)
             {
                 foreach (char chara in line)
                 {
-                    Object objet = new Object();
-                    objet.position = new Vector2(posX * 45, posY * 45);
-                    objets[posX, posY] = objet;
+                    Objet objet = new Objet();
+                    objet.position = new Vector2(i * 45, j * 45);
+                    objet.container = new Rectangle((int)objet.position.X, (int)objet.position.Y, 45, 45);
+
 
                     switch (chara)
                     {
                         case '1':
                             {
-                                objet.texture = obstacle;
-                                list_obstacle.Add(new Rectangle(Convert.ToInt32(objet.position.X), Convert.ToInt32(objet.position.Y), 10, 45));
-                                nombreobs++;
+                                objet.texture = Ressources.GetPerso(Perso.Choisi).obstacle;
+                                objet.type = TypeCase.Obstacle;
                                 break;
                             }
                         case '0':
                             {
-                                objet.texture = terre;
+                                objet.texture = Ressources.GetPerso(Perso.Choisi).terre;
+                                objet.type = TypeCase.Terre;
                                 break;
                             }
                         case '7':
                             {
-                                objet.texture = terre2;
+                                objet.texture = Ressources.GetPerso(Perso.Choisi).terre2;
+                                objet.type = TypeCase.Terre;
                                 break;
                             }
                         case '9':
                             {
-                                objet.texture = terre1;
+                                objet.texture = Ressources.GetPerso(Perso.Choisi).terre1;
+                                objet.type = TypeCase.Terre;
                                 break;
                             }
                         case '8':
                             {
-                                objet.texture = sousterre;
+                                objet.texture = Ressources.GetPerso(Perso.Choisi).sousterre;
+                                objet.type = TypeCase.Terre;
                                 break;
                             }
                         case '3':
                             {
-                                objet.texture = nulle;
-                                list_eau.Add(new Rectangle(Convert.ToInt32(objet.position.X), Convert.ToInt32(objet.position.Y), 45, 45));
-                                nombre_vide = nombre_vide + 1;
+                                objet.texture = Ressources.GetPerso(Perso.Choisi).nulle;
+                                objet.type = TypeCase.Eau;
                                 break;
                             }
                         case '2':
                             {
 
-                                objet.texture = piece1;
-                                piece.Add(new Rectangle(Convert.ToInt32(objet.position.X), Convert.ToInt32(objet.position.Y), 45, 45));
-                                nombre_de_piece = nombre_de_piece + 1;
+                                objet.texture = Ressources.GetPerso(Perso.Choisi).piece;
+                                objet.type = TypeCase.Piece;
                                 break;
                             }
                         default:
                             {
-                                objet.texture = nulle;
+                                objet.texture = Ressources.GetPerso(Perso.Choisi).nulle;
+                                objet.type = TypeCase.Null;
                                 break;
                             }
                     }
-                    posX++;
+                    objets[i, j] = objet;
+                    i++;
                 }
-                posX = 0;
-                posY++;
+                i = 0;
+                j++;
             }
+
         }
 
-        public List<Rectangle> getpos_obstacle()
+        public bool Valid(int x, int y)
         {
-            return list_obstacle;
-        }
-        public List<Rectangle> getpos_eau()
-        {
-            return list_eau;
-        }
-        public int nombobs()
-        {
-            return nombreobs;
-        }
-        public int nombobs_vide()
-        {
-            return nombre_vide;
+            return x >= 0 && y >= 0 && x < objets.GetLength(0) && y < objets.GetLength(1);
         }
     }
 }

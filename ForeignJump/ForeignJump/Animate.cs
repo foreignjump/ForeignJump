@@ -48,7 +48,7 @@ namespace ForeignJump
             int column = currentFrame % Columns;
 
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-            Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, width/ratio, height/ratio);
+            Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y - 13, width / ratio, height / ratio);
 
             spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
 

@@ -35,7 +35,7 @@ namespace ForeignJump
             turn = Content.Load<SoundEffect>("Sound/turn");
             escape = Content.Load<SoundEffect>("Sound/escape");
             wingold = Content.Load<SoundEffect>("Sound/wingold");
-            volume = 1f;
+            volume = 0f;
         }
 
 

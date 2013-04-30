@@ -15,7 +15,6 @@ namespace ForeignJump
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
         MouseState mouseStateCurrent;
 
         private Menu menu; //déclaration de menu initial
@@ -25,10 +24,10 @@ namespace ForeignJump
         private MenuOptions menuoptions; //déclaration du menu options
         private MenuChoose menuchoose; //déclaration du menu de choix de personnage
         private Gameplay game; //déclaration du gameplay
-        private GameOver gameover; //déclaration du popup game over
-
+        
         private AudioPlay audioPlay;
 
+        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -39,6 +38,8 @@ namespace ForeignJump
 
             Ressources.Content = Content;
             AudioRessources.Content = Content;
+            ContentLoad.load = Content;
+            ContentLoad.Game = this;
         }
 
         protected override void Initialize()
@@ -66,11 +67,7 @@ namespace ForeignJump
             menuchoose = new MenuChoose(game, Content);
             menuchoose.Initialize(); //initialisation menu options
 
-            gameover = new GameOver(game);
-            gameover.Initialize(); //initialisation menu options
-
             audioPlay = new AudioPlay(1f);
-
             GameState.State = "initial"; //mise à l'état initial
 
             base.Initialize();
@@ -84,17 +81,16 @@ namespace ForeignJump
             AudioRessources.Load();
 
             menu.LoadContent(Content); //charger menu
-            //game.LoadContent(Content); //charger game
+            //game.LoadContent(); //charger game
             menupause.LoadContent(Content); //charger menu pause
             menupauseaide.LoadContent(Content); //charger menu pause aide
             menuaide.LoadContent(Content); //charger menu aide
             menuoptions.LoadContent(Content); //charger menu options
             menuchoose.LoadContent(); //charger menu choix de personnage
-            gameover.LoadContent(Content);
+            
         }
 
-        protected override void UnloadContent() { }
-
+   
         protected override void Update(GameTime gameTime)
         {
             mouseStateCurrent = Mouse.GetState(); //gestion souris
@@ -128,21 +124,17 @@ namespace ForeignJump
             if (GameState.State == "menuChoose") //mise à jour menu aide
                 menuchoose.Update(gameTime, 5);
 
-            if (GameState.State == "GameOver") //mise à jour du game over
-                gameover.Update(gameTime);
 
             KB.Old = KB.New;
 
             base.Update(gameTime);
         }
 
-
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin(); //DEBUT
-
+            spriteBatch.Begin(); //DEBUt
             menu.Draw(spriteBatch, gameTime, true); //afficher menu
 
             if (GameState.State == "inGame" || GameState.State == "menuPause" || GameState.State == "GameOver") //afficher jeu
@@ -166,15 +158,9 @@ namespace ForeignJump
             if (GameState.State == "menuChoose") //afficher menu pause
                 menuchoose.Draw(spriteBatch, gameTime);
 
-            if (GameState.State == "GameOver") //afficher le popup game over
-                gameover.Draw(spriteBatch, gameTime);
-
             spriteBatch.End(); //FIN
 
             base.Draw(gameTime);
         }
-
-
-
     }
 }

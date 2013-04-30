@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-    public class MenuChoose
+    class MenuChoose
     {
         private Texture2D menubg; //bg
         private Texture2D drapeau; //drapeau
@@ -51,7 +51,7 @@ namespace ForeignJump
             if (KB.New.IsKeyDown(Keys.Enter) && !KB.Old.IsKeyDown(Keys.Enter))
             {
                 game.Initialize(); //charger game
-                game.LoadContent(Content); //charger game
+                game.LoadContent();
                 GameState.State = "inGame";
             }
 

@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForeignJump", "ForeignJump\ForeignJump\ForeignJump.csproj", "{346E61AD-0A7D-423D-AD4B-0919F27A7C86}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForeignJump", "ForeignJump\ForeignJump\ForeignJump.csproj", "{FF72C43A-95D0-4957-9AFC-50EC6CA023ED}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "ForeignJumpContent", "ForeignJump\ForeignJumpContent\ForeignJumpContent.contentproj", "{3D5FE208-17BB-4D1D-8935-C9962E9CA866}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForeignJumpContent", "ForeignJump\ForeignJumpContent\ForeignJumpContent.contentproj", "{76292740-E44A-4901-AB53-0BB5B4B15840}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Particles", "Particles\Particles\Particles\Particles.csproj", "{114B81A8-BBED-403C-9C49-905EB8803549}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +13,16 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{346E61AD-0A7D-423D-AD4B-0919F27A7C86}.Debug|x86.ActiveCfg = Debug|x86
-		{346E61AD-0A7D-423D-AD4B-0919F27A7C86}.Debug|x86.Build.0 = Debug|x86
-		{346E61AD-0A7D-423D-AD4B-0919F27A7C86}.Release|x86.ActiveCfg = Release|x86
-		{346E61AD-0A7D-423D-AD4B-0919F27A7C86}.Release|x86.Build.0 = Release|x86
-		{3D5FE208-17BB-4D1D-8935-C9962E9CA866}.Debug|x86.ActiveCfg = Debug|x86
-		{3D5FE208-17BB-4D1D-8935-C9962E9CA866}.Release|x86.ActiveCfg = Release|x86
+		{FF72C43A-95D0-4957-9AFC-50EC6CA023ED}.Debug|x86.ActiveCfg = Debug|x86
+		{FF72C43A-95D0-4957-9AFC-50EC6CA023ED}.Debug|x86.Build.0 = Debug|x86
+		{FF72C43A-95D0-4957-9AFC-50EC6CA023ED}.Release|x86.ActiveCfg = Release|x86
+		{FF72C43A-95D0-4957-9AFC-50EC6CA023ED}.Release|x86.Build.0 = Release|x86
+		{76292740-E44A-4901-AB53-0BB5B4B15840}.Debug|x86.ActiveCfg = Debug|x86
+		{76292740-E44A-4901-AB53-0BB5B4B15840}.Release|x86.ActiveCfg = Release|x86
+		{114B81A8-BBED-403C-9C49-905EB8803549}.Debug|x86.ActiveCfg = Debug|x86
+		{114B81A8-BBED-403C-9C49-905EB8803549}.Debug|x86.Build.0 = Debug|x86
+		{114B81A8-BBED-403C-9C49-905EB8803549}.Release|x86.ActiveCfg = Release|x86
+		{114B81A8-BBED-403C-9C49-905EB8803549}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

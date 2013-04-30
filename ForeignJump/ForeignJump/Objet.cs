@@ -11,16 +11,16 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-    public class Object
+    public enum TypeCase {Terre, Sousterre, Eau, Null, Piece, Bonus, Obstacle};
+
+    public class Objet
     {
-        public Vector2 position;
-
-        public Vector2 positionInitiale;
-
-        public Vector2 vitesse;
-
         public Texture2D texture;
 
+        public Vector2 position;
+
         public Rectangle container;
+        
+        public TypeCase type;
     }
 }

@@ -20,7 +20,7 @@ namespace ForeignJump
         public string description;
 
         //map
-        public Object[,] objets;
+        public Objet[,] objets;
         public Texture2D obstacle;
         public Texture2D nuage;
         public Texture2D nulle;
