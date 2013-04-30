@@ -21,7 +21,7 @@ namespace ForeignJump
         public void Initialize()
         {
             map = new Map("map.txt");
-            hero = new Hero(Ressources.GetPerso(Perso.Choisi).heroAnime, new Vector2(300, 500), new Vector2(200, 0), 600, map);
+            hero = new Hero(Ressources.GetPerso(Perso.Choisi).heroAnime, new Vector2(0, 500), new Vector2(200, 0), 600, map);
             camera = new Camera(map, hero);
         }
 
@@ -35,7 +35,7 @@ namespace ForeignJump
             if (GameState.State == "inGame" && KB.New.IsKeyDown(Keys.Escape))
                 GameState.State = "menuPause";
 
-            camera.Position = new Vector2(hero.positionGlobale.X - 400, camera.Position.Y);
+            camera.Position = new Vector2(hero.positionGlobale.X - 500, camera.Position.Y);
             hero.positionLocale.X = hero.positionGlobale.X - camera.Position.X + hero.positionInitiale.X;
             hero.positionLocale.Y = hero.positionGlobale.Y;
             hero.Update(gameTime, 0.3f);

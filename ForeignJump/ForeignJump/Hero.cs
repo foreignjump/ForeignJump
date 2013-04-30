@@ -78,7 +78,17 @@ namespace ForeignJump
             int posX = (int)(container.X / 45);
 
             int currentX = posX + 1, currentY = posY;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type != TypeCase.Null)
+            #region piece
+            for (int i = 0; i < Map.piece.Count; i++)
+            {
+                if (container.Intersects(Map.piece[i]))
+                {
+                    map.Objets[Map.piece[i].X / 45 , Map.piece[i].Y /45 ].position = new Vector2(1, 1);
+                }
+            }
+            #endregion
+
+            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
             {
                 currentObjet.container.X = currentX * 45;
                 currentObjet.container.Y = currentY * 45;
@@ -89,7 +99,7 @@ namespace ForeignJump
 
             currentX = posX + 1;
             currentY = posY + 1;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type != TypeCase.Null)
+            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
             {
                 currentObjet.container.X = currentX * 45;
                 currentObjet.container.Y = currentY * 45;
@@ -100,7 +110,7 @@ namespace ForeignJump
 
             currentX = posX;
             currentY = posY;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type != TypeCase.Null)
+            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
             {
                 currentObjet.container.X = currentX * 45;
                 currentObjet.container.Y = currentY * 45;
@@ -111,7 +121,7 @@ namespace ForeignJump
 
             currentX = posX + 1;
             currentY = posY - 1;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type != TypeCase.Null)
+            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
             {
                 currentObjet.container.X = currentX * 45;
                 currentObjet.container.Y = currentY * 45;
@@ -122,7 +132,7 @@ namespace ForeignJump
 
             currentX = posX - 1;
             currentY = posY;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type != TypeCase.Null)
+            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
             {
                 currentObjet.container.X = currentX * 45;
                 currentObjet.container.Y = currentY * 45;
@@ -133,7 +143,7 @@ namespace ForeignJump
 
             currentX = posX - 1;
             currentY = posY - 1;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type != TypeCase.Null)
+            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
             {
                 currentObjet.container.X = currentX * 45;
                 currentObjet.container.Y = currentY * 45;
@@ -144,7 +154,7 @@ namespace ForeignJump
 
             currentX = posX - 1;
             currentY = posY + 1;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type != TypeCase.Null)
+            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
             {
                 currentObjet.container.X = currentX * 45;
                 currentObjet.container.Y = currentY * 45;
@@ -155,7 +165,7 @@ namespace ForeignJump
 
             currentX = posX;
             currentY = posY + 1;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type != TypeCase.Null)
+            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
             {
                 currentObjet.container.X = currentX * 45;
                 currentObjet.container.Y = currentY * 45;
@@ -166,7 +176,7 @@ namespace ForeignJump
 
             currentX = posX;
             currentY = posY - 1;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type != TypeCase.Null)
+            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
             {
                 currentObjet.container.X = currentX * 45;
                 currentObjet.container.Y = currentY * 45;
@@ -174,6 +184,7 @@ namespace ForeignJump
 
                 //                map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
             }
+            
             #endregion
 
             Vector2 acceleration = poids + force; //somme des forces = masse * acceleration

@@ -15,7 +15,9 @@ namespace ForeignJump
     class Map
     {
         StreamReader stream;
-
+        //
+        public static List<Rectangle> piece = new List<Rectangle>();
+        //
         private Objet[,] objets;
         public Objet[,] Objets
         {
@@ -50,7 +52,7 @@ namespace ForeignJump
                         case '1':
                             {
                                 objet.texture = Ressources.GetPerso(Perso.Choisi).obstacle;
-                                objet.type = TypeCase.Obstacle;
+                                objet.type = TypeCase.Terre;
                                 break;
                             }
                         case '0':
@@ -85,7 +87,7 @@ namespace ForeignJump
                             }
                         case '2':
                             {
-
+                                piece.Add(new Rectangle((int) objet.position.X, (int) objet.position.Y, (int) objet.container.Width,(int) objet.container.Height));
                                 objet.texture = Ressources.GetPerso(Perso.Choisi).piece;
                                 objet.type = TypeCase.Piece;
                                 break;
