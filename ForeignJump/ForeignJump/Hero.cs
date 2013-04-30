@@ -88,7 +88,7 @@ namespace ForeignJump
                     Map.avancerapide[i] = new Rectangle(Convert.ToInt32(32), Convert.ToInt32(32), 45, 45);
                     bonusVitesse = true;
                     t0 = Convert.ToInt32(gameTime.TotalGameTime.TotalSeconds);
-
+                    //MOTEUR A PARTICULES A METTRE ICI
                 }
             }
             #endregion
@@ -120,6 +120,7 @@ namespace ForeignJump
                     Map.piece[i] = new Rectangle(Convert.ToInt32(32), Convert.ToInt32(32), 45, 45);
                     AudioRessources.wingold.Play(AudioRessources.volume, 0f, 0f);
                     pieces++;
+                    //MOTEUR A PARTICULES A METTRE ICI
                 }
             }
             #endregion

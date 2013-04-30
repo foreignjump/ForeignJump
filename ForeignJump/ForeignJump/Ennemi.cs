@@ -181,13 +181,24 @@ namespace ForeignJump
                     vitesse.Y = 0;
                     positionGlobale.Y = objet.container.Y - container.Height;
                 }
+
+                //collision côté droit hero
+                if (objet.type == TypeCase.Terre)
+                {
+                    if (container.X + container.Width >= objet.container.X &&
+                        lastPos.Y + container.Height > objet.container.Y)
+                    {
+                        //MOTEUR A PARTICULES A METTRE ICI
+
+                        map.Objets[(int)(objet.container.X / 45), (int)(objet.container.Y / 45)].texture = Ressources.GetPerso(Perso.Choisi).nulle;
+                    }
+                }
             }
 
             if (container.Intersects(hero.container))
             {
                 GameState.State = "GameOver";
             }
-
         }
     }
 }
