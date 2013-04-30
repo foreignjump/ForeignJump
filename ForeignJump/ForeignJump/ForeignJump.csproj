@@ -113,6 +113,8 @@
     <Compile Include="Button.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="ContentLoad.cs" />
+    <Compile Include="Ennemi.cs" />
+    <Compile Include="GameOver.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="InputKeyboard.cs" />

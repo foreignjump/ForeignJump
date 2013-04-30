@@ -20,7 +20,7 @@ namespace ForeignJump
 
         public Texture2D textureAnime;
 
-        public Animate heroAnime;
+        public Animate personnageAnime;
 
         //physique
         public Vector2 positionGlobale;
@@ -28,6 +28,8 @@ namespace ForeignJump
         public Vector2 positionLocale;
 
         public Vector2 positionInitiale;
+
+        public Vector2 lastPos;
 
         public Vector2 vitesse;
 

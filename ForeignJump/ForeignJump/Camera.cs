@@ -16,6 +16,7 @@ namespace ForeignJump
     {
         private Map map;
         private Hero hero;
+        private Ennemi ennemi;
 
         private Vector2 position;
         public Vector2 Position
@@ -24,10 +25,11 @@ namespace ForeignJump
             set { position = value; }
         }
 
-        public Camera(Map map, Hero hero)
+        public Camera(Map map, Hero hero, Ennemi ennemi)
         {
             this.map = map;
             this.hero = hero;
+            this.ennemi = ennemi;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -43,6 +45,7 @@ namespace ForeignJump
  //           spriteBatch.DrawString(hero.font, "Rectangle: (" + Convert.ToString(hero.currentObjet.container.X) + " , " + Convert.ToString(hero.currentObjet.container.Y) + ")", new Vector2(20, 135), Color.Red);
 
             hero.Draw(spriteBatch, position);
+            ennemi.Draw(spriteBatch, position);
 
    //         spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barre, new Rectangle((int)(hero.currentObjet.container.X - position.X), hero.currentObjet.container.Y, hero.currentObjet.container.Width, hero.currentObjet.container.Height), Color.Green);
 

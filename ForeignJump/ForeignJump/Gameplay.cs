@@ -16,13 +16,16 @@ namespace ForeignJump
 	{
         private Map map;
         private Hero hero;
+        private Ennemi ennemi;
         private Camera camera;
 
         public void Initialize()
         {
             map = new Map("map.txt");
             hero = new Hero(Ressources.GetPerso(Perso.Choisi).heroAnime, new Vector2(0, 500), new Vector2(200, 0), 600, map);
-            camera = new Camera(map, hero);
+            ennemi = new Ennemi(Ressources.GetPerso(Perso.Choisi).ennemiAnime, new Vector2(-100, 500), hero, map);
+            hero.ennemi = ennemi;
+            camera = new Camera(map, hero, ennemi);
         }
 
         public void LoadContent()
@@ -39,6 +42,7 @@ namespace ForeignJump
             hero.positionLocale.X = hero.positionGlobale.X - camera.Position.X + hero.positionInitiale.X;
             hero.positionLocale.Y = hero.positionGlobale.Y;
             hero.Update(gameTime, 0.3f);
+            ennemi.Update(gameTime, 0.3f);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)

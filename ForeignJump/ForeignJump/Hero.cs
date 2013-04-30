@@ -15,27 +15,33 @@ namespace ForeignJump
     {
         public SpriteFont font;
 
-        private bool jumping;
+        //private bool jumping;
 
-        public Vector2 Position
-        {
-            get { return positionGlobale; }
-            set { positionGlobale = value; }
-        }
-        private Vector2 lastPos;
-
+        //map actuelle
         private Map map;
 
+        //objet en collision
         private Objet currentObjet;
 
-        //***moteur particule****
+        //ennemi
+        public Ennemi ennemi;
+        
+        //moteur à particules
         private Particule particulefeu;
+
+        //nombre de pièces
+        int pieces;
+
+        bool bonusVitesse;
+        
+        //temps de vitesse augumenté
+        int t0, t1;
 
         public Hero(Animate textureAnime, Vector2 position, Vector2 vitesse, float poids, Map map)
         {
             this.texture = Ressources.GetPerso(Perso.Choisi).heroTexture;
             this.textureAnime = Ressources.GetPerso(Perso.Choisi).heroTextureAnime;
-            this.heroAnime = Ressources.GetPerso(Perso.Choisi).heroAnime;
+            this.personnageAnime = Ressources.GetPerso(Perso.Choisi).heroAnime;
             this.positionGlobale = position;
             this.positionInitiale = position;
             this.vitesse = vitesse;
@@ -50,7 +56,9 @@ namespace ForeignJump
 
             particulefeu = new Particule();
             particulefeu.LoadContent();
-            jumping = false;
+            //jumping = false;
+            pieces = 0;
+            bonusVitesse = false;
             font = Ressources.GetPerso(Perso.Choisi).font;
 
         }
@@ -58,16 +66,63 @@ namespace ForeignJump
         public void Jump()
         {
             force = new Vector2(0, -20000);
-            jumping = true;
+            //jumping = true;
         }
 
         public void Update(GameTime gameTime, float speed)
         {
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            heroAnime.Update(speed); //Animation
+            personnageAnime.Update(speed); //Animation
 
             container = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y, 45, 45);
+
+            #region Test collision bonusVitesse
+
+            for (int i = 0; i < Map.avancerapide.Count; i++)
+            {
+                if (container.Intersects(Map.avancerapide[i]))
+                {
+
+                    map.Objets[Map.avancerapide[i].X / 45, Map.avancerapide[i].Y / 45] = map.Objets[1, 1];
+                    Map.avancerapide[i] = new Rectangle(Convert.ToInt32(32), Convert.ToInt32(32), 45, 45);
+                    bonusVitesse = true;
+                    t0 = Convert.ToInt32(gameTime.TotalGameTime.TotalSeconds);
+
+                }
+            }
+            #endregion
+
+            #region Bonus Vitesse
+            if (bonusVitesse)
+            {
+                t1 = Convert.ToInt32(gameTime.TotalGameTime.TotalSeconds);
+                AudioRessources.wingold.Play(AudioRessources.volume, 0f, 0f);
+                AudioRessources.wingold.Play(AudioRessources.volume, 0f, 0f);
+                AudioRessources.wingold.Play(AudioRessources.volume, 0f, 0f);
+                AudioRessources.wingold.Play(AudioRessources.volume, 0f, 0f);
+                AudioRessources.wingold.Play(AudioRessources.volume, 0f, 0f);
+
+                positionGlobale.X += 14;
+                ennemi.positionGlobale.X += 14;
+
+                if (t1 - t0 > 10)
+                    bonusVitesse = false;
+            }
+            #endregion
+
+            #region Test collision pièce
+            for (int i = 0; i < Map.piece.Count; i++)
+            {
+                if (container.Intersects(Map.piece[i]))
+                {
+                    map.Objets[Map.piece[i].X / 45, Map.piece[i].Y / 45] = map.Objets[1, 1];
+                    Map.piece[i] = new Rectangle(Convert.ToInt32(32), Convert.ToInt32(32), 45, 45);
+                    AudioRessources.wingold.Play(AudioRessources.volume, 0f, 0f);
+                    pieces++;
+                }
+            }
+            #endregion
 
             #region Test cases adjacentes
             currentObjet = new Objet();
@@ -78,16 +133,6 @@ namespace ForeignJump
             int posX = (int)(container.X / 45);
 
             int currentX = posX + 1, currentY = posY;
-            #region piece
-            for (int i = 0; i < Map.piece.Count; i++)
-            {
-                if (container.Intersects(Map.piece[i]))
-                {
-                    map.Objets[Map.piece[i].X / 45 , Map.piece[i].Y /45 ].position = new Vector2(1, 1);
-                }
-            }
-            #endregion
-
             if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
             {
                 currentObjet.container.X = currentX * 45;
@@ -219,8 +264,10 @@ namespace ForeignJump
             //spriteBatch.Draw(texture, new Rectangle((int)(positionGlobale.X + positionInitiale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.White);
 
             spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barre, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.Red);
-
-//            spriteBatch.DrawString(font, Convert.ToString(bottom), new Vector2(30, 40), Color.White);
+            spriteBatch.DrawString(font, "Nombre de Pieces :" + Convert.ToString(pieces), new Vector2(30, 40), Color.White);
+            
+            if (bonusVitesse)
+                spriteBatch.DrawString(font, "Super-Man", new Vector2(200, 200), Color.White);
         }
 
         private void testCollision(Objet objet)
@@ -231,8 +278,8 @@ namespace ForeignJump
                 if (container.X + container.Width >= objet.container.X &&
                     lastPos.Y + container.Height > objet.container.Y)
                 {
-//                    vitesse.X = 0;
                     positionGlobale.X = objet.container.X - container.Width - 1;
+                    bonusVitesse = false;
                 }
 
                 //collision bas hero

@@ -17,6 +17,7 @@ namespace ForeignJump
         StreamReader stream;
         //
         public static List<Rectangle> piece = new List<Rectangle>();
+        public static List<Rectangle> avancerapide = new List<Rectangle>();
         //
         private Objet[,] objets;
         public Objet[,] Objets
@@ -87,9 +88,16 @@ namespace ForeignJump
                             }
                         case '2':
                             {
-                                piece.Add(new Rectangle((int) objet.position.X, (int) objet.position.Y, (int) objet.container.Width,(int) objet.container.Height));
+                                piece.Add(new Rectangle((int)objet.position.X, (int)objet.position.Y, (int)objet.container.Width, (int)objet.container.Height));
                                 objet.texture = Ressources.GetPerso(Perso.Choisi).piece;
                                 objet.type = TypeCase.Piece;
+                                break;
+                            }
+                        case 'o':
+                            {
+                                avancerapide.Add(new Rectangle((int)objet.position.X, (int)objet.position.Y, (int)objet.container.Width, (int)objet.container.Height));
+                                objet.texture = Ressources.GetPerso(Perso.Choisi).piece;
+                                objet.type = TypeCase.AvanceRapide;
                                 break;
                             }
                         default:

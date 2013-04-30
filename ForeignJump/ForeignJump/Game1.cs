@@ -24,6 +24,7 @@ namespace ForeignJump
         private MenuOptions menuoptions; //déclaration du menu options
         private MenuChoose menuchoose; //déclaration du menu de choix de personnage
         private Gameplay game; //déclaration du gameplay
+        private GameOver gameover;
         
         private AudioPlay audioPlay;
 
@@ -67,6 +68,9 @@ namespace ForeignJump
             menuchoose = new MenuChoose(game, Content);
             menuchoose.Initialize(); //initialisation menu options
 
+            gameover = new GameOver(game);
+            gameover.Initialize();
+
             audioPlay = new AudioPlay(1f);
             GameState.State = "initial"; //mise à l'état initial
 
@@ -87,7 +91,7 @@ namespace ForeignJump
             menuaide.LoadContent(Content); //charger menu aide
             menuoptions.LoadContent(Content); //charger menu options
             menuchoose.LoadContent(); //charger menu choix de personnage
-            
+            gameover.LoadContent(Content);
         }
 
    
@@ -124,6 +128,8 @@ namespace ForeignJump
             if (GameState.State == "menuChoose") //mise à jour menu aide
                 menuchoose.Update(gameTime, 5);
 
+            if (GameState.State == "GameOver") //game over
+                gameover.Update();
 
             KB.Old = KB.New;
 
@@ -157,6 +163,9 @@ namespace ForeignJump
 
             if (GameState.State == "menuChoose") //afficher menu pause
                 menuchoose.Draw(spriteBatch, gameTime);
+
+            if (GameState.State == "GameOver") //afficher le pen
+                gameover.Draw(spriteBatch);
 
             spriteBatch.End(); //FIN
 
