@@ -16,8 +16,9 @@ namespace ForeignJump
     {
         StreamReader stream;
         //
-        public static List<Rectangle> piece = new List<Rectangle>();
-        public static List<Rectangle> avancerapide = new List<Rectangle>();
+        public static List<Rectangle> ListPiece = new List<Rectangle>();
+        public static List<Rectangle> ListBonusSpeed = new List<Rectangle>();
+        public static List<Rectangle> ListBonusGame = new List<Rectangle>();
         //
         private Objet[,] objets;
         public Objet[,] Objets
@@ -46,7 +47,6 @@ namespace ForeignJump
                     Objet objet = new Objet();
                     objet.position = new Vector2(i * 45, j * 45);
                     objet.container = new Rectangle((int)objet.position.X, (int)objet.position.Y, 45, 45);
-
 
                     switch (chara)
                     {
@@ -88,16 +88,23 @@ namespace ForeignJump
                             }
                         case '2':
                             {
-                                piece.Add(new Rectangle((int)objet.position.X, (int)objet.position.Y, (int)objet.container.Width, (int)objet.container.Height));
+                                ListPiece.Add(new Rectangle((int)objet.position.X, (int)objet.position.Y, (int)objet.container.Width, (int)objet.container.Height));
                                 objet.texture = Ressources.GetPerso(Perso.Choisi).piece;
                                 objet.type = TypeCase.Piece;
                                 break;
                             }
                         case 'o':
                             {
-                                avancerapide.Add(new Rectangle((int)objet.position.X, (int)objet.position.Y, (int)objet.container.Width, (int)objet.container.Height));
+                                ListBonusSpeed.Add(new Rectangle((int)objet.position.X, (int)objet.position.Y, (int)objet.container.Width, (int)objet.container.Height));
                                 objet.texture = Ressources.GetPerso(Perso.Choisi).piece;
                                 objet.type = TypeCase.AvanceRapide;
+                                break;
+                            }
+                        case 'B':
+                            {
+                                ListBonusGame.Add(new Rectangle((int)objet.position.X, (int)objet.position.Y, (int)objet.container.Width, (int)objet.container.Height));
+                                objet.texture = Ressources.GetPerso(Perso.Choisi).piece;
+                                objet.type = TypeCase.BonusGame;
                                 break;
                             }
                         default:

@@ -16,7 +16,7 @@ namespace ForeignJump
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         MouseState mouseStateCurrent;
-
+        
         private Menu menu; //déclaration de menu initial
         private MenuPause menupause; //déclaration de menu pause
         private MenuPauseAide menupauseaide; //déclaration de menu pause
@@ -24,7 +24,8 @@ namespace ForeignJump
         private MenuOptions menuoptions; //déclaration du menu options
         private MenuChoose menuchoose; //déclaration du menu de choix de personnage
         private Gameplay game; //déclaration du gameplay
-        private GameOver gameover;
+        private GameOver gameover; //déclaration du gameover
+        private newGame newgame; //déclaration du popup du nouveau jeu
         
         private AudioPlay audioPlay;
 
@@ -71,6 +72,10 @@ namespace ForeignJump
             gameover = new GameOver(game);
             gameover.Initialize();
 
+            newgame = new newGame();
+            newgame.Initialize();
+
+
             audioPlay = new AudioPlay(1f);
             GameState.State = "initial"; //mise à l'état initial
 
@@ -92,6 +97,7 @@ namespace ForeignJump
             menuoptions.LoadContent(Content); //charger menu options
             menuchoose.LoadContent(); //charger menu choix de personnage
             gameover.LoadContent(Content);
+            newgame.LoadContent(Content);
         }
 
    
@@ -131,6 +137,9 @@ namespace ForeignJump
             if (GameState.State == "GameOver") //game over
                 gameover.Update();
 
+            if (GameState.State == "newGame")
+                newgame.Update(gameTime, game);
+
             KB.Old = KB.New;
 
             base.Update(gameTime);
@@ -166,6 +175,12 @@ namespace ForeignJump
 
             if (GameState.State == "GameOver") //afficher le pen
                 gameover.Draw(spriteBatch);
+
+            if (GameState.State == "newGame")
+            {
+                game.Draw(spriteBatch, gameTime);
+                newgame.Draw(spriteBatch);
+            }
 
             spriteBatch.End(); //FIN
 

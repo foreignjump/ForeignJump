@@ -11,16 +11,14 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-    public enum TypeCase { Terre, Sousterre, Eau, Null, Piece, Bonus, Obstacle, AvanceRapide, BonusGame};
-
-    public class Objet
+    public static class Statistiques
     {
-        public Texture2D texture;
+        static int score ;
 
-        public Vector2 position;
-
-        public Rectangle container;
-        
-        public TypeCase type;
+        public static int Score
+        {
+            get { return score; }
+            set { score = value; }
+        }
     }
 }

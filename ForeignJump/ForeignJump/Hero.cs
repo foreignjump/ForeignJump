@@ -77,15 +77,30 @@ namespace ForeignJump
 
             container = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y, 45, 45);
 
+            force.Y = 600;
+
+            #region Test collision bonusGame
+            for (int i = 0; i < Map.ListBonusGame.Count; i++)
+            {
+                if (container.Intersects(Map.ListBonusGame[i]))
+                {
+                    map.Objets[Map.ListBonusGame[i].X / 45, Map.ListBonusGame[i].Y / 45] = map.Objets[1, 1];
+                    Map.ListBonusGame[i] = new Rectangle(0, 0, 45, 45);
+                    AudioRessources.wingold.Play(AudioRessources.volume, 0f, 0f);
+                    GameState.State = "newGame";
+                    //MOTEUR A PARTICULES A METTRE ICI
+                }
+            }
+            #endregion
+
             #region Test collision bonusVitesse
 
-            for (int i = 0; i < Map.avancerapide.Count; i++)
+            for (int i = 0; i < Map.ListBonusSpeed.Count; i++)
             {
-                if (container.Intersects(Map.avancerapide[i]))
+                if (container.Intersects(Map.ListBonusSpeed[i]))
                 {
-
-                    map.Objets[Map.avancerapide[i].X / 45, Map.avancerapide[i].Y / 45] = map.Objets[1, 1];
-                    Map.avancerapide[i] = new Rectangle(Convert.ToInt32(32), Convert.ToInt32(32), 45, 45);
+                    map.Objets[Map.ListBonusSpeed[i].X / 45, Map.ListBonusSpeed[i].Y / 45] = map.Objets[1, 1];
+                    Map.ListBonusSpeed[i] = new Rectangle(0, 0, 45, 45);
                     bonusVitesse = true;
                     t0 = Convert.ToInt32(gameTime.TotalGameTime.TotalSeconds);
                     //MOTEUR A PARTICULES A METTRE ICI
@@ -112,14 +127,15 @@ namespace ForeignJump
             #endregion
 
             #region Test collision pièce
-            for (int i = 0; i < Map.piece.Count; i++)
+            for (int i = 0; i < Map.ListPiece.Count; i++)
             {
-                if (container.Intersects(Map.piece[i]))
+                if (container.Intersects(Map.ListPiece[i]))
                 {
-                    map.Objets[Map.piece[i].X / 45, Map.piece[i].Y / 45] = map.Objets[1, 1];
-                    Map.piece[i] = new Rectangle(Convert.ToInt32(32), Convert.ToInt32(32), 45, 45);
+                    map.Objets[Map.ListPiece[i].X / 45, Map.ListPiece[i].Y / 45] = map.Objets[1, 1];
+                    Map.ListPiece[i] = new Rectangle(0, 0, 45, 45);
                     AudioRessources.wingold.Play(AudioRessources.volume, 0f, 0f);
-                    pieces++;
+                    //score mis à jour
+                    Statistiques.Score++;
                     //MOTEUR A PARTICULES A METTRE ICI
                 }
             }
@@ -233,10 +249,6 @@ namespace ForeignJump
             
             #endregion
 
-            Vector2 acceleration = poids + force; //somme des forces = masse * acceleration
-
-            vitesse += acceleration * dt;
-            positionGlobale += vitesse * dt;
 
             #region kb
             if (KB.New.IsKeyDown(Keys.Right))
@@ -245,15 +257,26 @@ namespace ForeignJump
             if (KB.New.IsKeyDown(Keys.Left))
                 positionGlobale.X -= 5;
 
-            if (KB.New.IsKeyDown(Keys.Up))
-                positionGlobale.Y -= 11;
+            if (KB.New.IsKeyDown(Keys.Up) && vitesse.Y == 0)
+                force.Y -= 45000;
 
-            if (KB.New.IsKeyDown(Keys.Down))
-               // positionGlobale.Y += 30;
+            if (KB.New.IsKeyDown(Keys.Down) && vitesse.Y != 0)
+                force.Y += 8500;
             #endregion
 
+            Vector2 acceleration = poids + force; //somme des forces = masse * acceleration
+
+            vitesse += acceleration * dt;
+            positionGlobale += vitesse * dt;
+
+            //mise à jour de la position d'avant
             lastPos.X = container.X;
             lastPos.Y = container.Y;
+
+            //si il tombe dans le vide
+            if (positionGlobale.Y >= 800)
+                GameState.State = "GameOver";
+        
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 positionCam)
@@ -265,7 +288,6 @@ namespace ForeignJump
             //spriteBatch.Draw(texture, new Rectangle((int)(positionGlobale.X + positionInitiale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.White);
 
             spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barre, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.Red);
-            spriteBatch.DrawString(font, "Nombre de Pieces :" + Convert.ToString(pieces), new Vector2(30, 40), Color.White);
             
             if (bonusVitesse)
                 spriteBatch.DrawString(font, "Super-Man", new Vector2(200, 200), Color.White);
@@ -273,47 +295,35 @@ namespace ForeignJump
 
         private void testCollision(Objet objet)
         {
-            if (container.Intersects(objet.container))
+            if (container.Intersects(objet.container) && container.X + container.Width <= objet.container.X + objet.container.Width)
             {
-                //collision côté droit hero
-                if (container.X + container.Width >= objet.container.X &&
-                    lastPos.Y + container.Height > objet.container.Y)
+                /*
+                //collision top hero
+                if (lastPos.Y > objet.container.Y + objet.container.Height &&
+                    container.X + container.Width >= objet.container.X &&
+                    container.Y <= objet.container.Y + objet.container.Height)
                 {
-                    positionGlobale.X = objet.container.X - container.Width - 1;
+                    vitesse.Y = 0;
+                    positionGlobale.Y = objet.container.Y + objet.container.Height;
+                }*/
+
+                //collision côté droit hero
+                if (lastPos.Y + container.Height > objet.container.Y &&
+                    container.X + container.Width >= objet.container.X)
+                {
                     bonusVitesse = false;
+                    positionGlobale.X = objet.container.X - container.Width - 1;
                 }
 
                 //collision bas hero
-                if (container.X + container.Width >= objet.container.X &&
-                    lastPos.Y + container.Height <= objet.container.Y &&
+                if (lastPos.Y + container.Height <= objet.container.Y &&
+                    (container.X >= objet.container.X ||
+                    container.X <= objet.container.X + objet.container.Width) &&
                     container.Y + container.Height >= objet.container.Y)
                 {
                     vitesse.Y = 0;
                     positionGlobale.Y = objet.container.Y - container.Height;
                 }
-                
-
-
-                /*
-               //ça rentre jamais?!
-               if (container.X + container.Width >= objet.container.X &&
-                  lastPos.Y >= objet.container.Y + objet.container.Height &&
-                  container.Y <= objet.container.Y + objet.container.Width)
-               {
-                   vitesse.X = 0;
-                   positionGlobale.X = objet.container.X - objet.container.Width;
-               }
-
-                */
-
-                /*   //rentre jamais
-                   if (container.X + container.Width <= objet.container.X &&
-                      lastPos.Y >= objet.container.Y)
-                   {
-                       vitesse.X = 0;
-                       positionGlobale.X = objet.container.X - container.Width;
-                   }
-                  */
             }
 
         }

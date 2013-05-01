@@ -23,7 +23,7 @@ namespace ForeignJump
         public static void Load()
         {
             #region renoi
-            
+
             renoi = new Niveau();
             //menuChoose
             renoi.persoMenu = Content.Load<Texture2D>("Menu/Choose/renoi/perso");
@@ -47,6 +47,7 @@ namespace ForeignJump
             renoi.heroTexture = Content.Load<Texture2D>("Perso/renoi/hero6");
             renoi.heroTextureAnime = Content.Load<Texture2D>("Perso/renoi/hero6anime");
             renoi.heroAnime = new Animate(renoi.heroTextureAnime, 1, 12);
+            renoi.name = "Moussa";
 
             //game
             renoi.bg = Content.Load<Texture2D>("Perso/renoi/bg");
@@ -84,6 +85,7 @@ namespace ForeignJump
             roumain.heroTexture = Content.Load<Texture2D>("Perso/roumain/hero6");
             roumain.heroTextureAnime = Content.Load<Texture2D>("Perso/roumain/hero6anime");
             roumain.heroAnime = new Animate(roumain.heroTextureAnime, 1, 12);
+            roumain.name = "Andrei";
 
             //game
             roumain.bg = Content.Load<Texture2D>("Perso/roumain/bg");
@@ -103,7 +105,7 @@ namespace ForeignJump
                 return renoi;
             else
                 return roumain;
-            
+
         }
     }
 }

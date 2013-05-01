@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 namespace ForeignJump
 {
     public class Niveau
-    {   
+    {
         //menuChoose
         public Texture2D persoMenu;
         public Texture2D nameMenu;
@@ -30,11 +30,12 @@ namespace ForeignJump
         public Texture2D piece;
         public Texture2D sousterre;
         public String path;
-        
+
         //hero
         public Texture2D heroTexture;
         public Texture2D heroTextureAnime;
         public Animate heroAnime;
+        public string name;
 
         //game
         public Texture2D bg;
@@ -46,6 +47,6 @@ namespace ForeignJump
         public Texture2D texture;
         public Animate ennemiAnime;
 
-        
+
     }
 }

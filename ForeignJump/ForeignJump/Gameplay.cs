@@ -14,6 +14,8 @@ namespace ForeignJump
 {
 	class Gameplay
 	{
+        public SpriteFont font;
+
         private Map map;
         private Hero hero;
         private Ennemi ennemi;
@@ -22,10 +24,12 @@ namespace ForeignJump
         public void Initialize()
         {
             map = new Map("map.txt");
-            hero = new Hero(Ressources.GetPerso(Perso.Choisi).heroAnime, new Vector2(0, 500), new Vector2(300, 0), 600, map);
+            hero = new Hero(Ressources.GetPerso(Perso.Choisi).heroAnime, new Vector2(0, 500), new Vector2(200, 0), 90, map);
             ennemi = new Ennemi(Ressources.GetPerso(Perso.Choisi).ennemiAnime, new Vector2(-100, 500), hero, map);
             hero.ennemi = ennemi;
             camera = new Camera(map, hero, ennemi);
+            ennemi.camera = this.camera;
+            font = Ressources.GetPerso(Perso.Choisi).font;
         }
 
         public void LoadContent()
@@ -47,7 +51,8 @@ namespace ForeignJump
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            camera.Draw(spriteBatch);  
+            camera.Draw(spriteBatch);
+            spriteBatch.DrawString(font, "Nombre de Pieces :" + Convert.ToString(Statistiques.Score), new Vector2(30, 40), Color.White);
         }
 
 	}
