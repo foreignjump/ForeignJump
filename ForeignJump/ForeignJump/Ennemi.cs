@@ -21,19 +21,10 @@ namespace ForeignJump
 
         public SpriteFont font;
 
-        private float distance;
-        public float Distance
-        {
-            get { return distance; }
-            set { distance = value; }
-        }
-
         private Objet currentObjet;
 
         //particules
-        private Particule particulefeu;
         ParticleComponent particleComponent;
-        bool activpart;
         
         public Ennemi(Animate textureAnime, Vector2 position, Hero hero, Map map)
         {
@@ -48,19 +39,14 @@ namespace ForeignJump
             this.force = Vector2.Zero;
             this.reaction = Vector2.Zero;
             this.map = map;
-            this.distance = hero.positionGlobale.X - positionGlobale.X;
             this.currentObjet = new Objet();
             this.hero = hero;
 
             font = Ressources.GetPerso(Perso.Choisi).font;
 
-            //particules
-            particulefeu = new Particule();
-            particulefeu.LoadContent();
-            
             //moteur à particules
-            particleComponent = new ParticleComponent(ContentLoad.Game);
-            ContentLoad.Game.Components.Add(particleComponent);
+            particleComponent = new ParticleComponent(Ressources.Game);
+            Ressources.Game.Components.Add(particleComponent);
             Emitter fireEmitter = new Emitter();
             fireEmitter.Active = false;
             fireEmitter.TextureList.Add(Ressources.GetPerso(Perso.Choisi).obstacle);
@@ -73,8 +59,23 @@ namespace ForeignJump
             fireEmitter.ParticleFader = new ParticleFader(false, true, 30);
             fireEmitter.ParticleScaler = new ParticleScaler(0.2f, 0.18f, 0, 100);
             fireEmitter.Position = new Vector2(400, 650);
-            
+            //******piece*********
+            Emitter desinté_piece = new Emitter();
+            desinté_piece.Active = false;
+            desinté_piece.TextureList.Add(Ressources.GetPerso(Perso.Choisi).piece);
+            desinté_piece.RandomEmissionInterval = new RandomMinMax(50);
+            desinté_piece.ParticleLifeTime = 9000;
+            desinté_piece.ParticleDirection = new RandomMinMax(270, 300);
+            desinté_piece.ParticleSpeed = new RandomMinMax(10, 20); // g modifié le moteur a particule;
+            desinté_piece.ParticleRotation = new RandomMinMax(0, 180);
+            desinté_piece.RotationSpeed = new RandomMinMax(0.04f);
+            desinté_piece.ParticleFader = new ParticleFader(false, true, 30);
+            desinté_piece.ParticleScaler = new ParticleScaler(1.2f, 0.18f, 0, 100);
+            desinté_piece.Position = new Vector2(400, 650);
             particleComponent.particleEmitterList.Add(fireEmitter);
+            particleComponent.particleEmitterList.Add(desinté_piece);
+            particleComponent.particleEmitterList.Add(fireEmitter);
+
         }
 
         public void Update(GameTime gameTime, float speed)
@@ -188,13 +189,6 @@ namespace ForeignJump
 
         public void Draw(SpriteBatch spriteBatch, Vector2 positionCam)
         {
-            int activeParticles = 0;
-            foreach (Emitter activeEmitters in particleComponent.particleEmitterList)
-            {
-                activeParticles += activeEmitters.ParticleList.Count();
-            }
-            particulefeu.Draw();
-
             spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barre, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.AliceBlue);
 
             //spriteBatch.DrawString(font, Convert.ToString(bottom), new Vector2(30, 40), Color.White);
@@ -204,6 +198,7 @@ namespace ForeignJump
         {
             //création nouvelle particule
             Emitter t3 = particleComponent.particleEmitterList[0];
+            Emitter t4 = particleComponent.particleEmitterList[1];
 
             if (container.Intersects(objet.container))
             {
@@ -215,9 +210,9 @@ namespace ForeignJump
                     vitesse.Y = 0;
                     positionGlobale.Y = objet.container.Y - container.Height;
                 }
-                
+
                 //collision côté droit ennemi
-                if (objet.type == TypeCase.Terre)
+                if (map.Objets[(int)(objet.container.X / 45), (int)(objet.container.Y / 45)].type == TypeCase.Terre)
                 {
                     if (container.X + container.Width >= objet.container.X &&
                         lastPos.Y + container.Height > objet.container.Y && GameState.State == "inGame")
@@ -242,6 +237,33 @@ namespace ForeignJump
                 else
                 {
                     t3.Active = false;
+                    // activpart = false;
+                }
+                if (map.Objets[(int)(objet.container.X / 45), (int)(objet.container.Y / 45)].type == TypeCase.Piece)
+                {
+                    if (container.X + container.Width >= objet.container.X &&
+                        lastPos.Y + container.Height > objet.container.Y && GameState.State == "inGame")
+                    {
+
+                        t4.Active = true;
+                        t4.ParticleSpeed = new RandomMinMax(0.6f);
+                        float Y = t3.Position.X;
+                        Y = Y + 1.5f;
+                        t4.Position = new Vector2(positionGlobale.X - camera.Position.X, positionGlobale.Y);
+
+                        map.Objets[(int)(objet.container.X / 45), (int)(objet.container.Y / 45)].texture = Ressources.GetPerso(Perso.Choisi).nulle;
+
+                        //t3.Active = false;
+                    }
+                    else
+                    {
+                        t4.Active = false;
+                        // activpart = false;
+                    }
+                }
+                else
+                {
+                    t4.Active = false;
                     // activpart = false;
                 }
             }

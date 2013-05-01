@@ -110,9 +110,10 @@
     <Compile Include="Animate.cs" />
     <Compile Include="AudioPlay.cs" />
     <Compile Include="AudioRessources.cs" />
+    <Compile Include="Bonus.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="Camera.cs" />
-    <Compile Include="ContentLoad.cs" />
+    <Compile Include="KeyBonusGame.cs" />
     <Compile Include="Ennemi.cs" />
     <Compile Include="GameOver.cs" />
     <Compile Include="GameState.cs" />
@@ -127,7 +128,6 @@
     <Compile Include="MenuPauseAide.cs" />
     <Compile Include="Niveau.cs" />
     <Compile Include="Objet.cs" />
-    <Compile Include="Particule.cs" />
     <Compile Include="Perso.cs" />
     <Compile Include="Personnage.cs" />
     <Compile Include="Pong\newGame.cs" />

@@ -18,7 +18,8 @@ namespace X2DPE
     {
         // TODO: multiple emitters per loop !!
         EmitterHelper emitterHelper = new EmitterHelper();
-
+        public static bool bombe;
+        public static bool statut;
         public List<Particle> ParticleList { get; set; }
         public bool EmittedNewParticle { get; set; }
         public Particle LastEmittedParticle { get; set; }
@@ -101,34 +102,57 @@ namespace X2DPE
 
         private void EmitParticle()
         {
-            if (i > TextureList.Count - 1) i = 0;
+            if (!bombe)
+            {
+                if (i > TextureList.Count - 1) i = 0;
 
-            Particle particle = new Particle(TextureList[i],
-                                                                             Position,
-                                                                             (float)emitterHelper.RandomizedDouble(new RandomMinMax(10,20)),
-                                                                             (float)emitterHelper.RandomizedDouble(ParticleDirection),
-                                                                             MathHelper.ToRadians((float)emitterHelper.RandomizedDouble(ParticleRotation)),
-                                                                             (float)emitterHelper.RandomizedDouble(RotationSpeed),
-                                                                             Opacity);
-            ParticleList.Add(particle);
-            EmittedNewParticle = true;
-            LastEmittedParticle = particle;
-            i++;
+                Particle particle = new Particle(TextureList[i],
+                                                                                 Position,
+                                                                                 (float)emitterHelper.RandomizedDouble(new RandomMinMax(10, 20)),
+                                                                                 (float)emitterHelper.RandomizedDouble(ParticleDirection),
+                                                                                 MathHelper.ToRadians((float)emitterHelper.RandomizedDouble(ParticleRotation)),
+                                                                                 (float)emitterHelper.RandomizedDouble(RotationSpeed),
+                                                                                 Opacity);
+                ParticleList.Add(particle);
+                EmittedNewParticle = true;
+                LastEmittedParticle = particle;
+                i++;
+            }
+            else
+            {
+                if (i > TextureList.Count - 1) i = 0;
+
+                Particle particle = new Particle(TextureList[i],
+                                                                                 Position,
+                                                                                 (float)emitterHelper.RandomizedDouble(ParticleSpeed),
+                                                                                 (float)emitterHelper.RandomizedDouble(ParticleDirection),
+                                                                                 MathHelper.ToRadians((float)emitterHelper.RandomizedDouble(ParticleRotation)),
+                                                                                 (float)emitterHelper.RandomizedDouble(RotationSpeed),
+                                                                                 Opacity);
+                ParticleList.Add(particle);
+                EmittedNewParticle = true;
+                LastEmittedParticle = particle;
+                i++;
+            }
         }
 
         public void DrawParticles(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            foreach (Particle particle in ParticleList)
+            if (statut)
             {
-                spriteBatch.Draw(particle.Texture,
-                                                 particle.Position,
-                                                 null,
-                                                 particle.Color,
-                                                 particle.Rotation,
-                                                 particle.Center,
-                                                 particle.Scale,
-                                                 SpriteEffects.None,
-                                                 0);
+
+                foreach (Particle particle in ParticleList)
+                {
+                    spriteBatch.Draw(particle.Texture,
+                                                     particle.Position,
+                                                     null,
+                                                     particle.Color,
+                                                     particle.Rotation,
+                                                     particle.Center,
+                                                     particle.Scale,
+                                                     SpriteEffects.None,
+                                                     0);
+                }
             }
         }
     }

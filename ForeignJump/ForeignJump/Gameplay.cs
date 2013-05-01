@@ -21,6 +21,16 @@ namespace ForeignJump
         private Ennemi ennemi;
         private Camera camera;
 
+        private float distance;
+        public float Distance
+        {
+            get { return distance; }
+            set { distance = value; }
+        }
+
+        private Texture2D barre;
+        private Texture2D glass;
+
         public void Initialize()
         {
             map = new Map("map.txt");
@@ -29,12 +39,18 @@ namespace ForeignJump
             hero.ennemi = ennemi;
             camera = new Camera(map, hero, ennemi);
             ennemi.camera = this.camera;
+
             font = Ressources.GetPerso(Perso.Choisi).font;
+            barre = Ressources.GetPerso(Perso.Choisi).barre;
+            glass = Ressources.GetPerso(Perso.Choisi).glass;
+            
+            distance = hero.positionGlobale.X - ennemi.positionGlobale.X;
         }
 
         public void LoadContent()
         {
             map.Load();
+
         }
 
         public void Update(GameTime gameTime)
@@ -47,12 +63,15 @@ namespace ForeignJump
             hero.positionLocale.Y = hero.positionGlobale.Y;
             hero.Update(gameTime, 0.3f);
             ennemi.Update(gameTime, 0.3f);
+
+            distance = hero.positionGlobale.X - ennemi.positionGlobale.X - hero.container.Width;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             camera.Draw(spriteBatch);
             spriteBatch.DrawString(font, "Nombre de Pieces :" + Convert.ToString(Statistiques.Score), new Vector2(30, 40), Color.White);
+            spriteBatch.Draw(barre, new Rectangle(30, 60, (int)distance, barre.Height),Color.White);
         }
 
 	}

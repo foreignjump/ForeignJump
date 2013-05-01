@@ -20,6 +20,8 @@ namespace ForeignJump
 
         public static ContentManager Content;
 
+        public static Game Game;
+
         public static void Load()
         {
             #region renoi

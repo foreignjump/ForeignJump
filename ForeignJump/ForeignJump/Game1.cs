@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using X2DPE;
+using X2DPE.Helpers;
 
 namespace ForeignJump
 {
@@ -26,6 +28,7 @@ namespace ForeignJump
         private Gameplay game; //déclaration du gameplay
         private GameOver gameover; //déclaration du gameover
         private newGame newgame; //déclaration du popup du nouveau jeu
+        private KeyBonusGame keybonusgame; //déclaration du popup du jeu de touches
         
         private AudioPlay audioPlay;
 
@@ -39,9 +42,7 @@ namespace ForeignJump
             graphics.ApplyChanges();
 
             Ressources.Content = Content;
-            AudioRessources.Content = Content;
-            ContentLoad.load = Content;
-            ContentLoad.Game = this;
+            Ressources.Game = this;
         }
 
         protected override void Initialize()
@@ -75,6 +76,9 @@ namespace ForeignJump
             newgame = new newGame();
             newgame.Initialize();
 
+            keybonusgame = new KeyBonusGame();
+            keybonusgame.Initialize();
+
 
             audioPlay = new AudioPlay(1f);
             GameState.State = "initial"; //mise à l'état initial
@@ -98,6 +102,8 @@ namespace ForeignJump
             menuchoose.LoadContent(); //charger menu choix de personnage
             gameover.LoadContent(Content);
             newgame.LoadContent(Content);
+            keybonusgame.LoadContent();
+            
         }
 
    
@@ -140,6 +146,16 @@ namespace ForeignJump
             if (GameState.State == "newGame")
                 newgame.Update(gameTime, game);
 
+            if (GameState.State == "KeyBonusGame")
+                keybonusgame.Update(gameTime);
+
+            //pour que la fumée et feu ne s'affiche que dans le jeu
+            if (GameState.State != "inGame" && GameState.State != "GameOver")
+            {
+                Hero.smokeEmitter.Active = false;
+                Emitter.statut = false;
+            }
+
             KB.Old = KB.New;
 
             base.Update(gameTime);
@@ -180,6 +196,12 @@ namespace ForeignJump
             {
                 game.Draw(spriteBatch, gameTime);
                 newgame.Draw(spriteBatch);
+            }
+
+            if (GameState.State == "KeyBonusGame")
+            {
+                game.Draw(spriteBatch, gameTime);
+                keybonusgame.Draw(spriteBatch);
             }
 
             spriteBatch.End(); //FIN

@@ -28,6 +28,8 @@ namespace ForeignJump
 
         public static void Load()
         {
+            Content = Ressources.Content;
+
             confirmation = Content.Load<SoundEffect>("Sound/confirmation");
             jump = Content.Load<SoundEffect>("Sound/Jump");
             selectiondown = Content.Load<SoundEffect>("Sound/selectionDown");

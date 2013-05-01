@@ -17,8 +17,8 @@ namespace ForeignJump
         StreamReader stream;
         //
         public static List<Rectangle> ListPiece = new List<Rectangle>();
-        public static List<Rectangle> ListBonusSpeed = new List<Rectangle>();
-        public static List<Rectangle> ListBonusGame = new List<Rectangle>();
+        public static List<Rectangle> ListBonus = new List<Rectangle>();
+        public static List<Rectangle> ListBombe = new List<Rectangle>();
         //
         private Objet[,] objets;
         public Objet[,] Objets
@@ -93,18 +93,18 @@ namespace ForeignJump
                                 objet.type = TypeCase.Piece;
                                 break;
                             }
-                        case 'o':
-                            {
-                                ListBonusSpeed.Add(new Rectangle((int)objet.position.X, (int)objet.position.Y, (int)objet.container.Width, (int)objet.container.Height));
-                                objet.texture = Ressources.GetPerso(Perso.Choisi).piece;
-                                objet.type = TypeCase.AvanceRapide;
-                                break;
-                            }
                         case 'B':
                             {
-                                ListBonusGame.Add(new Rectangle((int)objet.position.X, (int)objet.position.Y, (int)objet.container.Width, (int)objet.container.Height));
+                                ListBonus.Add(new Rectangle((int)objet.position.X, (int)objet.position.Y, (int)objet.container.Width, (int)objet.container.Height));
                                 objet.texture = Ressources.GetPerso(Perso.Choisi).piece;
-                                objet.type = TypeCase.BonusGame;
+                                objet.type = TypeCase.Bonus;
+                                break;
+                            }
+                        case 'c':
+                            {
+                                ListBombe.Add(new Rectangle((int)objet.position.X, (int)objet.position.Y, (int)objet.container.Width, (int)objet.container.Height));
+                                objet.texture = Ressources.GetPerso(Perso.Choisi).piece;
+                                objet.type = TypeCase.Bombe;
                                 break;
                             }
                         default:
