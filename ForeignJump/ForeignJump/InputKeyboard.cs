@@ -33,7 +33,7 @@ namespace ForeignJump
         {
             Keys[] keys = New.GetPressedKeys();
             return keys.Length == 0 || (keys.Length == 1 && keys[0] == Keys.None);
-        } 
+        }
 
     }
 }

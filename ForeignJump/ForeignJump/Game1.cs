@@ -18,7 +18,7 @@ namespace ForeignJump
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         MouseState mouseStateCurrent;
-        
+
         private Menu menu; //déclaration de menu initial
         private MenuPause menupause; //déclaration de menu pause
         private MenuPauseAide menupauseaide; //déclaration de menu pause
@@ -27,7 +27,7 @@ namespace ForeignJump
         private MenuChoose menuchoose; //déclaration du menu de choix de personnage
         private Gameplay game; //déclaration du gameplay
         private GameOver gameover; //déclaration du gameover
-        private newGame newgame; //déclaration du popup du nouveau jeu
+        private Pong newgame; //déclaration du popup du nouveau jeu
         private KeyBonusGame keybonusgame; //déclaration du popup du jeu de touches
         
         private AudioPlay audioPlay;
@@ -73,12 +73,11 @@ namespace ForeignJump
             gameover = new GameOver(game);
             gameover.Initialize();
 
-            newgame = new newGame();
+            newgame = new Pong();
             newgame.Initialize();
 
             keybonusgame = new KeyBonusGame();
             keybonusgame.Initialize();
-
 
             audioPlay = new AudioPlay(1f);
             GameState.State = "initial"; //mise à l'état initial
@@ -103,7 +102,6 @@ namespace ForeignJump
             gameover.LoadContent(Content);
             newgame.LoadContent(Content);
             keybonusgame.LoadContent();
-            
         }
 
    
@@ -114,11 +112,20 @@ namespace ForeignJump
 
             audioPlay.Update();
 
+            //pour que la fumée et feu ne s'affiche que dans le jeu
+            if (GameState.State != "inGame" && GameState.State != "GameOver")
+            {
+                Hero.smokeEmitter.Active = false;
+                Emitter.statut = false;
+            }
+
             if (KB.New.IsKeyDown(Keys.Tab) && !KB.Old.IsKeyDown(Keys.Tab))
                 System.Environment.Exit(0);
 
             if (GameState.State == "initial") //mise à jour menu
+            {
                 menu.Update(gameTime, 8);
+            }
 
             if (GameState.State == "inGame") //mise à jour game
                 game.Update(gameTime);
@@ -128,11 +135,14 @@ namespace ForeignJump
                 menupause.Update(gameTime, 3);
 
             if (GameState.State == "menuPauseAide") //mise à jour menu pause aide
+
                 menupauseaide.Update();
+            
             //menuPause
 
             if (GameState.State == "menuAide") //mise à jour menu aide
                 menuaide.Update(gameTime, 5);
+            
 
             if (GameState.State == "menuOptions") //mise à jour menu aide
                 menuoptions.Update(gameTime, 5, graphics);
@@ -149,12 +159,6 @@ namespace ForeignJump
             if (GameState.State == "KeyBonusGame")
                 keybonusgame.Update(gameTime);
 
-            //pour que la fumée et feu ne s'affiche que dans le jeu
-            if (GameState.State != "inGame" && GameState.State != "GameOver")
-            {
-                Hero.smokeEmitter.Active = false;
-                Emitter.statut = false;
-            }
 
             KB.Old = KB.New;
 
@@ -165,7 +169,7 @@ namespace ForeignJump
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin(); //DEBUt
+            spriteBatch.Begin(); //Debut
             menu.Draw(spriteBatch, gameTime, true); //afficher menu
 
             if (GameState.State == "inGame" || GameState.State == "menuPause" || GameState.State == "GameOver") //afficher jeu

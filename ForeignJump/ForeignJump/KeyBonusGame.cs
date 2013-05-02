@@ -16,11 +16,10 @@ namespace ForeignJump
         SpriteFont font;
         char lettre;
         string VerifTouche;
-        double t0, t1, t2;
-        double m1;
+        double t0, t1, t2, m1;
         Random random;
-        bool check = false;
-        int i = 0;
+        bool check;
+        int i;
         string charappui;
         bool startgame;
         bool jeufini;
@@ -29,11 +28,15 @@ namespace ForeignJump
         {
             random = new Random();
             lettre = Convert.ToChar(random.Next(97, 122));
-
+            t0 = 0;
+            t1 = 0;
+            t2 = 1;
+            m1 = 0;
+            i = 0;
             VerifTouche = "?";
-
             charappui = "?";
-
+            startgame = false;
+            check = false;
             jeufini = false;
         }
 
@@ -44,10 +47,9 @@ namespace ForeignJump
 
         public void Update(GameTime gameTime)
         {
-            if (KB.New.IsKeyDown(Keys.Enter))
+            if (KB.New.IsKeyDown(Keys.Enter) && !startgame)
             {
-                if (!startgame)
-                    t0 = gameTime.TotalGameTime.TotalMilliseconds;
+                t0 = gameTime.TotalGameTime.TotalMilliseconds;
 
                 startgame = true;
             }
@@ -100,7 +102,10 @@ namespace ForeignJump
 
 
                 if (jeufini && KB.New.IsKeyDown(Keys.Enter))
+                {
+                    Initialize();
                     GameState.State = "inGame";
+                }
             }
         }
 
@@ -131,7 +136,12 @@ namespace ForeignJump
             }
             else
             {
-                spriteBatch.DrawString(font, Convert.ToString("Appuyez sur ENTREE pour commencer le jeu"), new Vector2(300, 600), Color.White);
+                spriteBatch.DrawString(font, Convert.ToString("Appuyez sur la bonne touche en un temps minimal"), new Vector2(280, 250), Color.White);
+                spriteBatch.DrawString(font, Convert.ToString("pour gagner le maximum de pieces."), new Vector2(280, 290), Color.White);
+                spriteBatch.DrawString(font, Convert.ToString("Faites gaffe!"), new Vector2(280, 390), Color.White);
+                spriteBatch.DrawString(font, Convert.ToString("Un temps de reaction moyen superieur a 1s vous"), new Vector2(280, 430), Color.White);
+                spriteBatch.DrawString(font, Convert.ToString("enleve des pieces!"), new Vector2(280, 470), Color.White);
+                spriteBatch.DrawString(font, Convert.ToString("Appuyez sur ENTREE pour commencer le jeu"), new Vector2(280, 600), Color.White);
             }
         }
 

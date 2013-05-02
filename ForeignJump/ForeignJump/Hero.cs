@@ -36,8 +36,8 @@ namespace ForeignJump
         //temps de vitesse augumenté
         int t0, t1;
 
-        //particules bombe*****
         double tfloat1, tfloat2;
+        //particules bombe******
         ParticleComponent particleComponent;
         bool explosion;
         Emitter bombe = new Emitter();
@@ -58,15 +58,18 @@ namespace ForeignJump
             this.force = Vector2.Zero;
             this.reaction = Vector2.Zero;
             this.map = map;
-            this.currentObjet = new Objet();
-
+            
+            currentObjet = new Objet();
+            
             //jumping = false;
 
             random = new Random();
             bonusVitesse = false;
             font = Ressources.GetPerso(Perso.Choisi).font;
 
-            #region moteur à particules pour la bombe
+            //moteur à particule pour la bombe*************
+            #region Moteur a particules
+
             Emitter.statut = true;
             particleComponent = new ParticleComponent(Ressources.Game);
             Ressources.Game.Components.Add(particleComponent);
@@ -98,6 +101,8 @@ namespace ForeignJump
             particleComponent.particleEmitterList.Add(smokeEmitter);
 
             //*********************************************
+            //*******************************************
+
             #endregion
         }
 
@@ -117,70 +122,6 @@ namespace ForeignJump
 
             force.Y = 600;
 
-            #region Moteur à particules
-
-            Emitter bomb = particleComponent.particleEmitterList[0];
-            Emitter fum = particleComponent.particleEmitterList[1];
-
-            #region bombe
-            if (!explosion)
-            {
-                for (int i = 0; i < Map.ListBombe.Count; i++)
-                {
-                    if (container.Intersects(Map.ListBombe[i]))
-                    {
-                        tfloat1 = gameTime.TotalGameTime.TotalMilliseconds;
-                        Emitter.bombe = true;
-                        bomb.Active = true;
-                        bomb.ParticleSpeed = new RandomMinMax(0.6f);
-                        float Y = bomb.Position.X;
-                        Y = Y + 1.5f;
-                        bomb.Position = new Vector2(positionGlobale.X - ennemi.camera.Position.X + 50, positionGlobale.Y + 20);
-                        vitesse.X = 0;
-                        ennemi.vitesse.X = 0;
-                        explosion = true;
-
-                        //t3.Active = false;
-                    }
-                    else
-                    {
-                        Emitter.bombe = false;
-                        bomb.Active = false;
-                        // activpart = false;
-                    }
-
-                }
-            }
-            #endregion bombe
-
-            if (explosion)
-            {
-                tfloat2 = gameTime.TotalGameTime.TotalMilliseconds;
-                if (tfloat2 - tfloat1 > 0.8f)
-                {
-                    bomb.Active = false;
-                    GameState.State = "GameOver";
-                    fum.Active = true;
-                    fum.Position = new Vector2(positionGlobale.X - ennemi.camera.Position.X + 50, positionGlobale.Y + 20);
-                    if (fum.EmittedNewParticle)
-                    {
-                        float f = MathHelper.ToRadians(fum.LastEmittedParticle.Direction + 180);
-                        fum.LastEmittedParticle.Rotation = f;
-                    }
-                }
-                else if ((tfloat2 - tfloat1 > 0.5f))
-                {
-                    fum.Active = true;
-                    fum.Position = new Vector2(positionGlobale.X - ennemi.camera.Position.X + 50, positionGlobale.Y + 20);
-                    if (fum.EmittedNewParticle)
-                    {
-                        float f = MathHelper.ToRadians(fum.LastEmittedParticle.Direction + 180);
-                        fum.LastEmittedParticle.Rotation = f;
-                    }
-                }
-            }
-#endregion
-
             #region Test collision Bonus
             for (int i = 0; i < Map.ListBonus.Count; i++)
             {
@@ -189,7 +130,7 @@ namespace ForeignJump
                     map.Objets[Map.ListBonus[i].X / 45, Map.ListBonus[i].Y / 45] = map.Objets[1, 1];
                     Map.ListBonus[i] = new Rectangle(0, 0, 45, 45);
                     AudioRessources.wingold.Play(AudioRessources.volume, 0f, 0f);
-                    Bonus.Execute(random.Next(1, 4), ref bonusVitesse);
+                    Bonus.Execute(random.Next(1, 1), ref bonusVitesse);
                     t0 = Convert.ToInt32(gameTime.TotalGameTime.TotalSeconds);
                     //MOTEUR A PARTICULES A METTRE ICI
                 }
@@ -202,8 +143,8 @@ namespace ForeignJump
                 t1 = Convert.ToInt32(gameTime.TotalGameTime.TotalSeconds);
                 AudioRessources.wingold.Play(AudioRessources.volume, 0f, 0f);
 
-                positionGlobale.X += 14;
-                ennemi.positionGlobale.X += 14;
+                positionGlobale.X += 10;
+                ennemi.positionGlobale.X += 9;
 
                 if (t1 - t0 > 10)
                     bonusVitesse = false;
@@ -333,12 +274,73 @@ namespace ForeignJump
 
             #endregion
 
+            #region Test Bombe + Moteur à particules
+            Emitter bomb = particleComponent.particleEmitterList[0];
+            Emitter fum = particleComponent.particleEmitterList[1];
+
+            if (!explosion)
+            {
+                for (int i = 0; i < Map.ListBombe.Count; i++)
+                {
+                    if (container.Intersects(Map.ListBombe[i]))
+                    {
+                        tfloat1 = gameTime.TotalGameTime.TotalMilliseconds;
+                        Emitter.bombe = true;
+                        bomb.Active = true;
+                        bomb.ParticleSpeed = new RandomMinMax(0.6f);
+                        float Y = bomb.Position.X;
+                        Y = Y + 1.5f;
+                        bomb.Position = new Vector2(positionGlobale.X - ennemi.camera.Position.X + 50, positionGlobale.Y + 20);
+                        vitesse.X = 0;
+                        ennemi.vitesse.X = 0;
+                        explosion = true;
+
+                        //t3.Active = false;
+                    }
+                    else
+                    {
+                        Emitter.bombe = false;
+                        bomb.Active = false;
+                        // activpart = false;
+                    }
+
+                }
+            }
+            else
+            {
+                tfloat2 = gameTime.TotalGameTime.TotalMilliseconds;
+                if (tfloat2 - tfloat1 > 0.8f)
+                {
+                    bomb.Active = false;
+                    GameState.State = "GameOver";
+                    fum.Active = true;
+                    fum.Position = new Vector2(positionGlobale.X - ennemi.camera.Position.X + 50, positionGlobale.Y + 20);
+                    if (fum.EmittedNewParticle)
+                    {
+                        float f = MathHelper.ToRadians(fum.LastEmittedParticle.Direction + 180);
+                        fum.LastEmittedParticle.Rotation = f;
+                    }
+                }
+                else if ((tfloat2 - tfloat1 > 0.5f))
+                {
+                    fum.Active = true;
+                    fum.Position = new Vector2(positionGlobale.X - ennemi.camera.Position.X + 50, positionGlobale.Y + 20);
+                    if (fum.EmittedNewParticle)
+                    {
+                        float f = MathHelper.ToRadians(fum.LastEmittedParticle.Direction + 180);
+                        fum.LastEmittedParticle.Rotation = f;
+                    }
+                }
+            }
+            #endregion bombe
+
             #region kb
-            if (KB.New.IsKeyDown(Keys.Right))
-                positionGlobale.X += 5;
 
             if (KB.New.IsKeyDown(Keys.Left))
-                positionGlobale.X -= 5;
+                positionGlobale.X -= 10;
+
+            if (KB.New.IsKeyDown(Keys.Right))
+                positionGlobale.X += 10;
 
             if (KB.New.IsKeyDown(Keys.Up) && vitesse.Y == 0)
                 force.Y -= 42000;
@@ -364,12 +366,13 @@ namespace ForeignJump
 
         public void Draw(SpriteBatch spriteBatch, Vector2 positionCam)
         {
-            //if (!jumping)
-            //  heroAnime.Draw(spriteBatch, new Vector2((positionGlobale.X + positionInitiale.X - positionCam.X), positionGlobale.Y), 3);
-            //else
-            //spriteBatch.Draw(texture, new Rectangle((int)(positionGlobale.X + positionInitiale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.White);
-
+            /*            if (!jumping)
+                          heroAnime.Draw(spriteBatch, new Vector2((positionGlobale.X + positionInitiale.X - positionCam.X), positionGlobale.Y), 3);
+                        else
+                        spriteBatch.Draw(texture, new Rectangle((int)(positionGlobale.X + positionInitiale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.White);
+                        */
             spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barre, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.Red);
+
 
             if (bonusVitesse)
                 spriteBatch.DrawString(font, "Super-Man", new Vector2(200, 200), Color.White);

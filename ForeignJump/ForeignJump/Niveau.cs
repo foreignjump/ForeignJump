@@ -47,5 +47,6 @@ namespace ForeignJump
         public Texture2D texture;
         public Animate ennemiAnime;
 
+
     }
 }

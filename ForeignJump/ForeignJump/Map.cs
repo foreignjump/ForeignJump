@@ -93,18 +93,18 @@ namespace ForeignJump
                                 objet.type = TypeCase.Piece;
                                 break;
                             }
-                        case 'B':
-                            {
-                                ListBonus.Add(new Rectangle((int)objet.position.X, (int)objet.position.Y, (int)objet.container.Width, (int)objet.container.Height));
-                                objet.texture = Ressources.GetPerso(Perso.Choisi).piece;
-                                objet.type = TypeCase.Bonus;
-                                break;
-                            }
                         case 'c':
                             {
                                 ListBombe.Add(new Rectangle((int)objet.position.X, (int)objet.position.Y, (int)objet.container.Width, (int)objet.container.Height));
                                 objet.texture = Ressources.GetPerso(Perso.Choisi).piece;
                                 objet.type = TypeCase.Bombe;
+                                break;
+                            }
+                        case 'B':
+                            {
+                                ListBonus.Add(new Rectangle((int)objet.position.X, (int)objet.position.Y, (int)objet.container.Width, (int)objet.container.Height));
+                                objet.texture = Ressources.GetPerso(Perso.Choisi).piece;
+                                objet.type = TypeCase.Bonus;
                                 break;
                             }
                         default:

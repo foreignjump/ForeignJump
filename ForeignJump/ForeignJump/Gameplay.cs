@@ -43,14 +43,13 @@ namespace ForeignJump
             font = Ressources.GetPerso(Perso.Choisi).font;
             barre = Ressources.GetPerso(Perso.Choisi).barre;
             glass = Ressources.GetPerso(Perso.Choisi).glass;
-            
+
             distance = hero.positionGlobale.X - ennemi.positionGlobale.X;
         }
 
         public void LoadContent()
         {
             map.Load();
-
         }
 
         public void Update(GameTime gameTime)
@@ -70,8 +69,12 @@ namespace ForeignJump
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             camera.Draw(spriteBatch);
-            spriteBatch.DrawString(font, "Nombre de Pieces :" + Convert.ToString(Statistiques.Score), new Vector2(30, 40), Color.White);
-            spriteBatch.Draw(barre, new Rectangle(30, 60, (int)distance, barre.Height),Color.White);
+            spriteBatch.DrawString(font, "Nombre de Pieces :" + Convert.ToString(Statistiques.Score), new Vector2(30, 200), Color.White);
+            
+            if (distance < 60)
+                spriteBatch.Draw(barre, new Rectangle(30, 60, (int)distance, barre.Height), Color.Red);
+            else
+                spriteBatch.Draw(barre, new Rectangle(30, 60, (int)distance, barre.Height), Color.Green);
         }
 
 	}

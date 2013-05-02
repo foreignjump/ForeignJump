@@ -25,7 +25,7 @@ namespace ForeignJump
 
         //particules
         ParticleComponent particleComponent;
-        
+
         public Ennemi(Animate textureAnime, Vector2 position, Hero hero, Map map)
         {
             this.personnageAnime = Ressources.GetPerso(Perso.Choisi).ennemiAnime;
@@ -44,7 +44,7 @@ namespace ForeignJump
 
             font = Ressources.GetPerso(Perso.Choisi).font;
 
-            //moteur à particules
+            #region moteur à particules
             particleComponent = new ParticleComponent(Ressources.Game);
             Ressources.Game.Components.Add(particleComponent);
             Emitter fireEmitter = new Emitter();
@@ -74,8 +74,7 @@ namespace ForeignJump
             desinté_piece.Position = new Vector2(400, 650);
             particleComponent.particleEmitterList.Add(fireEmitter);
             particleComponent.particleEmitterList.Add(desinté_piece);
-            particleComponent.particleEmitterList.Add(fireEmitter);
-
+            #endregion
         }
 
         public void Update(GameTime gameTime, float speed)
@@ -85,7 +84,6 @@ namespace ForeignJump
             personnageAnime.Update(speed); //Animation
 
             container = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y, 45, 45);
-
 
             #region Test cases adjacentes
 
@@ -189,9 +187,13 @@ namespace ForeignJump
 
         public void Draw(SpriteBatch spriteBatch, Vector2 positionCam)
         {
-            spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barre, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.AliceBlue);
+            int activeParticles = 0;
+            foreach (Emitter activeEmitters in particleComponent.particleEmitterList)
+            {
+                activeParticles += activeEmitters.ParticleList.Count();
+            }
 
-            //spriteBatch.DrawString(font, Convert.ToString(bottom), new Vector2(30, 40), Color.White);
+            spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barre, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.AliceBlue);
         }
 
         private void testCollision(Objet objet)
@@ -217,7 +219,6 @@ namespace ForeignJump
                     if (container.X + container.Width >= objet.container.X &&
                         lastPos.Y + container.Height > objet.container.Y && GameState.State == "inGame")
                     {
-
                         t3.Active = true;
                         t3.ParticleSpeed = new RandomMinMax(0.6f);
                         float Y = t3.Position.X;

@@ -68,6 +68,9 @@ Content\Perso\roumain\terre2.xnb
 Content\Perso\roumain\terre3.xnb
 Content\Perso\roumain\voitureanime.xnb
 Content\fire.xnb
+Content\newGame\balle.xnb
+Content\newGame\barre.xnb
+Content\smoke.xnb
 Content\Sound\confirmation.xnb
 Content\Sound\escape.xnb
 Content\Sound\gameover.xnb
@@ -79,7 +82,4 @@ Content\Sound\wingold.xnb
 Content\Menu\Choose\FontMenuChoose.xnb
 Content\Perso\renoi\Font.xnb
 Content\Perso\roumain\Font.xnb
-Content\newGame\balle.xnb
-Content\newGame\barre.xnb
-Content\smoke.xnb
 GameThumbnail.png
