@@ -69,7 +69,7 @@ namespace ForeignJump
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             camera.Draw(spriteBatch);
-            spriteBatch.DrawString(font, "Nombre de Pieces :" + Convert.ToString(Statistiques.Score), new Vector2(30, 200), Color.White);
+            spriteBatch.DrawString(font, "Nombre de Pieces :" + Convert.ToString(Statistiques.Score), new Vector2(30, 150), Color.White);
             
             if (distance < 60)
                 spriteBatch.Draw(barre, new Rectangle(30, 60, (int)distance, barre.Height), Color.Red);

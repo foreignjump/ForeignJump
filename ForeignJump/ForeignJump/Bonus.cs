@@ -11,24 +11,19 @@ namespace ForeignJump
         {
             switch (random)
             {
-                case 1:
+                case 0:
                     {
                         GameState.State = "KeyBonusGame";
                         break;
                     }
-                case 2:
+                case 1:
                     {
                         GameState.State = "newGame";
                         break;
                     }
-                case 3:
+                case 2:
                     {
                         bonusVitesse = true;
-                        break;
-                    }
-                default:
-                    {
-                        GameState.State = "GameOver";
                         break;
                     }
             }

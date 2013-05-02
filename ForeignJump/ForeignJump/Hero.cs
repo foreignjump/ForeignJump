@@ -32,6 +32,7 @@ namespace ForeignJump
         private Random random;
 
         public bool bonusVitesse;
+        private Texture2D superman;
 
         //temps de vitesse augumenté
         int t0, t1;
@@ -65,6 +66,8 @@ namespace ForeignJump
 
             random = new Random();
             bonusVitesse = false;
+            superman = Ressources.Content.Load<Texture2D>("superman");
+
             font = Ressources.GetPerso(Perso.Choisi).font;
 
             //moteur à particule pour la bombe*************
@@ -130,9 +133,9 @@ namespace ForeignJump
                     map.Objets[Map.ListBonus[i].X / 45, Map.ListBonus[i].Y / 45] = map.Objets[1, 1];
                     Map.ListBonus[i] = new Rectangle(0, 0, 45, 45);
                     AudioRessources.wingold.Play(AudioRessources.volume, 0f, 0f);
-                    Bonus.Execute(random.Next(1, 1), ref bonusVitesse);
+                    Bonus.Execute(random.Next(0, 3), ref bonusVitesse);
+                    random = new Random();
                     t0 = Convert.ToInt32(gameTime.TotalGameTime.TotalSeconds);
-                    //MOTEUR A PARTICULES A METTRE ICI
                 }
             }
             #endregion
@@ -284,6 +287,7 @@ namespace ForeignJump
                 {
                     if (container.Intersects(Map.ListBombe[i]))
                     {
+                        AudioRessources.getbomb.Play(AudioRessources.volume, 0f, 0f);
                         tfloat1 = gameTime.TotalGameTime.TotalMilliseconds;
                         Emitter.bombe = true;
                         bomb.Active = true;
@@ -373,9 +377,8 @@ namespace ForeignJump
                         */
             spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barre, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.Red);
 
-
             if (bonusVitesse)
-                spriteBatch.DrawString(font, "Super-Man", new Vector2(200, 200), Color.White);
+                spriteBatch.Draw(superman, new Rectangle(200, 200, 200,200), Color.White);
         }
 
         private void testCollision(Objet objet)

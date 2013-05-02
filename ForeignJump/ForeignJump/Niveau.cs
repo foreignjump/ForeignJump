@@ -29,6 +29,8 @@ namespace ForeignJump
         public Texture2D terre2;
         public Texture2D piece;
         public Texture2D sousterre;
+        public Texture2D bombe;
+        public Texture2D bonus;
         public String path;
 
         //hero

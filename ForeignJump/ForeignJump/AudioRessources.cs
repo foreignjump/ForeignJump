@@ -21,6 +21,8 @@ namespace ForeignJump
         public static SoundEffect turn;
         public static SoundEffect escape;
         public static SoundEffect wingold;
+        public static SoundEffect winbonus;
+        public static SoundEffect getbomb;
 
         public static float volume;
 
@@ -37,6 +39,8 @@ namespace ForeignJump
             turn = Content.Load<SoundEffect>("Sound/turn");
             escape = Content.Load<SoundEffect>("Sound/escape");
             wingold = Content.Load<SoundEffect>("Sound/wingold");
+//            winbonus = Content.Load<SoundEffect>("Sound/winbonus");
+            getbomb = Content.Load<SoundEffect>("Sound/getbomb");
             volume = 1f;
         }
 
