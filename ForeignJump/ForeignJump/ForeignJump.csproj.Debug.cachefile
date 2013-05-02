@@ -71,6 +71,11 @@ Content\fire.xnb
 Content\newGame\balle.xnb
 Content\newGame\barre.xnb
 Content\smoke.xnb
+Content\Perso\renoi\bombe.xnb
+Content\Perso\roumain\bombe.xnb
+Content\Perso\roumain\bonus.xnb
+Content\Perso\renoi\bonus.xnb
+Content\superman.xnb
 Content\Sound\confirmation.xnb
 Content\Sound\escape.xnb
 Content\Sound\gameover.xnb
@@ -79,13 +84,8 @@ Content\Sound\selectionDown.xnb
 Content\Sound\selectionUp.xnb
 Content\Sound\turn.xnb
 Content\Sound\wingold.xnb
+Content\Sound\getbomb.xnb
 Content\Menu\Choose\FontMenuChoose.xnb
 Content\Perso\renoi\Font.xnb
 Content\Perso\roumain\Font.xnb
-Content\Perso\renoi\bombe.xnb
-Content\Perso\roumain\bombe.xnb
-Content\Perso\roumain\bonus.xnb
-Content\Perso\renoi\bonus.xnb
-Content\Sound\getbomb.xnb
-Content\superman.xnb
 GameThumbnail.png

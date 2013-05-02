@@ -34,8 +34,8 @@ namespace ForeignJump
         public void Initialize()
         {
             map = new Map("map.txt");
-            hero = new Hero(Ressources.GetPerso(Perso.Choisi).heroAnime, new Vector2(0, 500), new Vector2(200, 0), 90, map);
-            ennemi = new Ennemi(Ressources.GetPerso(Perso.Choisi).ennemiAnime, new Vector2(-100, 500), hero, map);
+            hero = new Hero(Ressources.GetPerso(Perso.Choisi).heroAnime, new Vector2(450, 500), new Vector2(200, 0), 90, map);
+            ennemi = new Ennemi(Ressources.GetPerso(Perso.Choisi).ennemiAnime, new Vector2(250, 500), hero, map);
             hero.ennemi = ennemi;
             camera = new Camera(map, hero, ennemi);
             ennemi.camera = this.camera;

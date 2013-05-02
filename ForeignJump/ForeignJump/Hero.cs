@@ -340,11 +340,11 @@ namespace ForeignJump
 
             #region kb
 
-            if (KB.New.IsKeyDown(Keys.Left))
+            /* (KB.New.IsKeyDown(Keys.Left))
                 positionGlobale.X -= 10;
 
             if (KB.New.IsKeyDown(Keys.Right))
-                positionGlobale.X += 10;
+                positionGlobale.X += 10;*/
 
             if (KB.New.IsKeyDown(Keys.Up) && vitesse.Y == 0)
                 force.Y -= 42000;

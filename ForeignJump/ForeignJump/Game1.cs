@@ -113,7 +113,7 @@ namespace ForeignJump
             audioPlay.Update();
 
             //pour que la fumée et feu ne s'affiche que dans le jeu
-            if (GameState.State != "inGame" && GameState.State != "GameOver")
+            if (GameState.State != "inGame" && GameState.State != "GameOver" && GameState.State != "newGame" && GameState.State != "KeyBonusGame")
             {
                 Hero.smokeEmitter.Active = false;
                 Emitter.statut = false;

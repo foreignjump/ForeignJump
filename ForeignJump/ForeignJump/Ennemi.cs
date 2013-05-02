@@ -82,7 +82,7 @@ namespace ForeignJump
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             personnageAnime.Update(speed); //Animation
-
+            force.Y = 600;
             container = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y, 45, 45);
 
             #region Test cases adjacentes
@@ -268,7 +268,14 @@ namespace ForeignJump
                     // activpart = false;
                 }
             }
-
+            if ((map.Objets[(int)(objet.container.X / 45 + 1), (int)(objet.container.Y / 45)].type == TypeCase.Eau) && (vitesse.Y == 0) && (map.Objets[(int)(objet.container.X / 45 + 4), (int)(objet.container.Y / 45)].type == TypeCase.Eau))
+ {
+     force.Y -= 49000;
+ }
+ else if ((map.Objets[(int)(objet.container.X / 45 + 1), (int)(objet.container.Y / 45)].type == TypeCase.Eau) && (vitesse.Y  == 0))
+ {
+     force.Y -= 40000;
+ }
             if (container.Intersects(hero.container))
             {
                 GameState.State = "GameOver";
