@@ -269,13 +269,13 @@ namespace ForeignJump
                 }
             }
             if ((map.Objets[(int)(objet.container.X / 45 + 1), (int)(objet.container.Y / 45)].type == TypeCase.Eau) && (vitesse.Y == 0) && (map.Objets[(int)(objet.container.X / 45 + 4), (int)(objet.container.Y / 45)].type == TypeCase.Eau))
- {
-     force.Y -= 49000;
- }
- else if ((map.Objets[(int)(objet.container.X / 45 + 1), (int)(objet.container.Y / 45)].type == TypeCase.Eau) && (vitesse.Y  == 0))
- {
-     force.Y -= 40000;
- }
+            {
+                force.Y -= 49000;
+            }
+            else if ((map.Objets[(int)(objet.container.X / 45 + 1), (int)(objet.container.Y / 45)].type == TypeCase.Eau) && (vitesse.Y == 0))
+            {
+                force.Y -= 40000;
+            }
             if (container.Intersects(hero.container))
             {
                 GameState.State = "GameOver";

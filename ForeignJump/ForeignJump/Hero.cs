@@ -338,13 +338,13 @@ namespace ForeignJump
             }
             #endregion bombe
 
-            #region kb
+            #region Keyboard Input
 
-            /* (KB.New.IsKeyDown(Keys.Left))
+            if (KB.New.IsKeyDown(Keys.Left))
                 positionGlobale.X -= 10;
 
             if (KB.New.IsKeyDown(Keys.Right))
-                positionGlobale.X += 10;*/
+                positionGlobale.X += 10;
 
             if (KB.New.IsKeyDown(Keys.Up) && vitesse.Y == 0)
                 force.Y -= 42000;
@@ -370,11 +370,6 @@ namespace ForeignJump
 
         public void Draw(SpriteBatch spriteBatch, Vector2 positionCam)
         {
-            /*            if (!jumping)
-                          heroAnime.Draw(spriteBatch, new Vector2((positionGlobale.X + positionInitiale.X - positionCam.X), positionGlobale.Y), 3);
-                        else
-                        spriteBatch.Draw(texture, new Rectangle((int)(positionGlobale.X + positionInitiale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.White);
-                        */
             spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barre, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.Red);
 
             if (bonusVitesse)
@@ -402,16 +397,6 @@ namespace ForeignJump
                     vitesse.Y = 0;
                     positionGlobale.Y = objet.container.Y - container.Height;
                 }
-
-                /*
-                //collision top hero
-                if (lastPos.Y > objet.container.Y + objet.container.Height &&
-                    container.X + container.Width >= objet.container.X &&
-                    container.Y <= objet.container.Y + objet.container.Height)
-                {
-                    vitesse.Y = 0;
-                    positionGlobale.Y = objet.container.Y + objet.container.Height;
-                }*/
             }
 
         }

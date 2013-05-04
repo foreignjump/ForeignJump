@@ -30,7 +30,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
+	<IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -113,7 +113,6 @@
     <Compile Include="Bonus.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="Camera.cs" />
-    <Compile Include="ContentLoad.cs" />
     <Compile Include="Ennemi.cs" />
     <Compile Include="GameOver.cs" />
     <Compile Include="GameState.cs" />
@@ -150,10 +149,10 @@
       <Project>{114B81A8-BBED-403C-9C49-905EB8803549}</Project>
       <Name>Particles</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ForeignJumpContent\ForeignJumpContent.contentproj">
-      <Name>ForeignJumpContent</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
-    </ProjectReference>
+	-    <ProjectReference Include="..\ForeignJumpContent\ForeignJumpContent.contentproj">
+-      <Name>ForeignJumpContent</Name>
+-      <XnaReferenceType>Content</XnaReferenceType>
+-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

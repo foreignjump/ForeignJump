@@ -13,23 +13,13 @@ namespace ForeignJump
 {
     class GameOver
     {
-        Gameplay game;
+        //Gameplay game;
 
         private Texture2D image; //image
 
-        public GameOver(Gameplay game)
+        public GameOver()
         {
-            this.game = game;
-        }
-
-        public void Initialize()
-        {
-            KB.Old = Keyboard.GetState();
-        }
-
-        public void LoadContent(ContentManager Content)
-        {
-            image = Content.Load<Texture2D>("gameOver");
+            image = Ressources.Content.Load<Texture2D>("gameOver");
         }
 
         public void Update()
@@ -38,7 +28,6 @@ namespace ForeignJump
             {
                 GameState.State = "initial";
             }
-
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

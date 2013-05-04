@@ -70,8 +70,7 @@ namespace ForeignJump
             menuchoose = new MenuChoose(game, Content);
             menuchoose.Initialize(); //initialisation menu options
 
-            gameover = new GameOver(game);
-            gameover.Initialize();
+            gameover = new GameOver();
 
             newgame = new Pong();
             newgame.Initialize();
@@ -99,7 +98,6 @@ namespace ForeignJump
             menuaide.LoadContent(Content); //charger menu aide
             menuoptions.LoadContent(Content); //charger menu options
             menuchoose.LoadContent(); //charger menu choix de personnage
-            gameover.LoadContent(Content);
             newgame.LoadContent(Content);
             keybonusgame.LoadContent();
         }
@@ -123,9 +121,7 @@ namespace ForeignJump
                 System.Environment.Exit(0);
 
             if (GameState.State == "initial") //mise à jour menu
-            {
                 menu.Update(gameTime, 8);
-            }
 
             if (GameState.State == "inGame") //mise à jour game
                 game.Update(gameTime);
@@ -173,14 +169,14 @@ namespace ForeignJump
             menu.Draw(spriteBatch, gameTime, true); //afficher menu
 
             if (GameState.State == "inGame" || GameState.State == "menuPause" || GameState.State == "GameOver") //afficher jeu
-                game.Draw(spriteBatch, gameTime);
+                game.Draw(spriteBatch);
 
             if (GameState.State == "menuPause") //afficher menu pause
                 menupause.Draw(spriteBatch, gameTime);
 
             if (GameState.State == "menuPauseAide") //afficher menu pause
             {
-                game.Draw(spriteBatch, gameTime);
+                game.Draw(spriteBatch);
                 menupauseaide.Draw(spriteBatch);
             }
 
@@ -198,13 +194,13 @@ namespace ForeignJump
 
             if (GameState.State == "newGame")
             {
-                game.Draw(spriteBatch, gameTime);
+                game.Draw(spriteBatch);
                 newgame.Draw(spriteBatch);
             }
 
             if (GameState.State == "KeyBonusGame")
             {
-                game.Draw(spriteBatch, gameTime);
+                game.Draw(spriteBatch);
                 keybonusgame.Draw(spriteBatch);
             }
 
