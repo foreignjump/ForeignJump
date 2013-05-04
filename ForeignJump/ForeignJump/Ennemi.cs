@@ -198,6 +198,10 @@ namespace ForeignJump
 
         private void testCollision(Objet objet)
         {
+            if (container.Intersects(hero.container))
+            {
+                GameState.State = "GameOver";
+            }
             //création nouvelle particule
             Emitter t3 = particleComponent.particleEmitterList[0];
             Emitter t4 = particleComponent.particleEmitterList[1];
@@ -276,10 +280,7 @@ namespace ForeignJump
             {
                 force.Y -= 40000;
             }
-            if (container.Intersects(hero.container))
-            {
-                GameState.State = "GameOver";
-            }
+            
         }
     }
 }

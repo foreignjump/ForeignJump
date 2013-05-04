@@ -73,6 +73,8 @@ namespace ForeignJump
                 spriteBatch.Draw(barre, new Rectangle(30, 60, (int)distance, barre.Height), Color.Red);
             else
                 spriteBatch.Draw(barre, new Rectangle(30, 60, (int)distance, barre.Height), Color.Green);
+
+            spriteBatch.Draw(barre, new Rectangle((int)(hero.container.X - camera.Position.X), hero.container.Y, hero.container.Width, hero.container.Height), Color.White);
         }
 
 	}

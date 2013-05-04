@@ -17,8 +17,6 @@ namespace ForeignJump
     {
         public SpriteFont font;
 
-        //private bool jumping;
-
         //map actuelle
         private Map map;
 
@@ -30,6 +28,8 @@ namespace ForeignJump
 
         //random pour bonus
         private Random random;
+
+        private bool animate;
 
         public bool bonusVitesse;
         private Texture2D superman;
@@ -61,8 +61,8 @@ namespace ForeignJump
             this.map = map;
             
             currentObjet = new Objet();
-            
-            //jumping = false;
+
+            animate = true;
 
             random = new Random();
             bonusVitesse = false;
@@ -109,11 +109,6 @@ namespace ForeignJump
             #endregion
         }
 
-        public void Jump()
-        {
-            force = new Vector2(0, -20000);
-            //jumping = true;
-        }
 
         public void Update(GameTime gameTime, float speed)
         {
@@ -121,9 +116,9 @@ namespace ForeignJump
 
             personnageAnime.Update(speed); //Animation
 
-            container = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y, 45, 45);
+            container = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y, texture.Width, texture.Height);
 
-            force.Y = 600;
+            force.Y = 500;
 
             #region Test collision Bonus
             for (int i = 0; i < Map.ListBonus.Count; i++)
@@ -177,104 +172,170 @@ namespace ForeignJump
             int posY = (int)(container.Y / 45);
             int posX = (int)(container.X / 45);
 
-            int currentX = posX + 1, currentY = posY;
+            int currentX = posX, currentY = posY;
             if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
             {
                 currentObjet.container.X = currentX * 45;
                 currentObjet.container.Y = currentY * 45;
                 testCollision(currentObjet);
 
-                //                map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
+               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
+            }
+
+            currentX = posX + 1;
+            currentY = posY;
+            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
+            {
+                currentObjet.container.X = currentX * 45;
+                currentObjet.container.Y = currentY * 45;
+                testCollision(currentObjet);
+
+               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
+            }
+
+            currentX = posX + 2;
+            currentY = posY;
+            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
+            {
+                currentObjet.container.X = currentX * 45;
+                currentObjet.container.Y = currentY * 45;
+                testCollision(currentObjet);
+
+               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
+            }
+
+            currentX = posX;
+            currentY = posY + 1;
+            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
+            {
+                currentObjet.container.X = currentX * 45;
+                currentObjet.container.Y = currentY * 45;
+                testCollision(currentObjet);
+
+               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
             }
 
             currentX = posX + 1;
             currentY = posY + 1;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
+            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
             {
                 currentObjet.container.X = currentX * 45;
                 currentObjet.container.Y = currentY * 45;
                 testCollision(currentObjet);
 
-                //                map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
+               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
+            }
+
+            currentX = posX + 2;
+            currentY = posY + 1;
+            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
+            {
+                currentObjet.container.X = currentX * 45;
+                currentObjet.container.Y = currentY * 45;
+                testCollision(currentObjet);
+
+               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
             }
 
             currentX = posX;
-            currentY = posY;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
+            currentY = posY + 2;
+            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
             {
                 currentObjet.container.X = currentX * 45;
                 currentObjet.container.Y = currentY * 45;
                 testCollision(currentObjet);
 
-                //                map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
+               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
             }
 
             currentX = posX + 1;
-            currentY = posY - 1;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
+            currentY = posY + 2;
+            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
             {
                 currentObjet.container.X = currentX * 45;
                 currentObjet.container.Y = currentY * 45;
                 testCollision(currentObjet);
 
-                //                map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
+               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
             }
 
-            currentX = posX - 1;
-            currentY = posY;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
+            currentX = posX + 2;
+            currentY = posY + 2;
+            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
             {
                 currentObjet.container.X = currentX * 45;
                 currentObjet.container.Y = currentY * 45;
                 testCollision(currentObjet);
 
-                //                map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
-            }
-
-            currentX = posX - 1;
-            currentY = posY - 1;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
-            {
-                currentObjet.container.X = currentX * 45;
-                currentObjet.container.Y = currentY * 45;
-                testCollision(currentObjet);
-
-                //                map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
-            }
-
-            currentX = posX - 1;
-            currentY = posY + 1;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
-            {
-                currentObjet.container.X = currentX * 45;
-                currentObjet.container.Y = currentY * 45;
-                testCollision(currentObjet);
-
-                //                map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
+               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
             }
 
             currentX = posX;
-            currentY = posY + 1;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
+            currentY = posY + 3;
+            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
             {
                 currentObjet.container.X = currentX * 45;
                 currentObjet.container.Y = currentY * 45;
                 testCollision(currentObjet);
 
-                //                map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
+               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
             }
+
+            currentX = posX + 1;
+            currentY = posY + 3;
+            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
+            {
+                currentObjet.container.X = currentX * 45;
+                currentObjet.container.Y = currentY * 45;
+                testCollision(currentObjet);
+
+               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
+            }
+
+            currentX = posX + 2;
+            currentY = posY + 3;
+            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
+            {
+                currentObjet.container.X = currentX * 45;
+                currentObjet.container.Y = currentY * 45;
+                testCollision(currentObjet);
+
+               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
+            }
+
 
             currentX = posX;
-            currentY = posY - 1;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
+            currentY = posY + 4;
+            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
             {
                 currentObjet.container.X = currentX * 45;
                 currentObjet.container.Y = currentY * 45;
                 testCollision(currentObjet);
 
-                //                map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
+               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
             }
 
+            currentX = posX + 1;
+            currentY = posY + 4;
+            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
+            {
+                currentObjet.container.X = currentX * 45;
+                currentObjet.container.Y = currentY * 45;
+                testCollision(currentObjet);
+
+               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
+            }
+
+            currentX = posX + 2;
+            currentY = posY + 4;
+            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
+            {
+                currentObjet.container.X = currentX * 45;
+                currentObjet.container.Y = currentY * 45;
+                testCollision(currentObjet);
+
+               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
+            }
             #endregion
 
             #region Test Bombe + Moteur à particules
@@ -341,22 +402,35 @@ namespace ForeignJump
             #region Keyboard Input
 
             if (KB.New.IsKeyDown(Keys.Left))
-                positionGlobale.X -= 10;
+                positionGlobale.X -= 5;
 
             if (KB.New.IsKeyDown(Keys.Right))
-                positionGlobale.X += 10;
+                positionGlobale.X += 5;
+            /*
+            if (KB.New.IsKeyDown(Keys.Up))
+                positionGlobale.Y -= 1;
+
+            if (KB.New.IsKeyDown(Keys.Down))
+                positionGlobale.Y += 1;
+            */
 
             if (KB.New.IsKeyDown(Keys.Up) && vitesse.Y == 0)
-                force.Y -= 42000;
+            {
+                force.Y -= 26000;
+                animate = false;
+            }
 
             if (KB.New.IsKeyDown(Keys.Down) && vitesse.Y != 0)
                 force.Y += 8500;
+            
             #endregion
 
             Vector2 acceleration = poids + force; //somme des forces = masse * acceleration
 
             vitesse += acceleration * dt;
             positionGlobale += vitesse * dt;
+
+            
 
             //mise à jour de la position d'avant
             lastPos.X = container.X;
@@ -370,7 +444,14 @@ namespace ForeignJump
 
         public void Draw(SpriteBatch spriteBatch, Vector2 positionCam)
         {
-            spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barre, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.Red);
+            //spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barre, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.Red);
+
+  //          spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barre, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, texture.Width, texture.Height), Color.Red);
+            if (!animate)
+            spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).heroTexture, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, texture.Width, texture.Height), Color.White);
+            else
+            personnageAnime.Draw(spriteBatch, new Vector2(positionGlobale.X - positionCam.X - 14f, positionGlobale.Y - 14f), 3);
+            
 
             if (bonusVitesse)
                 spriteBatch.Draw(superman, new Rectangle(200, 200, 200,200), Color.White);
@@ -380,14 +461,6 @@ namespace ForeignJump
         {
             if (container.Intersects(objet.container) && container.X + container.Width <= objet.container.X + objet.container.Width)
             {
-                //collision côté droit hero
-                if (lastPos.Y + container.Height > objet.container.Y &&
-                    container.X + container.Width >= objet.container.X)
-                {
-                    bonusVitesse = false;
-                    positionGlobale.X = objet.container.X - container.Width - 1;
-                }
-
                 //collision bas hero
                 if (lastPos.Y + container.Height <= objet.container.Y &&
                     (container.X >= objet.container.X ||
@@ -396,7 +469,19 @@ namespace ForeignJump
                 {
                     vitesse.Y = 0;
                     positionGlobale.Y = objet.container.Y - container.Height;
+                    animate = true;
                 }
+                
+                //collision côté droit hero
+                if (lastPos.Y + container.Height > objet.container.Y &&
+                    container.X + container.Width >= objet.container.X)
+                {
+                    bonusVitesse = false;
+                    positionGlobale.X = objet.container.X - container.Width;
+                    
+                }
+
+                
             }
 
         }
