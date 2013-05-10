@@ -193,7 +193,7 @@ namespace ForeignJump
                 activeParticles += activeEmitters.ParticleList.Count();
             }
 
-            spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barre, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.AliceBlue);
+            spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barregreencenter, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.AliceBlue);
         }
 
         private void testCollision(Objet objet)

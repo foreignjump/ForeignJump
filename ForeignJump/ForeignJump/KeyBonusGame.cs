@@ -21,8 +21,14 @@ namespace ForeignJump
         bool check;
         int i;
         string charappui;
-        bool startgame;
+        public bool startgame;
         bool jeufini;
+
+        Texture2D keysStart;
+        Texture2D keysBG;
+        Texture2D keysYes;
+        Texture2D keysNot;
+        Texture2D keysOver;
 
         public void Initialize()
         {
@@ -43,10 +49,18 @@ namespace ForeignJump
         public void LoadContent()
         {
             font = Ressources.GetPerso(Perso.Choisi).font;
+            keysStart = Ressources.Content.Load<Texture2D>("Keys/keysStart");
+            keysBG = Ressources.Content.Load<Texture2D>("Keys/keysBG");
+            keysYes = Ressources.Content.Load<Texture2D>("Keys/keysYes");
+            keysNot = Ressources.Content.Load<Texture2D>("Keys/keysNot");
+            keysOver = Ressources.Content.Load<Texture2D>("Keys/keysOver");
         }
 
         public void Update(GameTime gameTime)
         {
+            if (GameState.State == "KeyBonusGame" && KB.New.IsKeyDown(Keys.Escape))
+                GameState.State = "menuPause";
+
             if (KB.New.IsKeyDown(Keys.Enter) && !startgame)
             {
                 t0 = gameTime.TotalGameTime.TotalMilliseconds;
@@ -73,16 +87,13 @@ namespace ForeignJump
 
                     if (lettre == KeyToChar())
                     {
-                        if (!KB.IsAnyKeyPressed())
-                            VerifTouche = "Vrai";    
-
                         check = true;
                         i++;
                     }
-                    else if (lettre != KeyToChar())
+                    else
                     {
                         if (!KB.IsAnyKeyPressed())
-                        VerifTouche = "Faux";     
+                        VerifTouche = "Faux";
                     }
                 }
                 else
@@ -111,37 +122,66 @@ namespace ForeignJump
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).bg, new Rectangle(240, 100, 800, 600), Color.Green);
-
             if (startgame)
             {
                 if (jeufini)
                 {
-                    spriteBatch.DrawString(font, "Votre temps de reaction moyen: " + Convert.ToString(Math.Round((m1 / 1000), 3)) + " secondes.", new Vector2(300, 300), Color.Black);
-                    spriteBatch.DrawString(font, "Vous avez gagne: " + Convert.ToString((int)((1 - (Math.Round((m1 / 1000), 3))) * 100)) + " pieces! Bravo Morray!", new Vector2(300, 340), Color.Black);
-                    spriteBatch.DrawString(font, "Appuyez sur ENTREE pour continuer le jeu.", new Vector2(300, 440), Color.Red);
+                    spriteBatch.Draw(keysOver, new Rectangle(440, 185, 400, 431), Color.White);
+                    spriteBatch.DrawString(font, "Temps Moyen : " + Convert.ToString(Math.Round((m1 / 1000), 3)) + "s", new Vector2(485, 290), Color.Black);
+                    spriteBatch.DrawString(font, "Pieces : " + Convert.ToString((int)((1 - (Math.Round((m1 / 1000), 3))) * 100)), new Vector2(510, 330), Color.White);
                 }
                 else
                 {
-                    spriteBatch.DrawString(font, "Appuyez sur la touche: " + Convert.ToString(lettre), new Vector2(400, 200), Color.Black);
-                    spriteBatch.DrawString(font, "Touche appuyee " + charappui, new Vector2(640, 300), Color.Black);
+                    spriteBatch.Draw(keysBG, new Rectangle(240, 100, 800, 600), Color.White);
+                    spriteBatch.DrawString(font, "Appuyez sur la touche: " + Convert.ToString(lettre), new Vector2(390, 195), Color.Black);
+                    spriteBatch.DrawString(font, Convert.ToString(VerifTouche), new Vector2(300, 600), Color.White);
 
-                    if (VerifTouche == "Faux")
-                        spriteBatch.DrawString(font, Convert.ToString(VerifTouche), new Vector2(300, 600), Color.Red);
-                    else if (VerifTouche == "Vrai")
-                        spriteBatch.DrawString(font, Convert.ToString(VerifTouche), new Vector2(300, 600), Color.Green);
-                    else
-                        spriteBatch.DrawString(font, Convert.ToString(VerifTouche), new Vector2(300, 600), Color.White);
+                    #region Carrés qui comptent les i
+                        spriteBatch.Draw(keysNot, new Rectangle(890, 150, 44, 44), Color.White);
+                     if (i > 0)
+                        spriteBatch.Draw(keysYes, new Rectangle(890, 150, 44, 44), Color.White);
+
+                        spriteBatch.Draw(keysNot, new Rectangle(890, 197, 44, 44), Color.White);
+                     if (i > 1)
+                        spriteBatch.Draw(keysYes, new Rectangle(890, 197, 44, 44), Color.White);
+
+                        spriteBatch.Draw(keysNot, new Rectangle(890, 244, 44, 44), Color.White);
+                     if (i > 2)
+                        spriteBatch.Draw(keysYes, new Rectangle(890, 244, 44, 44), Color.White);
+
+                        spriteBatch.Draw(keysNot, new Rectangle(890, 291, 44, 44), Color.White);
+                     if (i > 3)
+                        spriteBatch.Draw(keysYes, new Rectangle(890, 291, 44, 44), Color.White);
+
+                        spriteBatch.Draw(keysNot, new Rectangle(890, 338, 44, 44), Color.White);
+                     if (i > 4)
+                        spriteBatch.Draw(keysYes, new Rectangle(890, 338, 44, 44), Color.White);
+
+                        spriteBatch.Draw(keysNot, new Rectangle(890, 385, 44, 44), Color.White);
+                     if (i > 5)
+                        spriteBatch.Draw(keysYes, new Rectangle(890, 385, 44, 44), Color.White);
+                    
+                        spriteBatch.Draw(keysNot, new Rectangle(890, 432, 44, 44), Color.White);
+                     if (i > 6)
+                        spriteBatch.Draw(keysYes, new Rectangle(890, 432, 44, 44), Color.White);
+
+                        spriteBatch.Draw(keysNot, new Rectangle(890, 479, 44, 44), Color.White);
+                     if (i > 7)
+                        spriteBatch.Draw(keysYes, new Rectangle(890, 479, 44, 44), Color.White);
+
+                        spriteBatch.Draw(keysNot, new Rectangle(890, 526, 44, 44), Color.White);
+                     if (i > 8)
+                        spriteBatch.Draw(keysYes, new Rectangle(890, 526, 44, 44), Color.White);
+
+                        spriteBatch.Draw(keysNot, new Rectangle(890, 574, 44, 44), Color.White);
+                     if (i > 9)
+                        spriteBatch.Draw(keysYes, new Rectangle(890, 574, 44, 44), Color.White);
+                    #endregion
                 }
             }
             else
             {
-                spriteBatch.DrawString(font, Convert.ToString("Appuyez sur la bonne touche en un temps minimal"), new Vector2(280, 250), Color.White);
-                spriteBatch.DrawString(font, Convert.ToString("pour gagner le maximum de pieces."), new Vector2(280, 290), Color.White);
-                spriteBatch.DrawString(font, Convert.ToString("Faites gaffe!"), new Vector2(280, 390), Color.White);
-                spriteBatch.DrawString(font, Convert.ToString("Un temps de reaction moyen superieur a 1s vous"), new Vector2(280, 430), Color.White);
-                spriteBatch.DrawString(font, Convert.ToString("enleve des pieces!"), new Vector2(280, 470), Color.White);
-                spriteBatch.DrawString(font, Convert.ToString("Appuyez sur ENTREE pour commencer le jeu"), new Vector2(280, 600), Color.White);
+                spriteBatch.Draw(keysStart, new Rectangle(240, 100, 800, 600), Color.White);
             }
         }
 
@@ -199,10 +239,7 @@ namespace ForeignJump
                 return 'y';
             else if (KB.New.IsKeyDown(Keys.Z) && !KB.Old.IsKeyDown(Keys.Z))
                 return 'z';
-
             else return '0';
-
-
         }
     }
 }

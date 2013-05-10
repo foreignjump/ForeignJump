@@ -128,7 +128,7 @@ namespace ForeignJump
                     map.Objets[Map.ListBonus[i].X / 45, Map.ListBonus[i].Y / 45] = map.Objets[1, 1];
                     Map.ListBonus[i] = new Rectangle(0, 0, 45, 45);
                     AudioRessources.wingold.Play(AudioRessources.volume, 0f, 0f);
-                    Bonus.Execute(random.Next(0, 3), ref bonusVitesse);
+                    Bonus.Execute(random.Next(0, 4), ref bonusVitesse);
                     random = new Random();
                     t0 = Convert.ToInt32(gameTime.TotalGameTime.TotalSeconds);
                 }
@@ -429,8 +429,7 @@ namespace ForeignJump
 
             vitesse += acceleration * dt;
             positionGlobale += vitesse * dt;
-
-            
+ 
 
             //mise à jour de la position d'avant
             lastPos.X = container.X;
@@ -439,22 +438,20 @@ namespace ForeignJump
             //si il tombe dans le vide
             if (positionGlobale.Y >= 800)
                 GameState.State = "GameOver";
-
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 positionCam)
         {
-            //spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barre, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, container.Width, container.Height), Color.Red);
-
-  //          spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barre, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, texture.Width, texture.Height), Color.Red);
             if (!animate)
             spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).heroTexture, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, texture.Width, texture.Height), Color.White);
             else
             personnageAnime.Draw(spriteBatch, new Vector2(positionGlobale.X - positionCam.X - 14f, positionGlobale.Y - 14f), 3);
-            
 
             if (bonusVitesse)
-                spriteBatch.Draw(superman, new Rectangle(200, 200, 200,200), Color.White);
+            {
+                spriteBatch.DrawString(font, "SUPERMAN MODE!", new Vector2(60, 200), Color.Red);
+                spriteBatch.Draw(superman, new Rectangle(60, 250, superman.Width, superman.Height), Color.White);
+            }
         }
 
         private void testCollision(Objet objet)

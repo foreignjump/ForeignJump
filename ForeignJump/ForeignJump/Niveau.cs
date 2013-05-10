@@ -41,8 +41,12 @@ namespace ForeignJump
 
         //game
         public Texture2D bg;
-        public Texture2D barre;
-        public Texture2D glass;
+        public Texture2D barregreenleft;
+        public Texture2D barregreencenter;
+        public Texture2D barregreenright;
+        public Texture2D barreredleft;
+        public Texture2D barreredcenter;
+        public Texture2D barreredright;
         public SpriteFont font;
 
         //ennemi

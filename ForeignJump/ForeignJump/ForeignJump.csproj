@@ -30,7 +30,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-	<IsWebBootstrapper>false</IsWebBootstrapper>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -150,10 +150,9 @@
       <Name>Particles</Name>
     </ProjectReference>
     <ProjectReference Include="..\ForeignJumpContent\ForeignJumpContent.contentproj">
-		<Name>ForeignJumpContent</Name>
-		<XnaReferenceType>Content</XnaReferenceType>
+      <Name>ForeignJumpContent</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
-
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

@@ -56,9 +56,6 @@ namespace ForeignJump
             game = new Gameplay();
             //game.Initialize(); //initialisation game
 
-            menupause = new MenuPause(game);
-            menupause.Initialize(450, 0); //initialisation menu pause
-
             menupauseaide = new MenuPauseAide();
 
             menuaide = new MenuAide();
@@ -78,6 +75,9 @@ namespace ForeignJump
             keybonusgame = new KeyBonusGame();
             keybonusgame.Initialize();
 
+            menupause = new MenuPause(newgame, keybonusgame);
+            menupause.Initialize(450, 0); //initialisation menu pause
+
             audioPlay = new AudioPlay(1f);
             GameState.State = "initial"; //mise à l'état initial
 
@@ -92,7 +92,6 @@ namespace ForeignJump
             AudioRessources.Load();
 
             menu.LoadContent(Content); //charger menu
-            //game.LoadContent(); //charger game
             menupause.LoadContent(Content); //charger menu pause
             menupauseaide.LoadContent(Content); //charger menu pause aide
             menuaide.LoadContent(Content); //charger menu aide
@@ -126,25 +125,22 @@ namespace ForeignJump
             if (GameState.State == "inGame") //mise à jour game
                 game.Update(gameTime);
 
-            //menuPause
+            //menus
             if (GameState.State == "menuPause") //mise à jour menu pause
                 menupause.Update(gameTime, 3);
 
             if (GameState.State == "menuPauseAide") //mise à jour menu pause aide
-
                 menupauseaide.Update();
             
-            //menuPause
-
             if (GameState.State == "menuAide") //mise à jour menu aide
                 menuaide.Update(gameTime, 5);
-            
 
             if (GameState.State == "menuOptions") //mise à jour menu aide
                 menuoptions.Update(gameTime, 5, graphics);
 
             if (GameState.State == "menuChoose") //mise à jour menu aide
                 menuchoose.Update(gameTime, 5);
+            //menus fin
 
             if (GameState.State == "GameOver") //game over
                 gameover.Update();
@@ -154,7 +150,6 @@ namespace ForeignJump
 
             if (GameState.State == "KeyBonusGame")
                 keybonusgame.Update(gameTime);
-
 
             KB.Old = KB.New;
 
@@ -168,17 +163,9 @@ namespace ForeignJump
             spriteBatch.Begin(); //Debut
             menu.Draw(spriteBatch, gameTime, true); //afficher menu
 
-            if (GameState.State == "inGame" || GameState.State == "menuPause" || GameState.State == "GameOver") //afficher jeu
+            if (GameState.State == "inGame" || GameState.State == "menuPause" || GameState.State == "GameOver"
+                || GameState.State == "newGame" || GameState.State == "KeyBonusGame") //afficher jeu
                 game.Draw(spriteBatch);
-
-            if (GameState.State == "menuPause") //afficher menu pause
-                menupause.Draw(spriteBatch, gameTime);
-
-            if (GameState.State == "menuPauseAide") //afficher menu pause
-            {
-                game.Draw(spriteBatch);
-                menupauseaide.Draw(spriteBatch);
-            }
 
             if (GameState.State == "menuAide") //afficher menu pause
                 menuaide.Draw(spriteBatch, gameTime);
@@ -193,15 +180,26 @@ namespace ForeignJump
                 gameover.Draw(spriteBatch);
 
             if (GameState.State == "newGame")
-            {
-                game.Draw(spriteBatch);
                 newgame.Draw(spriteBatch);
-            }
 
             if (GameState.State == "KeyBonusGame")
+                keybonusgame.Draw(spriteBatch);
+
+            if (GameState.State == "menuPause") //afficher menu pause
+            {
+                if (newgame.startgame)
+                    newgame.Draw(spriteBatch);
+
+                if (keybonusgame.startgame)
+                    keybonusgame.Draw(spriteBatch);
+
+                menupause.Draw(spriteBatch);
+            }
+
+            if (GameState.State == "menuPauseAide") //afficher menu pause
             {
                 game.Draw(spriteBatch);
-                keybonusgame.Draw(spriteBatch);
+                menupauseaide.Draw(spriteBatch);
             }
 
             spriteBatch.End(); //FIN

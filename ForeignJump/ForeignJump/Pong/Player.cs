@@ -27,12 +27,12 @@ namespace ForeignJump
             this.texture = texture;
             this.position = position;
 
-            this.container = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            this.container = new Rectangle((int)position.X - 15, (int)position.Y, texture.Width - 30, texture.Height);
         }
 
         public void Update()
         {
-            this.container = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            this.container = new Rectangle((int)position.X - 15, (int)position.Y, texture.Width - 30, texture.Height);
         }
     }
 }

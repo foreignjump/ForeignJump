@@ -21,9 +21,16 @@ namespace ForeignJump
         private Ennemi ennemi;
         private Camera camera;
 
+        #region Barre distance Textures
+        private Texture2D barregreenleft;
+        private Texture2D barregreencenter;
+        private Texture2D barregreenright;
+        private Texture2D barreredleft;
+        private Texture2D barreredcenter;
+        private Texture2D barreredright;
+        #endregion
+
         private float distance;
-        private Texture2D barre;
-        private Texture2D glass;
 
         public Gameplay()
         {
@@ -44,9 +51,12 @@ namespace ForeignJump
         public void LoadContent()
         {
             font = Ressources.GetPerso(Perso.Choisi).font;
-            barre = Ressources.GetPerso(Perso.Choisi).barre;
-            glass = Ressources.GetPerso(Perso.Choisi).glass;
-
+            barregreencenter = Ressources.GetPerso(Perso.Choisi).barregreencenter;
+            barregreenleft = Ressources.GetPerso(Perso.Choisi).barregreenleft;
+            barregreenright = Ressources.GetPerso(Perso.Choisi).barregreenright;
+            barreredcenter = Ressources.GetPerso(Perso.Choisi).barreredcenter;
+            barreredleft = Ressources.GetPerso(Perso.Choisi).barreredleft;
+            barreredright = Ressources.GetPerso(Perso.Choisi).barreredright;
             map.Load();
         }
 
@@ -60,21 +70,34 @@ namespace ForeignJump
             hero.positionLocale.Y = hero.positionGlobale.Y;
             hero.Update(gameTime, 0.3f);
             ennemi.Update(gameTime, 0.3f);
-            
-            distance = hero.positionGlobale.X - ennemi.positionGlobale.X - hero.container.Width;
+
+            //mise à jour de la distance entre l'ennemi et le hero
+            if (distance > 10)
+                distance = hero.positionGlobale.X - ennemi.positionGlobale.X - hero.container.Width;
+            else if (distance < 10)
+                distance = 10;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             camera.Draw(spriteBatch);
-            spriteBatch.DrawString(font, "Nombre de Pieces :" + Convert.ToString(Statistiques.Score), new Vector2(30, 150), Color.White);
-            
-            if (distance < 60)
-                spriteBatch.Draw(barre, new Rectangle(30, 60, (int)distance, barre.Height), Color.Red);
-            else
-                spriteBatch.Draw(barre, new Rectangle(30, 60, (int)distance, barre.Height), Color.Green);
+            spriteBatch.DrawString(font, "Nombre de Pieces :" + Convert.ToString(Statistiques.Score), new Vector2(60, 100), Color.Black);
 
-            spriteBatch.Draw(barre, new Rectangle((int)(hero.container.X - camera.Position.X), hero.container.Y, hero.container.Width, hero.container.Height), Color.White);
+
+            //afficher la barre en rouge si distance en danger
+            if (distance < 80)
+            {
+                spriteBatch.Draw(barreredleft, new Rectangle(60, 30, barreredleft.Width, barreredleft.Height), Color.White);
+                spriteBatch.Draw(barreredcenter, new Rectangle(60 + barreredleft.Width, 30, (int)distance + 10, barreredcenter.Height), Color.White);
+                spriteBatch.Draw(barreredright, new Rectangle((int)distance + 10 + 60 + barreredleft.Width, 30, barreredright.Width, barreredright.Height), Color.White);
+            }
+            else //afficher la barre en vert sinon
+            {
+                spriteBatch.Draw(barregreenleft, new Rectangle(60, 30,barregreenleft.Width, barregreenleft.Height), Color.White);
+                spriteBatch.Draw(barregreencenter, new Rectangle(60 + barregreenleft.Width, 30, (int)distance + 10, barregreencenter.Height), Color.White);
+                spriteBatch.Draw(barregreenright, new Rectangle((int)distance + + 10 + 60 + barregreenleft.Width, 30, barregreenright.Width, barregreenright.Height), Color.White);
+            }
+
         }
 
 	}

@@ -13,7 +13,9 @@ namespace ForeignJump
 {
     class MenuPause
     {
-        Gameplay game;
+        Pong newGame;
+
+        KeyBonusGame keybonusgame;
 
         #region animationButtons
 
@@ -63,9 +65,10 @@ namespace ForeignJump
 
         private int selection; //selection du button actuel
 
-        public MenuPause(Gameplay game)
+        public MenuPause(Pong newGame, KeyBonusGame keybonusgame)
         {
-            this.game = game;
+            this.newGame = newGame;
+            this.keybonusgame = keybonusgame;
         }
 
         public void Initialize(int x, int y)
@@ -98,6 +101,13 @@ namespace ForeignJump
             buttonTextureStart = buttonTextureStartI;
             buttonTextureHelp = buttonTextureHelpI;
             buttonTextureMenu = buttonTextureMenuI;
+
+            buttonBack = new Button(buttonTextureStart, (int)positionStart.X, (int)positionStart.Y);
+            buttonHelp = new Button(buttonTextureHelp, (int)positionHelp.X, (int)positionHelp.Y);
+            buttonMenu = new Button(buttonTextureMenu, (int)positionMenu.X, (int)positionMenu.Y);
+            buttonBackH = new Button(buttonTextureStartH, (int)positionStart.X, (int)positionStart.Y);
+            buttonHelpH = new Button(buttonTextureHelpH, (int)positionHelp.X, (int)positionHelp.Y);
+            buttonMenuH = new Button(buttonTextureMenuH, (int)positionMenu.X, (int)positionMenu.Y);
         }
 
         public void Update(GameTime gameTime, int vitesse)
@@ -191,7 +201,12 @@ namespace ForeignJump
             {
                 if (selection == 0) //si c'est sur start
                 {
-                    GameState.State = "inGame";
+                    if (newGame.startgame)
+                        GameState.State = "newGame";
+                    else if (keybonusgame.startgame)
+                        GameState.State = "KeyBonusGame";
+                    else
+                        GameState.State = "inGame";
 
                     //mise à 0 des variables
                     EntreeButtons = true;
@@ -230,7 +245,7 @@ namespace ForeignJump
             #endregion
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             buttonBack.Draw(spriteBatch);
             buttonHelp.Draw(spriteBatch);

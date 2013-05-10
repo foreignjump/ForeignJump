@@ -21,7 +21,7 @@ namespace ForeignJump
                         GameState.State = "newGame";
                         break;
                     }
-                case 2:
+                default:
                     {
                         bonusVitesse = true;
                         break;

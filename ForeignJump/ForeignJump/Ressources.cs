@@ -55,8 +55,12 @@ namespace ForeignJump
 
             //game
             renoi.bg = Content.Load<Texture2D>("Perso/renoi/bg");
-            renoi.barre = Content.Load<Texture2D>("Perso/renoi/barre");
-            renoi.glass = Content.Load<Texture2D>("Perso/renoi/glass");
+            renoi.barregreenleft = Content.Load<Texture2D>("Perso/renoi/barregreenleft");
+            renoi.barregreencenter = Content.Load<Texture2D>("Perso/renoi/barregreencenter");
+            renoi.barregreenright = Content.Load<Texture2D>("Perso/renoi/barregreenright");
+            renoi.barreredleft = Content.Load<Texture2D>("Perso/renoi/barreredleft");
+            renoi.barreredcenter = Content.Load<Texture2D>("Perso/renoi/barreredcenter");
+            renoi.barreredright = Content.Load<Texture2D>("Perso/renoi/barreredright");
             renoi.font = Content.Load<SpriteFont>("Perso/renoi/Font");
 
             //ennemi
@@ -95,8 +99,12 @@ namespace ForeignJump
 
             //game
             roumain.bg = Content.Load<Texture2D>("Perso/roumain/bg");
-            roumain.barre = Content.Load<Texture2D>("Perso/roumain/barre");
-            roumain.glass = Content.Load<Texture2D>("Perso/roumain/glass");
+            roumain.barregreenleft = Content.Load<Texture2D>("Perso/roumain/barregreenleft");
+            roumain.barregreencenter = Content.Load<Texture2D>("Perso/roumain/barregreencenter");
+            roumain.barregreenright = Content.Load<Texture2D>("Perso/roumain/barregreenright");
+            roumain.barreredleft = Content.Load<Texture2D>("Perso/roumain/barreredleft");
+            roumain.barreredcenter = Content.Load<Texture2D>("Perso/roumain/barreredcenter");
+            roumain.barreredright = Content.Load<Texture2D>("Perso/roumain/barreredright");
             roumain.font = Content.Load<SpriteFont>("Perso/roumain/Font");
 
             //ennemi
