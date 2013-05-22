@@ -39,7 +39,7 @@ namespace ForeignJump
 
         public void LoadContent()
         {
-            menubg = Content.Load<Texture2D>("Menu/Choose/MenuChoose");
+            menubg = Ressources.GetLangue(Langue.Choisie).menuChoose;
             fontmenuchoose = Content.Load<SpriteFont>("Menu/Choose/FontMenuChoose");
         }
 

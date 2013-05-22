@@ -45,14 +45,14 @@ namespace ForeignJump
             startgame = false;
         }
 
-        public void LoadContent(ContentManager Content)
+        public void LoadContent()
         {
-            balleTexture = Content.Load<Texture2D>("newGame/balle");
-            pongBG = Content.Load<Texture2D>("newGame/pongBG");
-            pongStart = Content.Load<Texture2D>("newGame/pongStart");
-            pongBarre = Content.Load<Texture2D>("newGame/pongBarre");
-            pongOver = Content.Load<Texture2D>("newGame/pongOver");
-
+            pongStart = Ressources.GetLangue(Langue.Choisie).pongStart;
+            pongOver = Ressources.GetLangue(Langue.Choisie).pongOver;
+            balleTexture = Ressources.Content.Load<Texture2D>("newGame/balle");
+            pongBG = Ressources.Content.Load<Texture2D>("newGame/pongBG");
+            pongBarre = Ressources.Content.Load<Texture2D>("newGame/pongBarre");
+            
             player = new Player(Ressources.GetPerso(Perso.Choisi).name, pongBarre, new Vector2(467, 100 + 600 - pongBarre.Height));
 
             balle = new PongObject();
@@ -66,6 +66,10 @@ namespace ForeignJump
 
         public void Update(GameTime gameTime, Gameplay game)
         {
+            pongStart = Ressources.GetLangue(Langue.Choisie).pongStart;
+            pongOver = Ressources.GetLangue(Langue.Choisie).pongOver;
+
+
             if (GameState.State == "newGame" && KB.New.IsKeyDown(Keys.Escape))
                 GameState.State = "menuPause";
 
@@ -156,7 +160,7 @@ namespace ForeignJump
             if (lost)
             {
                 spriteBatch.Draw(pongOver, new Rectangle(440, 185, 400, 431), Color.White);
-                spriteBatch.DrawString(font, "Score Final: " + score, new Vector2(550, 300), Color.Black);
+                spriteBatch.DrawString(font, "Score: " + score, new Vector2(550, 300), Color.Black);
             }
         }
 

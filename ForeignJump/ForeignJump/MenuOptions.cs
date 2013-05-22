@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-    public class MenuOptions
+    class MenuOptions
     {
         private Texture2D menubg; //bg
 
@@ -35,56 +35,91 @@ namespace ForeignJump
         private Texture2D soundText; //sound text
         #endregion
 
+        #region langue
+        private Texture2D langueToggleFR; //langue toggle FR
+        private Texture2D langueToggleEN; //langue toggle EN
+        private Texture2D langueToggle; //langue toggle
+
+        private Texture2D langueTextN; //langue text not selected
+        private Texture2D langueTextH; //langue text selected
+        private Texture2D langueText; //sound text
+        #endregion
+
         private int selectionFullscreen; //selection du Fullscreen
         private int selectionSound; //selection du Sound
+        private int selectionLangue; //selection de la Langue
 
         private int selection; //selection verticale
 
+        private Menu menu;
+        private MenuAide menuaide;
+        private MenuChoose menuchoose;
 
-        public MenuOptions()
-        { }
+        public MenuOptions(Menu menu , MenuAide menuaide, MenuChoose menuchoose)
+        {
+            this.menu = menu;
+            this.menuaide = menuaide;
+            this.menuchoose = menuchoose;
+        }
 
         public void Initialize()
         {
             //initialiser la selection à 0 sur fullscreen
             selection = 0;
 
-            //initialiser la selection à 1 donc sur off
-            selectionFullscreen = 1;
+            selectionFullscreen = 1; //initialiser la selection à 1 donc sur off
+            if (Langue.Choisie == "fr")
+                selectionLangue = 0; //initialiser à 0 donc sur FR
+            else
+                selectionLangue = 1;
         }
 
-        public void LoadContent(ContentManager Content)
+        public void LoadContent()
         {
-            menubg = Content.Load<Texture2D>("Menu/Options/MenuOptions");
+            menubg = Ressources.GetLangue(Langue.Choisie).menuOptions;
 
-            fullscreenTextH = Content.Load<Texture2D>("Menu/Options/fullscreenH");
-            fullscreenTextN = Content.Load<Texture2D>("Menu/Options/fullscreenN");
+            fullscreenTextH = Ressources.GetLangue(Langue.Choisie).fullscreenH;
+            fullscreenTextN = Ressources.GetLangue(Langue.Choisie).fullscreenN;
             fullscreenText = fullscreenTextN;
 
-            fullscreenToggleOff = Content.Load<Texture2D>("Menu/Options/off");
-            fullscreenToggleOn = Content.Load<Texture2D>("Menu/Options/on");
+            fullscreenToggleOff = Ressources.Content.Load<Texture2D>("Menu/Options/off");
+            fullscreenToggleOn = Ressources.Content.Load<Texture2D>("Menu/Options/on");
             fullscreenToggle = fullscreenToggleOff;
 
-            soundTextH = Content.Load<Texture2D>("Menu/Options/soundH");
-            soundTextN = Content.Load<Texture2D>("Menu/Options/soundN");
+            soundTextH = Ressources.GetLangue(Langue.Choisie).soundH;
+            soundTextN = Ressources.GetLangue(Langue.Choisie).soundN;
             soundText = soundTextN;
 
-            soundToggleOff = Content.Load<Texture2D>("Menu/Options/off");
-            soundToggleOn = Content.Load<Texture2D>("Menu/Options/on");
+            soundToggleOff = Ressources.Content.Load<Texture2D>("Menu/Options/off");
+            soundToggleOn = Ressources.Content.Load<Texture2D>("Menu/Options/on");
             soundToggle = soundToggleOn;
+
+            langueTextH = Ressources.GetLangue(Langue.Choisie).langueH;
+            langueTextN = Ressources.GetLangue(Langue.Choisie).langueN;
+            langueText = langueTextN;
+
+            langueToggleFR = Ressources.Content.Load<Texture2D>("Menu/Options/fr");
+            langueToggleEN = Ressources.Content.Load<Texture2D>("Menu/Options/en");
+            if (Langue.Choisie == "fr")
+                langueToggle = langueToggleFR;
+            else
+                langueToggle = langueToggleEN;
         }
 
         public void Update(GameTime gameTime, int vitesse, GraphicsDeviceManager graphics)
         {
             if (KB.New.IsKeyDown(Keys.Escape) && !KB.Old.IsKeyDown(Keys.Escape))
+            {
+                selection = 0;
                 GameState.State = "initial"; //retour au menu
+            }
 
             #region selection
 
             if (selection == -1) //pour que la selection ne dépasse pas les negatifs
-                selection = 1;
+                selection = 2;
             else
-                selection = selection % 2; //pour que la selection ne dépasse pas 2
+                selection = selection % 3; //pour que la selection ne dépasse pas 3
 
             if (KB.New.IsKeyDown(Keys.Down) && !KB.Old.IsKeyDown(Keys.Down))
                 selection++;
@@ -105,6 +140,11 @@ namespace ForeignJump
                 soundText = soundTextH; //sound selectionné
             else
                 soundText = soundTextN;
+
+            if (selection == 2)
+                langueText = langueTextH; //langue selectionné
+            else
+                langueText = langueTextN;
 
             #endregion
 
@@ -148,6 +188,34 @@ namespace ForeignJump
                 }
             }
             #endregion
+
+            #region langueToggle
+
+            if (selection == 2) //is sound selected
+            {
+                if (KB.New.IsKeyDown(Keys.Left) && !KB.Old.IsKeyDown(Keys.Left) && selectionLangue == 1)
+                {
+                    selectionLangue = 0;
+                    Langue.Choisie = "fr";
+                    LoadContent();
+                    menu.LoadContent();
+                    menuaide.LoadContent();
+                    menuchoose.LoadContent();
+                    langueToggle = langueToggleFR;
+                }
+
+                if (KB.New.IsKeyDown(Keys.Right) && !KB.Old.IsKeyDown(Keys.Right) && selectionLangue == 0)
+                {
+                    selectionLangue = 1;
+                    Langue.Choisie = "en";
+                    LoadContent();
+                    menu.LoadContent();
+                    menuaide.LoadContent();
+                    menuchoose.LoadContent();
+                    langueToggle = langueToggleEN;
+                }
+            }
+            #endregion
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -159,6 +227,9 @@ namespace ForeignJump
 
             spriteBatch.Draw(soundText, new Rectangle(50, 290, soundText.Width, soundText.Height), Color.White);
             spriteBatch.Draw(soundToggle, new Rectangle(370, 270, soundToggle.Width, soundToggle.Height), Color.White);
+
+            spriteBatch.Draw(langueText, new Rectangle(30, 440, langueText.Width, langueText.Height), Color.White);
+            spriteBatch.Draw(langueToggle, new Rectangle(370, 420, langueToggle.Width, langueToggle.Height), Color.White);
             
         }
     }

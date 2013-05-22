@@ -15,11 +15,8 @@ namespace ForeignJump
     {
         //Gameplay game;
 
-        private Texture2D image; //image
-
         public GameOver()
         {
-            image = Ressources.Content.Load<Texture2D>("gameOver");
         }
 
         public void Update()
@@ -32,7 +29,7 @@ namespace ForeignJump
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, new Rectangle(440, 185, 400, 431), Color.White);
+            spriteBatch.Draw(Ressources.GetLangue(Langue.Choisie).gameOver, new Rectangle(440, 185, 400, 431), Color.White);
         }
     }
 }

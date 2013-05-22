@@ -87,19 +87,19 @@ namespace ForeignJump
             ButtonsOut = false;
         }
 
-        public void LoadContent(ContentManager Content)
+        public void LoadContent()
         {
-            menubg = Content.Load<Texture2D>("Menu/menubg");
+            menubg = Ressources.Content.Load<Texture2D>("Menu/menubg");
 
             //charger buttons
-            buttonTextureStartH = Content.Load<Texture2D>("Menu/ButtonStartH");
-            buttonTextureStartI = Content.Load<Texture2D>("Menu/ButtonStart");
-            buttonTextureOptionsH = Content.Load<Texture2D>("Menu/ButtonOptionsH");
-            buttonTextureOptionsI = Content.Load<Texture2D>("Menu/ButtonOptions");
-            buttonTextureHelpH = Content.Load<Texture2D>("Menu/ButtonHelpH");
-            buttonTextureHelpI = Content.Load<Texture2D>("Menu/ButtonHelp");
-            buttonTextureExitH = Content.Load<Texture2D>("Menu/ButtonExitH");
-            buttonTextureExitI = Content.Load<Texture2D>("Menu/ButtonExit");
+            buttonTextureStartH = Ressources.GetLangue(Langue.Choisie).buttonTextureStartH;
+            buttonTextureStartI = Ressources.GetLangue(Langue.Choisie).buttonTextureStartI;
+            buttonTextureOptionsH = Ressources.GetLangue(Langue.Choisie).buttonTextureOptionsH;
+            buttonTextureOptionsI = Ressources.GetLangue(Langue.Choisie).buttonTextureOptionsI;
+            buttonTextureHelpH = Ressources.GetLangue(Langue.Choisie).buttonTextureHelpH;
+            buttonTextureHelpI = Ressources.GetLangue(Langue.Choisie).buttonTextureHelpI;
+            buttonTextureExitH = Ressources.GetLangue(Langue.Choisie).buttonTextureExitH;
+            buttonTextureExitI = Ressources.GetLangue(Langue.Choisie).buttonTextureExitI;
 
             buttonTextureStart = buttonTextureStartI;
             buttonTextureOptions = buttonTextureOptionsI;

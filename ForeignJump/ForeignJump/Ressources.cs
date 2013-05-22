@@ -18,11 +18,14 @@ namespace ForeignJump
         //static Perso indien;
         //static Perso reunionnais;
 
+        static Langue fr;
+        static Langue en;
+
         public static ContentManager Content;
 
         public static Game Game;
 
-        public static void Load()
+        public static void LoadPerso()
         {
             #region renoi
 
@@ -113,13 +116,119 @@ namespace ForeignJump
             #endregion
         }
 
+        public static void LoadLangue()
+        {
+            #region en
+            en = new Langue();
+
+            //menu buttons
+            en.buttonTextureStartH = Content.Load<Texture2D>("Langue/en/Menu/ButtonStartH");
+            en.buttonTextureStartI = Content.Load<Texture2D>("Langue/en/Menu/ButtonStart");
+
+            en.buttonTextureOptionsH = Content.Load<Texture2D>("Langue/en/Menu/ButtonOptionsH");
+            en.buttonTextureOptionsI = Content.Load<Texture2D>("Langue/en/Menu/ButtonOptions");
+
+            en.buttonTextureHelpH = Content.Load<Texture2D>("Langue/en/Menu/ButtonHelpH");
+            en.buttonTextureHelpI = Content.Load<Texture2D>("Langue/en/Menu/ButtonHelp");
+
+            en.buttonTextureExitH = Content.Load<Texture2D>("Langue/en/Menu/ButtonExitH");
+            en.buttonTextureExitI = Content.Load<Texture2D>("Langue/en/Menu/ButtonExit");
+
+        //menu
+            en.menuAide = Content.Load<Texture2D>("Langue/en/Menu/menuAide");
+            en.menuChoose = Content.Load<Texture2D>("Langue/en/Menu/MenuChoose");
+
+        //menuChoose
+            en.gameOver = Content.Load<Texture2D>("Langue/en/GameOver");
+        
+        //menuOptions
+            en.menuOptions = Content.Load<Texture2D>("Langue/en/Menu/menuOptions");
+            en.fullscreenH = Content.Load<Texture2D>("Langue/en/Menu/fullscreenH");
+            en.fullscreenN = Content.Load<Texture2D>("Langue/en/Menu/fullscreenN");
+            en.soundH = Content.Load<Texture2D>("Langue/en/Menu/soundH");
+            en.soundN = Content.Load<Texture2D>("Langue/en/Menu/soundN");
+            en.langueH = Content.Load<Texture2D>("Langue/en/Menu/langueH");
+            en.langueN = Content.Load<Texture2D>("Langue/en/Menu/langueN");
+
+        //menuPause
+            en.buttonTextureMenuH = Content.Load<Texture2D>("Langue/en/Menu/ButtonMenuH");
+            en.buttonTextureMenuI = Content.Load<Texture2D>("Langue/en/Menu/ButtonMenu");
+
+            en.menuPauseAide = Content.Load<Texture2D>("Langue/en/Menu/MenuPauseAide");
+
+        //keys bonus
+            en.keysStart = Content.Load<Texture2D>("Langue/en/Bonus/keysStart");
+            en.keysOver = Content.Load<Texture2D>("Langue/en/Bonus/keysOver");
+
+        //pong bonus
+            en.pongStart = Content.Load<Texture2D>("Langue/en/Bonus/pongStart");
+            en.pongOver = Content.Load<Texture2D>("Langue/en/Bonus/pongOver");
+
+            #endregion
+
+            #region fr
+            fr = new Langue();
+
+            //menu buttons
+            fr.buttonTextureStartH = Content.Load<Texture2D>("Langue/fr/Menu/ButtonStartH");
+            fr.buttonTextureStartI = Content.Load<Texture2D>("Langue/fr/Menu/ButtonStart");
+
+            fr.buttonTextureOptionsH = Content.Load<Texture2D>("Langue/fr/Menu/ButtonOptionsH");
+            fr.buttonTextureOptionsI = Content.Load<Texture2D>("Langue/fr/Menu/ButtonOptions");
+
+            fr.buttonTextureHelpH = Content.Load<Texture2D>("Langue/fr/Menu/ButtonHelpH");
+            fr.buttonTextureHelpI = Content.Load<Texture2D>("Langue/fr/Menu/ButtonHelp");
+
+            fr.buttonTextureExitH = Content.Load<Texture2D>("Langue/fr/Menu/ButtonExitH");
+            fr.buttonTextureExitI = Content.Load<Texture2D>("Langue/fr/Menu/ButtonExit");
+
+            //menu
+            fr.menuAide = Content.Load<Texture2D>("Langue/fr/Menu/menuAide");
+            fr.menuChoose = Content.Load<Texture2D>("Langue/fr/Menu/MenuChoose");
+
+            //menuChoose
+            fr.gameOver = Content.Load<Texture2D>("Langue/fr/GameOver");
+
+            //menuOptions
+            fr.menuOptions = Content.Load<Texture2D>("Langue/fr/Menu/menuOptions");
+            fr.fullscreenH = Content.Load<Texture2D>("Langue/fr/Menu/fullscreenH");
+            fr.fullscreenN = Content.Load<Texture2D>("Langue/fr/Menu/fullscreenN");
+            fr.soundH = Content.Load<Texture2D>("Langue/fr/Menu/soundH");
+            fr.soundN = Content.Load<Texture2D>("Langue/fr/Menu/soundN");
+            fr.langueH = Content.Load<Texture2D>("Langue/fr/Menu/langueH");
+            fr.langueN = Content.Load<Texture2D>("Langue/fr/Menu/langueN");
+
+            //menuPause
+            fr.buttonTextureMenuH = Content.Load<Texture2D>("Langue/fr/Menu/ButtonMenuH");
+            fr.buttonTextureMenuI = Content.Load<Texture2D>("Langue/fr/Menu/ButtonMenu");
+
+            fr.menuPauseAide = Content.Load<Texture2D>("Langue/fr/Menu/MenuPauseAide");
+
+            //keys bonus
+            fr.keysStart = Content.Load<Texture2D>("Langue/fr/Bonus/keysStart");
+            fr.keysOver = Content.Load<Texture2D>("Langue/fr/Bonus/keysOver");
+
+            //pong bonus
+            fr.pongStart = Content.Load<Texture2D>("Langue/fr/Bonus/pongStart");
+            fr.pongOver = Content.Load<Texture2D>("Langue/fr/Bonus/pongOver");
+
+            #endregion
+        }
+
         public static Niveau GetPerso(string perso)
         {
             if (perso == "renoi")
                 return renoi;
             else
                 return roumain;
+        }
 
+        public static Langue GetLangue(string langue)
+        {
+            if (langue == "fr")
+                return fr;
+            else
+                return en;
         }
     }
 }

@@ -23,9 +23,9 @@ namespace ForeignJump
 
         }
 
-        public void LoadContent(ContentManager Content)
+        public void LoadContent()
         {
-            menubg = Content.Load<Texture2D>("Menu/MenuAide");
+            menubg = Ressources.GetLangue(Langue.Choisie).menuAide;
         }
 
         public void Update(GameTime gameTime, int vitesse)

@@ -119,6 +119,7 @@
     <Compile Include="Hero.cs" />
     <Compile Include="InputKeyboard.cs" />
     <Compile Include="KeyBonusGame.cs" />
+    <Compile Include="Langue.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="MenuAide.cs" />

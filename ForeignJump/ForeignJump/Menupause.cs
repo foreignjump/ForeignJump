@@ -38,8 +38,7 @@ namespace ForeignJump
         #endregion
 
         #region textures
-        //BG        
-        private Texture2D menubg;
+        
         //buttons
         private Texture2D buttonTextureStart;
         private Texture2D buttonTextureStartH;
@@ -89,14 +88,12 @@ namespace ForeignJump
 
         public void LoadContent(ContentManager Content)
         {
-            menubg = Content.Load<Texture2D>("Menu/menubg");
-
-            buttonTextureStartH = Content.Load<Texture2D>("Menu/ButtonStartH");
-            buttonTextureStartI = Content.Load<Texture2D>("Menu/ButtonStart");
-            buttonTextureHelpH = Content.Load<Texture2D>("Menu/ButtonHelpH");
-            buttonTextureHelpI = Content.Load<Texture2D>("Menu/ButtonHelp");
-            buttonTextureMenuH = Content.Load<Texture2D>("Menu/ButtonMenuH");
-            buttonTextureMenuI = Content.Load<Texture2D>("Menu/ButtonMenu");
+            buttonTextureStartH = Ressources.GetLangue(Langue.Choisie).buttonTextureStartH;
+            buttonTextureStartI = Ressources.GetLangue(Langue.Choisie).buttonTextureStartI;
+            buttonTextureHelpH = Ressources.GetLangue(Langue.Choisie).buttonTextureHelpH;
+            buttonTextureHelpI = Ressources.GetLangue(Langue.Choisie).buttonTextureHelpI;
+            buttonTextureMenuH = Ressources.GetLangue(Langue.Choisie).buttonTextureMenuH;
+            buttonTextureMenuI = Ressources.GetLangue(Langue.Choisie).buttonTextureMenuI;
 
             buttonTextureStart = buttonTextureStartI;
             buttonTextureHelp = buttonTextureHelpI;

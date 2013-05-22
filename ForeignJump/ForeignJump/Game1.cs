@@ -27,7 +27,7 @@ namespace ForeignJump
         private MenuChoose menuchoose; //déclaration du menu de choix de personnage
         private Gameplay game; //déclaration du gameplay
         private GameOver gameover; //déclaration du gameover
-        private Pong newgame; //déclaration du popup du nouveau jeu
+        private Pong pong; //déclaration du popup du nouveau jeu
         private KeyBonusGame keybonusgame; //déclaration du popup du jeu de touches
         
         private AudioPlay audioPlay;
@@ -50,6 +50,9 @@ namespace ForeignJump
             this.IsMouseVisible = true;
             KB.Old = Keyboard.GetState();
 
+            Langue.Choisie = "en";
+            Ressources.LoadLangue();
+
             menu = new Menu();
             menu.Initialize(-37, 0); //initialisation menu
 
@@ -61,21 +64,21 @@ namespace ForeignJump
             menuaide = new MenuAide();
             menuaide.Initialize(); //initialisation menu aide
 
-            menuoptions = new MenuOptions();
-            menuoptions.Initialize(); //initialisation menu options
-
             menuchoose = new MenuChoose(game, Content);
             menuchoose.Initialize(); //initialisation menu options
 
+            menuoptions = new MenuOptions(menu, menuaide, menuchoose);
+            menuoptions.Initialize(); //initialisation menu options
+
             gameover = new GameOver();
 
-            newgame = new Pong();
-            newgame.Initialize();
+            pong = new Pong();
+            pong.Initialize();
 
             keybonusgame = new KeyBonusGame();
             keybonusgame.Initialize();
 
-            menupause = new MenuPause(newgame, keybonusgame);
+            menupause = new MenuPause(pong, keybonusgame);
             menupause.Initialize(450, 0); //initialisation menu pause
 
             audioPlay = new AudioPlay(1f);
@@ -87,17 +90,17 @@ namespace ForeignJump
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            Ressources.Load();
+            
+            Ressources.LoadPerso();
             AudioRessources.Load();
 
-            menu.LoadContent(Content); //charger menu
+            menu.LoadContent(); //charger menu
             menupause.LoadContent(Content); //charger menu pause
             menupauseaide.LoadContent(Content); //charger menu pause aide
-            menuaide.LoadContent(Content); //charger menu aide
-            menuoptions.LoadContent(Content); //charger menu options
+            menuaide.LoadContent(); //charger menu aide
+            menuoptions.LoadContent(); //charger menu options
             menuchoose.LoadContent(); //charger menu choix de personnage
-            newgame.LoadContent(Content);
+            pong.LoadContent();
             keybonusgame.LoadContent();
         }
 
@@ -146,7 +149,7 @@ namespace ForeignJump
                 gameover.Update();
 
             if (GameState.State == "newGame")
-                newgame.Update(gameTime, game);
+                pong.Update(gameTime, game);
 
             if (GameState.State == "KeyBonusGame")
                 keybonusgame.Update(gameTime);
@@ -180,15 +183,15 @@ namespace ForeignJump
                 gameover.Draw(spriteBatch);
 
             if (GameState.State == "newGame")
-                newgame.Draw(spriteBatch);
+                pong.Draw(spriteBatch);
 
             if (GameState.State == "KeyBonusGame")
                 keybonusgame.Draw(spriteBatch);
 
             if (GameState.State == "menuPause") //afficher menu pause
             {
-                if (newgame.startgame)
-                    newgame.Draw(spriteBatch);
+                if (pong.startgame)
+                    pong.Draw(spriteBatch);
 
                 if (keybonusgame.startgame)
                     keybonusgame.Draw(spriteBatch);

@@ -20,7 +20,7 @@ namespace ForeignJump
 
         public void LoadContent(ContentManager Content)
         {
-            menuPauseAidebg = Content.Load<Texture2D>("Menu/MenuPauseAide");
+            menuPauseAidebg = Ressources.GetLangue(Langue.Choisie).menuPauseAide;
         }
 
         public void Update()

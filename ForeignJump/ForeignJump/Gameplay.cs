@@ -33,9 +33,7 @@ namespace ForeignJump
         private float distance;
 
         public Gameplay()
-        {
-
-        }
+        { }
 
         public void Initialize()
         {
@@ -81,7 +79,11 @@ namespace ForeignJump
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             camera.Draw(spriteBatch);
+            
+            if (Langue.Choisie == "fr")
             spriteBatch.DrawString(font, "Nombre de Pieces :" + Convert.ToString(Statistiques.Score), new Vector2(60, 100), Color.Black);
+            else
+            spriteBatch.DrawString(font, "Gold :" + Convert.ToString(Statistiques.Score), new Vector2(60, 100), Color.Black);
 
 
             //afficher la barre en rouge si distance en danger
