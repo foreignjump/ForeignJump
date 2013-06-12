@@ -134,7 +134,7 @@ namespace ForeignJump
             }
 
             if (!animate)
-                spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).heroTexture, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, texture.Width, texture.Height), Color.White);
+                spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).ennemiTexture, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, texture.Width, texture.Height), Color.White);
             else
                 personnageAnime.Draw(spriteBatch, new Vector2(positionGlobale.X - positionCam.X - 14f, positionGlobale.Y - 14f), 3);
         }
@@ -218,10 +218,12 @@ namespace ForeignJump
             }
             if ((map.Objets[(int)(objet.container.X / 45 + 1), (int)(objet.container.Y / 45)].type == TypeCase.Eau) && (vitesse.Y == 0) && (map.Objets[(int)(objet.container.X / 45 + 4), (int)(objet.container.Y / 45)].type == TypeCase.Eau))
             {
+                animate = false;
                 force.Y -= 49000;
             }
             else if ((map.Objets[(int)(objet.container.X / 45 + 1), (int)(objet.container.Y / 45)].type == TypeCase.Eau) && (vitesse.Y == 0))
             {
+                animate = false;
                 force.Y -= 40000;
             }            
         }

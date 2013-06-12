@@ -15,8 +15,8 @@ namespace ForeignJump
     {
         static Niveau renoi;
         static Niveau roumain;
-        //static Perso indien;
-        //static Perso reunionnais;
+        //static Niveau indien;
+        static Niveau reunionnais;
 
         static Langue fr;
         static Langue en;
@@ -117,6 +117,53 @@ namespace ForeignJump
             roumain.ennemiTexture = Content.Load<Texture2D>("Perso/roumain/ennemiTexture");
             roumain.ennemiTextureAnime = Content.Load<Texture2D>("Perso/roumain/ennemiTextureAnime");
             roumain.ennemiAnime = new Animate(roumain.ennemiTextureAnime, 1, 12);
+
+            #endregion
+
+            #region reunionnais
+
+            reunionnais = new Niveau();
+            //menuChoose
+            reunionnais.persoMenu = Content.Load<Texture2D>("Menu/Choose/reunionnais/perso");
+            reunionnais.drapeauMenu = Content.Load<Texture2D>("Menu/Choose/reunionnais/drapeau");
+            reunionnais.nameMenu = Content.Load<Texture2D>("Menu/Choose/reunionnais/name");
+            reunionnais.description = "       Moussa, le reunionnais. \n \n    Donec urna sem, semper \n ut bibendum in, malesuada \n sit amet diam. Vivamus id  \n convallis mi. Mauris con \n    Donec urna sem, semper \n ut bibendum in, malesuada \n sit amet diam. Vivamus id  \n convallis mi. Mauris con";
+
+            //map
+            reunionnais.objets = new Objet[1000, 19];
+            reunionnais.obstacle = Content.Load<Texture2D>("Perso/reunionnais/brique");
+            reunionnais.nuage = Content.Load<Texture2D>("Perso/reunionnais/nuage");
+            reunionnais.nulle = Content.Load<Texture2D>("Perso/reunionnais/rien");
+            reunionnais.terre = Content.Load<Texture2D>("Perso/reunionnais/terre");
+            reunionnais.terre1 = Content.Load<Texture2D>("Perso/reunionnais/terre1");
+            reunionnais.terre2 = Content.Load<Texture2D>("Perso/reunionnais/terre3");
+            reunionnais.sousterre = Content.Load<Texture2D>("Perso/reunionnais/terre2");
+            reunionnais.piece = Content.Load<Texture2D>("Perso/reunionnais/piece");
+            reunionnais.bombe = Content.Load<Texture2D>("Perso/reunionnais/bombe");
+            reunionnais.bonus = Content.Load<Texture2D>("Perso/reunionnais/bonus");
+            reunionnais.path = "map.txt";
+
+            //hero
+            reunionnais.heroTexture = Content.Load<Texture2D>("Perso/reunionnais/hero");
+            reunionnais.heroTextureAnime = Content.Load<Texture2D>("Perso/reunionnais/heroAnime");
+            reunionnais.heroTextureDown = Content.Load<Texture2D>("Perso/reunionnais/heroDown");
+            reunionnais.heroAnime = new Animate(reunionnais.heroTextureAnime, 1, 12);
+            reunionnais.name = "Matys";
+
+            //game
+            reunionnais.bg = Content.Load<Texture2D>("Perso/reunionnais/bg");
+            reunionnais.barregreenleft = Content.Load<Texture2D>("Perso/reunionnais/barregreenleft");
+            reunionnais.barregreencenter = Content.Load<Texture2D>("Perso/reunionnais/barregreencenter");
+            reunionnais.barregreenright = Content.Load<Texture2D>("Perso/reunionnais/barregreenright");
+            reunionnais.barreredleft = Content.Load<Texture2D>("Perso/reunionnais/barreredleft");
+            reunionnais.barreredcenter = Content.Load<Texture2D>("Perso/reunionnais/barreredcenter");
+            reunionnais.barreredright = Content.Load<Texture2D>("Perso/reunionnais/barreredright");
+            reunionnais.font = Content.Load<SpriteFont>("Perso/reunionnais/Font");
+
+            //ennemi
+            reunionnais.ennemiTexture = Content.Load<Texture2D>("Perso/reunionnais/ennemiTexture");
+            reunionnais.ennemiTextureAnime = Content.Load<Texture2D>("Perso/reunionnais/ennemiTextureAnime");
+            reunionnais.ennemiAnime = new Animate(reunionnais.ennemiTextureAnime, 1, 12);
 
             #endregion
         }
@@ -224,8 +271,11 @@ namespace ForeignJump
         {
             if (perso == "renoi")
                 return renoi;
-            else
+            else if (perso == "roumain")
                 return roumain;
+            else
+                return reunionnais;
+            
         }
 
         public static Langue GetLangue(string langue)

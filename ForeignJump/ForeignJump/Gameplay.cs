@@ -101,7 +101,7 @@ namespace ForeignJump
 
             //mise à jour de la distance entre l'ennemi et le hero
             if (distance > 10)
-                distance = hero.positionGlobale.X - ennemi.positionGlobale.X - hero.container.Width;
+                distance = hero.positionGlobale.X - ennemi.positionGlobale.X - hero.texture.Width;
             else if (distance < 10)
                 distance = 10;
         }

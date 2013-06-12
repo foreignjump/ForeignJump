@@ -60,7 +60,7 @@ namespace ForeignJump
             if (selection == -1) //pour que la selection ne dépasse pas les negatifs
                 selection = 1;
             else
-                selection = selection % 2; //pour que la selection ne dépasse pas 2
+                selection = selection % 3; //pour que la selection ne dépasse pas 2
 
             if (KB.New.IsKeyDown(Keys.Right) && !KB.Old.IsKeyDown(Keys.Right))
                 selection++;
@@ -79,7 +79,7 @@ namespace ForeignJump
 
                 Perso.Choisi = "renoi";
             }
-            else
+            else if (selection == 2)
             {
                 drapeau = Ressources.GetPerso("roumain").drapeauMenu;
                 perso = Ressources.GetPerso("roumain").persoMenu;
@@ -87,6 +87,16 @@ namespace ForeignJump
                 description = Ressources.GetPerso("roumain").description;
 
                 Perso.Choisi = "roumain";
+            }
+
+            else if (selection == 3)
+            {
+                drapeau = Ressources.GetPerso("reunionnais").drapeauMenu;
+                perso = Ressources.GetPerso("reunionnais").persoMenu;
+                name = Ressources.GetPerso("reunionnais").nameMenu;
+                description = Ressources.GetPerso("reunionnais").description;
+
+                Perso.Choisi = "reunionnais";
             }
 
         }
