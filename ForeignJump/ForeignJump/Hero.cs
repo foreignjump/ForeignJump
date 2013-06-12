@@ -29,16 +29,18 @@ namespace ForeignJump
         //random pour bonus
         private Random random;
 
-        private bool animate;
+        //l'abaissement du personnage
+        private bool down;
+        private Rectangle containerDown;
+        private Rectangle containerUp;
 
+        //superman
         public bool bonusVitesse;
         private Texture2D superman;
-
-        //temps de vitesse augumenté
         int t0, t1;
 
+        //particules bombe
         double tfloat1, tfloat2;
-        //particules bombe******
         ParticleComponent particleComponent;
         bool explosion;
         Emitter bombe = new Emitter();
@@ -48,18 +50,24 @@ namespace ForeignJump
         {
             this.texture = Ressources.GetPerso(Perso.Choisi).heroTexture;
             this.textureAnime = Ressources.GetPerso(Perso.Choisi).heroTextureAnime;
+            this.textureDown = Ressources.GetPerso(Perso.Choisi).heroTextureDown;
             this.personnageAnime = Ressources.GetPerso(Perso.Choisi).heroAnime;
             this.positionGlobale = position;
             this.positionInitiale = position;
             this.vitesse = vitesse;
             this.vitesseInitiale = vitesse;
-            this.container = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             this.type = TypePerso.Hero;
             this.poids = new Vector2(0, poids);
             this.force = Vector2.Zero;
             this.reaction = Vector2.Zero;
             this.map = map;
-            
+
+            containerDown = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y + texture.Height - textureDown.Height, textureDown.Width, textureDown.Height);
+            containerUp = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y, texture.Width, texture.Height);
+            this.container = containerUp;
+
+            down = false;
+
             currentObjet = new Objet();
 
             animate = true;
@@ -70,7 +78,7 @@ namespace ForeignJump
 
             font = Ressources.GetPerso(Perso.Choisi).font;
 
-            //moteur à particule pour la bombe*************
+            //moteur à particule pour la bombe
             #region Moteur a particules
 
             Emitter.statut = true;
@@ -116,8 +124,17 @@ namespace ForeignJump
 
             personnageAnime.Update(speed); //Animation
 
-            container = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y, texture.Width, texture.Height);
+            //container pour le personnage a l'horisontale
+            containerDown = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y + texture.Height - textureDown.Height, textureDown.Width, textureDown.Height);
+            //container pour le personnage debout
+            containerUp = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y, texture.Width, texture.Height);
 
+            if (down)
+                container = containerDown;
+            else
+                container = containerUp;
+
+            //force pour equilibre
             force.Y = 500;
 
             #region Test collision Bonus
@@ -164,7 +181,6 @@ namespace ForeignJump
             }
             #endregion
 
-            #region Test cases adjacentes
             currentObjet = new Objet();
             currentObjet.container.Width = 45;
             currentObjet.container.Height = 45;
@@ -172,171 +188,51 @@ namespace ForeignJump
             int posY = (int)(container.Y / 45);
             int posX = (int)(container.X / 45);
 
-            int currentX = posX, currentY = posY;
-            if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
+            if (down)
             {
-                currentObjet.container.X = currentX * 45;
-                currentObjet.container.Y = currentY * 45;
-                testCollision(currentObjet);
+                #region Test cases adjacentes Down
+                for (int i = 0; i <= 4; i++)
+                {
+                    for (int j = 0; j <= 2; j++)
+                    {
+                        int currentX = posX + i;
+                        int currentY = posY + j;
 
-               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
+                        if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
+                        {
+                            currentObjet.container.X = currentX * 45;
+                            currentObjet.container.Y = currentY * 45;
+                            testCollision(currentObjet);
+
+                            //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barregreencenter;
+                        }
+
+                    }
+                }
+                #endregion
             }
-
-            currentX = posX + 1;
-            currentY = posY;
-            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
+            else
             {
-                currentObjet.container.X = currentX * 45;
-                currentObjet.container.Y = currentY * 45;
-                testCollision(currentObjet);
+                #region Test cases adjacentes Up
+                for (int i = 0; i <= 2; i++)
+                {
+                    for (int j = 0; j <= 4; j++)
+                    {
+                        int currentX = posX + i;
+                        int currentY = posY + j;
 
-               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
+                        if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
+                        {
+                            currentObjet.container.X = currentX * 45;
+                            currentObjet.container.Y = currentY * 45;
+                            testCollision(currentObjet);
+
+                            //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barregreencenter;
+                        }
+                    }
+                }
+                #endregion
             }
-
-            currentX = posX + 2;
-            currentY = posY;
-            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
-            {
-                currentObjet.container.X = currentX * 45;
-                currentObjet.container.Y = currentY * 45;
-                testCollision(currentObjet);
-
-               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
-            }
-
-            currentX = posX;
-            currentY = posY + 1;
-            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
-            {
-                currentObjet.container.X = currentX * 45;
-                currentObjet.container.Y = currentY * 45;
-                testCollision(currentObjet);
-
-               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
-            }
-
-            currentX = posX + 1;
-            currentY = posY + 1;
-            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
-            {
-                currentObjet.container.X = currentX * 45;
-                currentObjet.container.Y = currentY * 45;
-                testCollision(currentObjet);
-
-               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
-            }
-
-            currentX = posX + 2;
-            currentY = posY + 1;
-            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
-            {
-                currentObjet.container.X = currentX * 45;
-                currentObjet.container.Y = currentY * 45;
-                testCollision(currentObjet);
-
-               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
-            }
-
-            currentX = posX;
-            currentY = posY + 2;
-            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
-            {
-                currentObjet.container.X = currentX * 45;
-                currentObjet.container.Y = currentY * 45;
-                testCollision(currentObjet);
-
-               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
-            }
-
-            currentX = posX + 1;
-            currentY = posY + 2;
-            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
-            {
-                currentObjet.container.X = currentX * 45;
-                currentObjet.container.Y = currentY * 45;
-                testCollision(currentObjet);
-
-               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
-            }
-
-            currentX = posX + 2;
-            currentY = posY + 2;
-            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
-            {
-                currentObjet.container.X = currentX * 45;
-                currentObjet.container.Y = currentY * 45;
-                testCollision(currentObjet);
-
-               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
-            }
-
-            currentX = posX;
-            currentY = posY + 3;
-            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
-            {
-                currentObjet.container.X = currentX * 45;
-                currentObjet.container.Y = currentY * 45;
-                testCollision(currentObjet);
-
-               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
-            }
-
-            currentX = posX + 1;
-            currentY = posY + 3;
-            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
-            {
-                currentObjet.container.X = currentX * 45;
-                currentObjet.container.Y = currentY * 45;
-                testCollision(currentObjet);
-
-               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
-            }
-
-            currentX = posX + 2;
-            currentY = posY + 3;
-            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
-            {
-                currentObjet.container.X = currentX * 45;
-                currentObjet.container.Y = currentY * 45;
-                testCollision(currentObjet);
-
-               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
-            }
-
-
-            currentX = posX;
-            currentY = posY + 4;
-            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
-            {
-                currentObjet.container.X = currentX * 45;
-                currentObjet.container.Y = currentY * 45;
-                testCollision(currentObjet);
-
-               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
-            }
-
-            currentX = posX + 1;
-            currentY = posY + 4;
-            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
-            {
-                currentObjet.container.X = currentX * 45;
-                currentObjet.container.Y = currentY * 45;
-                testCollision(currentObjet);
-
-               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
-            }
-
-            currentX = posX + 2;
-            currentY = posY + 4;
-            if (map.Valid(currentX, currentY)&& map.Objets[currentX, currentY].type == TypeCase.Terre)
-            {
-                currentObjet.container.X = currentX * 45;
-                currentObjet.container.Y = currentY * 45;
-                testCollision(currentObjet);
-
-               //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barre;
-            }
-            #endregion
 
             #region Test Bombe + Moteur à particules
             Emitter bomb = particleComponent.particleEmitterList[0];
@@ -397,7 +293,7 @@ namespace ForeignJump
                     }
                 }
             }
-            #endregion bombe
+            #endregion
 
             #region Keyboard Input
 
@@ -420,16 +316,22 @@ namespace ForeignJump
                 animate = false;
             }
 
-            if (KB.New.IsKeyDown(Keys.Down) && vitesse.Y != 0)
-                force.Y += 8500;
-            
+            if (KB.New.IsKeyDown(Keys.Down) && vitesse.Y == 0)
+            {
+                down = true;
+            }
+
+            if (KB.New.IsKeyUp(Keys.Down))
+            {
+                down = false;
+            }
+
             #endregion
 
             Vector2 acceleration = poids + force; //somme des forces = masse * acceleration
 
             vitesse += acceleration * dt;
             positionGlobale += vitesse * dt;
- 
 
             //mise à jour de la position d'avant
             lastPos.X = container.X;
@@ -443,9 +345,16 @@ namespace ForeignJump
         public void Draw(SpriteBatch spriteBatch, Vector2 positionCam)
         {
             if (!animate)
-            spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).heroTexture, new Rectangle((int)(positionGlobale.X - positionCam.X), (int)positionGlobale.Y, texture.Width, texture.Height), Color.White);
+            {
+                spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).heroTexture, new Rectangle((int)(container.X - positionCam.X), (int)container.Y, texture.Width, texture.Height), Color.White);
+            }
             else
-            personnageAnime.Draw(spriteBatch, new Vector2(positionGlobale.X - positionCam.X - 14f, positionGlobale.Y - 14f), 3);
+            {
+                if (down)//affichage du personnage a l'horisontale
+                    spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).heroTextureDown, new Rectangle((int)(container.X - positionCam.X), (int)container.Y, textureDown.Width, textureDown.Height), Color.White);
+                else
+                    personnageAnime.Draw(spriteBatch, new Vector2(containerUp.X - positionCam.X - 14f, containerUp.Y - 14f), 3);
+            }
 
             if (bonusVitesse)
             {
@@ -456,7 +365,7 @@ namespace ForeignJump
 
         private void testCollision(Objet objet)
         {
-            if (container.Intersects(objet.container) && container.X + container.Width <= objet.container.X + objet.container.Width)
+            if (container.Intersects(objet.container))
             {
                 //collision bas hero
                 if (lastPos.Y + container.Height <= objet.container.Y &&
@@ -465,22 +374,28 @@ namespace ForeignJump
                     container.Y + container.Height >= objet.container.Y)
                 {
                     vitesse.Y = 0;
-                    positionGlobale.Y = objet.container.Y - container.Height;
+                    positionGlobale.Y = objet.container.Y - containerUp.Height;
                     animate = true;
                 }
-                
+
+                //collision haut hero
+                if (lastPos.Y > objet.container.Y + objet.container.Height &&
+                    (container.X >= objet.container.X ||
+                    container.X <= objet.container.X + objet.container.Width) &&
+                    container.Y <= objet.container.Y + objet.container.Height)
+                {
+                    vitesse.Y = 150; //à revoir.
+                }
+
                 //collision côté droit hero
                 if (lastPos.Y + container.Height > objet.container.Y &&
-                    container.X + container.Width >= objet.container.X)
+                    container.X + container.Width >= objet.container.X &&
+                    lastPos.X + container.Width > objet.container.X)
                 {
                     bonusVitesse = false;
                     positionGlobale.X = objet.container.X - container.Width;
-                    
                 }
-
-                
             }
-
         }
     }
 }

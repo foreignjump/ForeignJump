@@ -23,6 +23,7 @@ namespace ForeignJump
         {
             if (KB.New.IsKeyDown(Keys.Enter) && !KB.Old.IsKeyDown(Keys.Enter))
             {
+                Statistiques.Score = 0;
                 GameState.State = "initial";
             }
         }

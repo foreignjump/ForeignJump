@@ -35,6 +35,7 @@ namespace ForeignJump
 
         //hero
         public Texture2D heroTexture;
+        public Texture2D heroTextureDown;
         public Texture2D heroTextureAnime;
         public Animate heroAnime;
         public string name;
@@ -50,9 +51,8 @@ namespace ForeignJump
         public SpriteFont font;
 
         //ennemi
-        public Texture2D texture;
+        public Texture2D ennemiTexture;
+        public Texture2D ennemiTextureAnime;
         public Animate ennemiAnime;
-
-
     }
 }

@@ -20,7 +20,11 @@ namespace ForeignJump
 
         public Texture2D textureAnime;
 
+        public Texture2D textureDown;
+
         public Animate personnageAnime;
+
+        public bool animate;
 
         //physique
         public Vector2 positionGlobale;

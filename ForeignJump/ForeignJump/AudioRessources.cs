@@ -23,6 +23,7 @@ namespace ForeignJump
         public static SoundEffect wingold;
         public static SoundEffect winbonus;
         public static SoundEffect getbomb;
+        public static SoundEffect MenuMusic;
 
         public static float volume;
 

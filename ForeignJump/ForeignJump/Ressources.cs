@@ -51,8 +51,9 @@ namespace ForeignJump
             renoi.path = "map.txt";
 
             //hero
-            renoi.heroTexture = Content.Load<Texture2D>("Perso/renoi/hero6");
-            renoi.heroTextureAnime = Content.Load<Texture2D>("Perso/renoi/hero6anime");
+            renoi.heroTexture = Content.Load<Texture2D>("Perso/renoi/hero");
+            renoi.heroTextureAnime = Content.Load<Texture2D>("Perso/renoi/heroAnime");
+            renoi.heroTextureDown = Content.Load<Texture2D>("Perso/renoi/heroDown");
             renoi.heroAnime = new Animate(renoi.heroTextureAnime, 1, 12);
             renoi.name = "Moussa";
 
@@ -67,8 +68,9 @@ namespace ForeignJump
             renoi.font = Content.Load<SpriteFont>("Perso/renoi/Font");
 
             //ennemi
-            renoi.texture = Content.Load<Texture2D>("Perso/renoi/voitureanime");
-            renoi.ennemiAnime = new Animate(renoi.texture, 1, 4);
+            renoi.ennemiTexture = Content.Load<Texture2D>("Perso/renoi/ennemiTexture");
+            renoi.ennemiTextureAnime = Content.Load<Texture2D>("Perso/renoi/ennemiTextureAnime");
+            renoi.ennemiAnime = new Animate(renoi.ennemiTextureAnime, 1, 12);
 
             #endregion
 
@@ -95,8 +97,9 @@ namespace ForeignJump
             roumain.path = "map2.txt";
 
             //hero
-            roumain.heroTexture = Content.Load<Texture2D>("Perso/roumain/hero6");
-            roumain.heroTextureAnime = Content.Load<Texture2D>("Perso/roumain/hero6anime");
+            roumain.heroTexture = Content.Load<Texture2D>("Perso/roumain/hero");
+            roumain.heroTextureAnime = Content.Load<Texture2D>("Perso/roumain/heroAnime");
+            roumain.heroTextureDown = Content.Load<Texture2D>("Perso/roumain/heroDown");
             roumain.heroAnime = new Animate(roumain.heroTextureAnime, 1, 12);
             roumain.name = "Andrei";
 
@@ -111,8 +114,10 @@ namespace ForeignJump
             roumain.font = Content.Load<SpriteFont>("Perso/roumain/Font");
 
             //ennemi
-            roumain.texture = Content.Load<Texture2D>("Perso/roumain/voitureanime");
-            roumain.ennemiAnime = new Animate(roumain.texture, 1, 4);
+            roumain.ennemiTexture = Content.Load<Texture2D>("Perso/roumain/ennemiTexture");
+            roumain.ennemiTextureAnime = Content.Load<Texture2D>("Perso/roumain/ennemiTextureAnime");
+            roumain.ennemiAnime = new Animate(roumain.ennemiTextureAnime, 1, 12);
+
             #endregion
         }
 

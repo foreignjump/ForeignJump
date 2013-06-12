@@ -29,10 +29,19 @@ namespace ForeignJump
         private GameOver gameover; //déclaration du gameover
         private Pong pong; //déclaration du popup du nouveau jeu
         private KeyBonusGame keybonusgame; //déclaration du popup du jeu de touches
-        
+
         private AudioPlay audioPlay;
 
-        
+        //**********ENTREE**********
+        //générique
+        private Video gen;
+        private VideoPlayer generique = new VideoPlayer();
+        //musique
+        private Song MenuMusic;
+        private bool play;
+        private bool disagenerique;
+
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -40,6 +49,8 @@ namespace ForeignJump
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 800;
             graphics.ApplyChanges();
+
+            Components.Add(new GamerServicesComponent(this)); //Live
 
             Ressources.Content = Content;
             Ressources.Game = this;
@@ -57,7 +68,6 @@ namespace ForeignJump
             menu.Initialize(-37, 0); //initialisation menu
 
             game = new Gameplay();
-            //game.Initialize(); //initialisation game
 
             menupauseaide = new MenuPauseAide();
 
@@ -82,7 +92,7 @@ namespace ForeignJump
             menupause.Initialize(450, 0); //initialisation menu pause
 
             audioPlay = new AudioPlay(1f);
-            GameState.State = "initial"; //mise à l'état initial
+            GameState.State = "Generique"; //mise à l'état initial
 
             base.Initialize();
         }
@@ -90,7 +100,7 @@ namespace ForeignJump
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+
             Ressources.LoadPerso();
             AudioRessources.Load();
 
@@ -102,9 +112,11 @@ namespace ForeignJump
             menuchoose.LoadContent(); //charger menu choix de personnage
             pong.LoadContent();
             keybonusgame.LoadContent();
+            gen = Content.Load<Video>("Generique");
+            MenuMusic = Content.Load<Song>("Sound/MenuMusic");
         }
 
-   
+
         protected override void Update(GameTime gameTime)
         {
             mouseStateCurrent = Mouse.GetState(); //gestion souris
@@ -122,11 +134,47 @@ namespace ForeignJump
             if (KB.New.IsKeyDown(Keys.Tab) && !KB.Old.IsKeyDown(Keys.Tab))
                 System.Environment.Exit(0);
 
+            if (GameState.State == "Generique")
+            {
+                if (gameTime.TotalGameTime.Seconds < gen.Duration.Seconds && !(KB.New.IsKeyDown(Keys.Space)))
+                {
+                    if (disagenerique == false)
+                    {
+                        generique.Play(gen);
+                        disagenerique = true;
+                    }
+                    play = false;
+                }
+                else
+                {
+                    GameState.State = "initial";
+                    disagenerique = true;
+                    generique.Stop();
+                }
+            }
+
             if (GameState.State == "initial") //mise à jour menu
+            {
                 menu.Update(gameTime, 8);
+                
+                if (AudioRessources.volume == 0)
+                {
+                    MediaPlayer.Stop();
+                    play = false;
+                }
+                else if (!play)
+                {
+                    MediaPlayer.Play(MenuMusic);
+                    play = true;
+                }
+            }
 
             if (GameState.State == "inGame") //mise à jour game
+            {
                 game.Update(gameTime);
+                MediaPlayer.Stop();
+                play = false;
+            }
 
             //menus
             if (GameState.State == "menuPause") //mise à jour menu pause
@@ -134,7 +182,7 @@ namespace ForeignJump
 
             if (GameState.State == "menuPauseAide") //mise à jour menu pause aide
                 menupauseaide.Update();
-            
+
             if (GameState.State == "menuAide") //mise à jour menu aide
                 menuaide.Update(gameTime, 5);
 
@@ -164,7 +212,11 @@ namespace ForeignJump
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin(); //Debut
+
             menu.Draw(spriteBatch, gameTime, true); //afficher menu
+
+            if (GameState.State == "Generique")
+                spriteBatch.Draw(generique.GetTexture(), new Rectangle(0, 0, 1280, 800), Color.Gray);
 
             if (GameState.State == "inGame" || GameState.State == "menuPause" || GameState.State == "GameOver"
                 || GameState.State == "newGame" || GameState.State == "KeyBonusGame") //afficher jeu

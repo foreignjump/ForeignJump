@@ -14,7 +14,7 @@ namespace ForeignJump
     class AudioPlay
     {
         public float volume;
-
+        
         public AudioPlay(float volume)
         {
             this.volume = volume;

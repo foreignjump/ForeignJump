@@ -12,8 +12,8 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-	class Gameplay
-	{
+    class Gameplay
+    {
         public SpriteFont font;
 
         private Map map;
@@ -32,6 +32,13 @@ namespace ForeignJump
 
         private float distance;
 
+        int nb1 = 0;
+        int nb2 = 0;
+        float time1;
+        float time2;
+        float a;
+        float b;
+        float speed;
         public Gameplay()
         { }
 
@@ -66,8 +73,31 @@ namespace ForeignJump
             camera.Position = new Vector2(hero.positionGlobale.X - 500, camera.Position.Y);
             hero.positionLocale.X = hero.positionGlobale.X - camera.Position.X + hero.positionInitiale.X;
             hero.positionLocale.Y = hero.positionGlobale.Y;
-            hero.Update(gameTime, 0.3f);
+
+            #region code de sale chien
+            if (nb1 == 1)
+            {
+                a = hero.positionGlobale.X;
+                time1 = gameTime.TotalGameTime.Milliseconds;
+            }
+            if (nb2 == 2)
+            {
+
+                b = hero.positionGlobale.X;
+                time2 = gameTime.TotalGameTime.Milliseconds;
+                speed = Math.Abs(((b - a) / (time2 - time1))) * 2f;
+                nb1 = 0;
+                nb2 = 0;
+            }
+            nb1++;
+            nb2++;
+            if (speed > 0.99f)
+                speed = 0.3f;
+            #endregion
+
+            hero.Update(gameTime, speed);
             ennemi.Update(gameTime, 0.3f);
+
 
             //mise à jour de la distance entre l'ennemi et le hero
             if (distance > 10)
@@ -79,12 +109,11 @@ namespace ForeignJump
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             camera.Draw(spriteBatch);
-            
-            if (Langue.Choisie == "fr")
-            spriteBatch.DrawString(font, "Nombre de Pieces :" + Convert.ToString(Statistiques.Score), new Vector2(60, 100), Color.Black);
-            else
-            spriteBatch.DrawString(font, "Gold :" + Convert.ToString(Statistiques.Score), new Vector2(60, 100), Color.Black);
 
+            if (Langue.Choisie == "fr")
+                spriteBatch.DrawString(font, "Nombre de Pieces :" + Convert.ToString(Statistiques.Score), new Vector2(60, 100), Color.Black);
+            else
+                spriteBatch.DrawString(font, "Gold :" + Convert.ToString(Statistiques.Score), new Vector2(60, 100), Color.Black);
 
             //afficher la barre en rouge si distance en danger
             if (distance < 80)
@@ -95,12 +124,12 @@ namespace ForeignJump
             }
             else //afficher la barre en vert sinon
             {
-                spriteBatch.Draw(barregreenleft, new Rectangle(60, 30,barregreenleft.Width, barregreenleft.Height), Color.White);
+                spriteBatch.Draw(barregreenleft, new Rectangle(60, 30, barregreenleft.Width, barregreenleft.Height), Color.White);
                 spriteBatch.Draw(barregreencenter, new Rectangle(60 + barregreenleft.Width, 30, (int)distance + 10, barregreencenter.Height), Color.White);
-                spriteBatch.Draw(barregreenright, new Rectangle((int)distance + + 10 + 60 + barregreenleft.Width, 30, barregreenright.Width, barregreenright.Height), Color.White);
+                spriteBatch.Draw(barregreenright, new Rectangle((int)distance + +10 + 60 + barregreenleft.Width, 30, barregreenright.Width, barregreenright.Height), Color.White);
             }
 
         }
 
-	}
+    }
 }

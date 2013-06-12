@@ -105,6 +105,15 @@ namespace ForeignJump
             buttonTextureOptions = buttonTextureOptionsI;
             buttonTextureHelp = buttonTextureHelpI;
             buttonTextureExit = buttonTextureExitI;
+
+            buttonStart = new Button(buttonTextureStart, (int)positionStart.X, (int)positionStart.Y);
+            buttonOptions = new Button(buttonTextureOptions, (int)positionOptions.X, (int)positionOptions.Y);
+            buttonHelp = new Button(buttonTextureHelp, (int)positionHelp.X, (int)positionHelp.Y);
+            buttonExit = new Button(buttonTextureExit, (int)positionExit.X, (int)positionExit.Y);
+            buttonStartH = new Button(buttonTextureStartH, (int)positionStart.X, (int)positionStart.Y);
+            buttonOptionsH = new Button(buttonTextureOptionsH, (int)positionOptions.X, (int)positionOptions.Y);
+            buttonHelpH = new Button(buttonTextureHelpH, (int)positionHelp.X, (int)positionHelp.Y);
+            buttonExitH = new Button(buttonTextureExitH, (int)positionExit.X, (int)positionExit.Y);
         }
 
         public void Update(GameTime gameTime, int vitesse)
