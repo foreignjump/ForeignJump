@@ -19,6 +19,7 @@ namespace ForeignJump
         public static List<Rectangle> ListPiece = new List<Rectangle>();
         public static List<Rectangle> ListBonus = new List<Rectangle>();
         public static List<Rectangle> ListBombe = new List<Rectangle>();
+        public static List<Rectangle> ListACDC = new List<Rectangle>();
         //
         private Objet[,] objets;
         public Objet[,] Objets
@@ -105,6 +106,13 @@ namespace ForeignJump
                                 ListBonus.Add(new Rectangle((int)objet.position.X, (int)objet.position.Y, (int)objet.container.Width, (int)objet.container.Height));
                                 objet.texture = Ressources.GetPerso(Perso.Choisi).bonus;
                                 objet.type = TypeCase.Bonus;
+                                break;
+                            }
+                        case 'A':
+                            {
+                                ListACDC.Add(new Rectangle((int)objet.position.X, (int)objet.position.Y, (int)objet.container.Width, (int)objet.container.Height));
+                                objet.texture = Ressources.Content.Load<Texture2D>("ACDCmap");
+                                objet.type = TypeCase.ACDC;
                                 break;
                             }
                         default:

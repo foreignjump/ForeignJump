@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ForeignJump
 {
-    public enum TypeCase { Terre, Sousterre, Eau, Null, Piece, Bonus, Obstacle, AvanceRapide, Bombe };
+    public enum TypeCase { Terre, Sousterre, Eau, Null, Piece, Bonus, Obstacle, AvanceRapide, Bombe, ACDC };
 
     public class Objet
     {

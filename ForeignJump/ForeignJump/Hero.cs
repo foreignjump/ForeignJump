@@ -33,6 +33,11 @@ namespace ForeignJump
         private bool down;
         private Rectangle containerDown;
         private Rectangle containerUp;
+        
+        //ACDC
+        public Rectangle containerACDC;
+        public bool acdc;
+        private Texture2D acdcTexture;
 
         //superman
         public bool bonusVitesse;
@@ -65,8 +70,11 @@ namespace ForeignJump
             containerDown = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y + texture.Height - textureDown.Height, textureDown.Width, textureDown.Height);
             containerUp = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y, texture.Width, texture.Height);
             this.container = containerUp;
-
             down = false;
+
+            acdcTexture = Ressources.Content.Load<Texture2D>("ACDC");
+            containerACDC = new Rectangle((int)positionGlobale.X - acdcTexture.Width, (int)positionGlobale.Y, acdcTexture.Width, acdcTexture.Height);
+            acdc = false;
 
             currentObjet = new Objet();
 
@@ -136,6 +144,20 @@ namespace ForeignJump
 
             //force pour equilibre
             force.Y = 500;
+
+            containerACDC = new Rectangle((int)positionGlobale.X - acdcTexture.Width + 20, (int)positionGlobale.Y - 10, acdcTexture.Width, acdcTexture.Height);
+
+            #region Test collision ACDC
+            for (int i = 0; i < Map.ListACDC.Count; i++)
+            {
+                if (container.Intersects(Map.ListACDC[i]))
+                {
+                    map.Objets[Map.ListACDC[i].X / 45, Map.ListACDC[i].Y / 45] = map.Objets[1, 1];
+                    Map.ListACDC[i] = new Rectangle(0, 0, 45, 45);
+                    acdc = true;
+                }
+            }
+            #endregion
 
             #region Test collision Bonus
             for (int i = 0; i < Map.ListBonus.Count; i++)
@@ -355,6 +377,9 @@ namespace ForeignJump
                 else
                     personnageAnime.Draw(spriteBatch, new Vector2(containerUp.X - positionCam.X - 14f, containerUp.Y - 14f), 3);
             }
+
+            if (acdc)
+                spriteBatch.Draw(acdcTexture, new Rectangle((int)(containerACDC.X - positionCam.X), containerACDC.Y, acdcTexture.Width, acdcTexture.Height), Color.White);
 
             if (bonusVitesse)
             {

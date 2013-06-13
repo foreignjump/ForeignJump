@@ -23,6 +23,8 @@ namespace ForeignJump
 
         private Objet currentObjet;
 
+        private Rectangle ACDC;
+
         //particules
         ParticleComponent particleComponent;
 
@@ -43,6 +45,8 @@ namespace ForeignJump
             this.map = map;
             this.currentObjet = new Objet();
             this.hero = hero;
+
+            ACDC = new Rectangle(0, 0, texture.Width, texture.Height);
 
             animate = true;
 
@@ -90,7 +94,14 @@ namespace ForeignJump
             container = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y, texture.Width, texture.Height);
 
             force.Y = 600;
-
+            if (hero.acdc)
+            {
+            if (container.Intersects(hero.containerACDC))
+            {
+                positionGlobale.X = hero.containerACDC.X - texture.Width - 120;
+                hero.acdc = false;
+            }
+            }
             #region Test cases adjacentes
             currentObjet = new Objet();
             currentObjet.container.Width = 45;
@@ -117,7 +128,7 @@ namespace ForeignJump
             #endregion
 
             Vector2 acceleration = poids + force; //somme des forces = masse * acceleration
-
+        
             vitesse += acceleration * dt;
             positionGlobale += vitesse * dt;
 
