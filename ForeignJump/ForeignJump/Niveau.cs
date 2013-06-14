@@ -22,7 +22,6 @@ namespace ForeignJump
         //map
         public Objet[,] objets;
         public Texture2D obstacle;
-        public Texture2D nuage;
         public Texture2D nulle;
         public Texture2D terre;
         public Texture2D terre1;

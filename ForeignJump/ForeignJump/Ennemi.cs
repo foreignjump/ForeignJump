@@ -94,13 +94,14 @@ namespace ForeignJump
             container = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y, texture.Width, texture.Height);
 
             force.Y = 600;
+            
             if (hero.acdc)
             {
-            if (container.Intersects(hero.containerACDC))
-            {
-                positionGlobale.X = hero.containerACDC.X - texture.Width - 120;
-                hero.acdc = false;
-            }
+                if (container.Intersects(hero.containerACDC))
+                {
+                    positionGlobale.X = hero.containerACDC.X - texture.Width - 120;
+                    hero.acdc = false;
+                }
             }
             #region Test cases adjacentes
             currentObjet = new Objet();
@@ -128,7 +129,7 @@ namespace ForeignJump
             #endregion
 
             Vector2 acceleration = poids + force; //somme des forces = masse * acceleration
-        
+
             vitesse += acceleration * dt;
             positionGlobale += vitesse * dt;
 
@@ -155,6 +156,7 @@ namespace ForeignJump
             if (container.Intersects(hero.container))
             {
                 GameState.State = "GameOver";
+                GameOver.Die();
             }
             //création nouvelle particule
             Emitter t3 = particleComponent.particleEmitterList[0];
@@ -236,7 +238,7 @@ namespace ForeignJump
             {
                 animate = false;
                 force.Y -= 40000;
-            }            
+            }
         }
     }
 }

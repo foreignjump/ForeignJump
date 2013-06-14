@@ -39,6 +39,12 @@ namespace ForeignJump
             foreach (Objet objet in map.Objets)
             {
                 spriteBatch.Draw(objet.texture, new Rectangle((int)(objet.position.X - position.X), (int)(objet.position.Y), 45, 45), Color.White);
+                if (objet.type == TypeCase.Piece)
+                {
+                    Animate piece = new Animate(Ressources.GetPerso(Perso.Choisi).piece, 8, 8);
+                    piece.Update(0.3f);
+                    piece.Draw(spriteBatch, new Vector2(objet.position.X - position.X, objet.position.Y), 3);
+                }
 //                spriteBatch.DrawString(hero.font, Convert.ToString(objet.container.X + ";" + objet.container.Y), new Vector2(objet.position.X - position.X, objet.position.Y), Color.Green);
             }
 

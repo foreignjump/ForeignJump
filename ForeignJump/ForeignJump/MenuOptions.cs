@@ -42,7 +42,14 @@ namespace ForeignJump
 
         private Texture2D langueTextN; //langue text not selected
         private Texture2D langueTextH; //langue text selected
-        private Texture2D langueText; //sound text
+        private Texture2D langueText; //langue text
+        #endregion
+
+        #region nom
+        private Texture2D nomTextN; //nom text not selected
+        private Texture2D nomTextH; //nom text selected
+        private Texture2D nomText; //nom text
+        private Texture2D nomButton; //nom button Change
         #endregion
 
         private int selectionFullscreen; //selection du Fullscreen
@@ -104,6 +111,11 @@ namespace ForeignJump
                 langueToggle = langueToggleFR;
             else
                 langueToggle = langueToggleEN;
+
+            nomTextH = Ressources.GetLangue(Langue.Choisie).nomH;
+            nomTextN = Ressources.GetLangue(Langue.Choisie).nomN;
+            nomText = nomTextN;
+            nomButton = Ressources.GetLangue(Langue.Choisie).nomButton;
         }
 
         public void Update(GameTime gameTime, int vitesse, GraphicsDeviceManager graphics)
@@ -117,9 +129,9 @@ namespace ForeignJump
             #region selection
 
             if (selection == -1) //pour que la selection ne dépasse pas les negatifs
-                selection = 2;
+                selection = 3;
             else
-                selection = selection % 3; //pour que la selection ne dépasse pas 3
+                selection = selection % 4; //pour que la selection ne dépasse pas 4
 
             if (KB.New.IsKeyDown(Keys.Down) && !KB.Old.IsKeyDown(Keys.Down))
                 selection++;
@@ -145,6 +157,11 @@ namespace ForeignJump
                 langueText = langueTextH; //langue selectionné
             else
                 langueText = langueTextN;
+
+            if (selection == 3)
+                nomText = nomTextH; //langue selectionné
+            else
+                nomText = nomTextN;
 
             #endregion
 
@@ -216,6 +233,17 @@ namespace ForeignJump
                 }
             }
             #endregion
+
+            #region nomButton
+            if (selection == 3) //is sound selected
+            {
+                if (KB.New.IsKeyDown(Keys.Enter) && !KB.Old.IsKeyDown(Keys.Enter))
+                {
+                    GameState.State = "menuName";
+                }
+
+            }
+            #endregion
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -230,7 +258,10 @@ namespace ForeignJump
 
             spriteBatch.Draw(langueText, new Rectangle(30, 440, langueText.Width, langueText.Height), Color.White);
             spriteBatch.Draw(langueToggle, new Rectangle(370, 420, langueToggle.Width, langueToggle.Height), Color.White);
-            
+
+            spriteBatch.Draw(nomText, new Rectangle(50, 560, nomText.Width, nomText.Height), Color.White);
+            spriteBatch.Draw(nomButton, new Rectangle(370, 540, nomButton.Width, nomButton.Height), Color.White);
+            spriteBatch.DrawString(Ressources.GetPerso("renoi").font, "Player name: " + Statistiques.Name, new Vector2(60, 650), Color.White);
         }
     }
 }

@@ -296,6 +296,7 @@ namespace ForeignJump
                 {
                     bomb.Active = false;
                     GameState.State = "GameOver";
+                    GameOver.Die();
                     fum.Active = true;
                     fum.Position = new Vector2(positionGlobale.X - ennemi.camera.Position.X + 50, positionGlobale.Y + 20);
                     if (fum.EmittedNewParticle)
@@ -361,7 +362,10 @@ namespace ForeignJump
 
             //si il tombe dans le vide
             if (positionGlobale.Y >= 800)
+            {
                 GameState.State = "GameOver";
+                GameOver.Die();
+            } 
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 positionCam)

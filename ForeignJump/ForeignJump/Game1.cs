@@ -25,6 +25,7 @@ namespace ForeignJump
         private MenuAide menuaide; //déclaration du menu aide
         private MenuOptions menuoptions; //déclaration du menu options
         private MenuChoose menuchoose; //déclaration du menu de choix de personnage
+        private MenuName menuname; //déclaration du menu de nom
         private Gameplay game; //déclaration du gameplay
         private GameOver gameover; //déclaration du gameover
         private Pong pong; //déclaration du popup du nouveau jeu
@@ -77,6 +78,9 @@ namespace ForeignJump
             menuchoose = new MenuChoose(game, Content);
             menuchoose.Initialize(); //initialisation menu options
 
+            menuname = new MenuName();
+            menuname.Initialize(); //initialisation menu options
+
             menuoptions = new MenuOptions(menu, menuaide, menuchoose);
             menuoptions.Initialize(); //initialisation menu options
 
@@ -110,6 +114,7 @@ namespace ForeignJump
             menuaide.LoadContent(); //charger menu aide
             menuoptions.LoadContent(); //charger menu options
             menuchoose.LoadContent(); //charger menu choix de personnage
+            menuname.LoadContent();
             pong.LoadContent();
             keybonusgame.LoadContent();
             gen = Content.Load<Video>("Generique");
@@ -136,7 +141,7 @@ namespace ForeignJump
 
             if (GameState.State == "Generique")
             {
-                if (gameTime.TotalGameTime.Seconds < gen.Duration.Seconds && !(KB.New.IsKeyDown(Keys.Space)))
+                if (gameTime.TotalGameTime.Seconds < gen.Duration.Seconds && !(KB.New.IsKeyDown(Keys.Escape)))
                 {
                     if (disagenerique == false)
                     {
@@ -147,7 +152,7 @@ namespace ForeignJump
                 }
                 else
                 {
-                    GameState.State = "initial";
+                    GameState.State = "menuName";
                     disagenerique = true;
                     generique.Stop();
                 }
@@ -191,6 +196,9 @@ namespace ForeignJump
 
             if (GameState.State == "menuChoose") //mise à jour menu aide
                 menuchoose.Update(gameTime, 5);
+
+            if (GameState.State == "menuName") //mise à jour menu aide
+                menuname.Update();
             //menus fin
 
             if (GameState.State == "GameOver") //game over
@@ -231,7 +239,10 @@ namespace ForeignJump
             if (GameState.State == "menuChoose") //afficher menu pause
                 menuchoose.Draw(spriteBatch, gameTime);
 
-            if (GameState.State == "GameOver") //afficher le pen
+            if (GameState.State == "menuName") //afficher menu name
+                menuname.Draw(spriteBatch);
+
+            if (GameState.State == "GameOver") //afficher lepen
                 gameover.Draw(spriteBatch);
 
             if (GameState.State == "newGame")

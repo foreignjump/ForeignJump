@@ -33,7 +33,7 @@ namespace ForeignJump
 
         public void Initialize()
         {
-            //initialiser la selection à 0 sur fullscreen
+            //initialiser la selection à 1 sur renoi
             selection = 1;
         }
 

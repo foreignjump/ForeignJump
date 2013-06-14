@@ -39,7 +39,6 @@ namespace ForeignJump
             //map
             renoi.objets = new Objet[1000, 19];
             renoi.obstacle = Content.Load<Texture2D>("Perso/renoi/brique");
-            renoi.nuage = Content.Load<Texture2D>("Perso/renoi/nuage");
             renoi.nulle = Content.Load<Texture2D>("Perso/renoi/rien");
             renoi.terre = Content.Load<Texture2D>("Perso/renoi/terre");
             renoi.terre1 = Content.Load<Texture2D>("Perso/renoi/terre1");
@@ -85,7 +84,6 @@ namespace ForeignJump
             //map
             roumain.objets = new Objet[1000, 19];
             roumain.obstacle = Content.Load<Texture2D>("Perso/roumain/brique");
-            roumain.nuage = Content.Load<Texture2D>("Perso/roumain/nuage");
             roumain.nulle = Content.Load<Texture2D>("Perso/roumain/rien");
             roumain.terre = Content.Load<Texture2D>("Perso/roumain/terre");
             roumain.terre1 = Content.Load<Texture2D>("Perso/roumain/terre1");
@@ -132,7 +130,6 @@ namespace ForeignJump
             //map
             reunionnais.objets = new Objet[1000, 19];
             reunionnais.obstacle = Content.Load<Texture2D>("Perso/reunionnais/brique");
-            reunionnais.nuage = Content.Load<Texture2D>("Perso/reunionnais/nuage");
             reunionnais.nulle = Content.Load<Texture2D>("Perso/reunionnais/rien");
             reunionnais.terre = Content.Load<Texture2D>("Perso/reunionnais/terre");
             reunionnais.terre1 = Content.Load<Texture2D>("Perso/reunionnais/terre1");
@@ -201,6 +198,9 @@ namespace ForeignJump
             en.soundN = Content.Load<Texture2D>("Langue/en/Menu/soundN");
             en.langueH = Content.Load<Texture2D>("Langue/en/Menu/langueH");
             en.langueN = Content.Load<Texture2D>("Langue/en/Menu/langueN");
+            en.nomH = Content.Load<Texture2D>("Langue/en/Menu/nomH");
+            en.nomN = Content.Load<Texture2D>("Langue/en/Menu/nomN");
+            en.nomButton = Content.Load<Texture2D>("Langue/en/Menu/nomButton");
 
         //menuPause
             en.buttonTextureMenuH = Content.Load<Texture2D>("Langue/en/Menu/ButtonMenuH");
@@ -249,6 +249,9 @@ namespace ForeignJump
             fr.soundN = Content.Load<Texture2D>("Langue/fr/Menu/soundN");
             fr.langueH = Content.Load<Texture2D>("Langue/fr/Menu/langueH");
             fr.langueN = Content.Load<Texture2D>("Langue/fr/Menu/langueN");
+            fr.nomH = Content.Load<Texture2D>("Langue/fr/Menu/nomH");
+            fr.nomN = Content.Load<Texture2D>("Langue/fr/Menu/nomN");
+            fr.nomButton = Content.Load<Texture2D>("Langue/fr/Menu/nomButton");
 
             //menuPause
             fr.buttonTextureMenuH = Content.Load<Texture2D>("Langue/fr/Menu/ButtonMenuH");

@@ -49,6 +49,9 @@ namespace ForeignJump
         public Texture2D soundN;
         public Texture2D langueH;
         public Texture2D langueN;
+        public Texture2D nomH;
+        public Texture2D nomN;
+        public Texture2D nomButton;
 
         //menuPause
         public Texture2D buttonTextureMenuH;

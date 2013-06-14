@@ -13,12 +13,20 @@ namespace ForeignJump
 {
     public static class Statistiques
     {
-        static int score ;
+        static int score;
 
         public static int Score
         {
             get { return score; }
             set { score = value; }
+        }
+
+        static string name;
+
+        public static string Name
+        {
+            get { return name; }
+            set { name = value; }
         }
     }
 }
