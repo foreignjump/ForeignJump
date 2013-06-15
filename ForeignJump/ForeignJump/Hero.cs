@@ -135,7 +135,7 @@ namespace ForeignJump
             //container pour le personnage a l'horisontale
             containerDown = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y + texture.Height - textureDown.Height, textureDown.Width, textureDown.Height);
             //container pour le personnage debout
-            containerUp = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y, texture.Width, texture.Height);
+            containerUp = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y, texture.Width - 10, texture.Height);
 
             if (down)
                 container = containerDown;
@@ -396,6 +396,16 @@ namespace ForeignJump
         {
             if (container.Intersects(objet.container))
             {
+                //collision haut hero
+                if (lastPos.Y > objet.container.Y + objet.container.Height &&
+                    (container.X >= objet.container.X ||
+                    container.X <= objet.container.X + objet.container.Width) &&
+                    container.Y <= objet.container.Y + objet.container.Height)
+                {
+                    vitesse.Y = 150;
+                    positionGlobale.Y = objet.container.Y + objet.container.Height;//à revoir.
+                }
+
                 //collision bas hero
                 if (lastPos.Y + container.Height <= objet.container.Y &&
                     (container.X >= objet.container.X ||
@@ -405,15 +415,6 @@ namespace ForeignJump
                     vitesse.Y = 0;
                     positionGlobale.Y = objet.container.Y - containerUp.Height;
                     animate = true;
-                }
-
-                //collision haut hero
-                if (lastPos.Y > objet.container.Y + objet.container.Height &&
-                    (container.X >= objet.container.X ||
-                    container.X <= objet.container.X + objet.container.Width) &&
-                    container.Y <= objet.container.Y + objet.container.Height)
-                {
-                    vitesse.Y = 150; //à revoir.
                 }
 
                 //collision côté droit hero

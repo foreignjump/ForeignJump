@@ -15,7 +15,7 @@ namespace ForeignJump
     {
         static Niveau renoi;
         static Niveau roumain;
-        //static Niveau indien;
+        static Niveau indien;
         static Niveau reunionnais;
 
         static Langue fr;
@@ -163,6 +163,52 @@ namespace ForeignJump
             reunionnais.ennemiAnime = new Animate(reunionnais.ennemiTextureAnime, 1, 12);
 
             #endregion
+
+            #region indien
+
+            indien = new Niveau();
+            //menuChoose
+            indien.persoMenu = Content.Load<Texture2D>("Menu/Choose/indien/perso");
+            indien.drapeauMenu = Content.Load<Texture2D>("Menu/Choose/indien/drapeau");
+            indien.nameMenu = Content.Load<Texture2D>("Menu/Choose/indien/name");
+            indien.description = "       Rajesh, l'indien. \n \n    Donec urna sem, semper \n ut bibendum in, malesuada \n sit amet diam. Vivamus id  \n convallis mi. Mauris con \n    Donec urna sem, semper \n ut bibendum in, malesuada \n sit amet diam. Vivamus id  \n convallis mi. Mauris con";
+
+            //map
+            indien.objets = new Objet[1000, 19];
+            indien.obstacle = Content.Load<Texture2D>("Perso/indien/brique");
+            indien.nulle = Content.Load<Texture2D>("Perso/indien/rien");
+            indien.terre = Content.Load<Texture2D>("Perso/indien/terre");
+            indien.terre1 = Content.Load<Texture2D>("Perso/indien/terre1");
+            indien.terre2 = Content.Load<Texture2D>("Perso/indien/terre3");
+            indien.sousterre = Content.Load<Texture2D>("Perso/indien/terre2");
+            indien.piece = Content.Load<Texture2D>("Perso/indien/piece");
+            indien.bombe = Content.Load<Texture2D>("Perso/indien/bombe");
+            indien.bonus = Content.Load<Texture2D>("Perso/indien/bonus");
+            indien.path = "map.txt";
+
+            //hero
+            indien.heroTexture = Content.Load<Texture2D>("Perso/indien/hero");
+            indien.heroTextureAnime = Content.Load<Texture2D>("Perso/indien/heroAnime");
+            indien.heroTextureDown = Content.Load<Texture2D>("Perso/indien/heroDown");
+            indien.heroAnime = new Animate(indien.heroTextureAnime, 1, 12);
+            indien.name = "Rajesh";
+
+            //game
+            indien.bg = Content.Load<Texture2D>("Perso/indien/bg");
+            indien.barregreenleft = Content.Load<Texture2D>("Perso/indien/barregreenleft");
+            indien.barregreencenter = Content.Load<Texture2D>("Perso/indien/barregreencenter");
+            indien.barregreenright = Content.Load<Texture2D>("Perso/indien/barregreenright");
+            indien.barreredleft = Content.Load<Texture2D>("Perso/indien/barreredleft");
+            indien.barreredcenter = Content.Load<Texture2D>("Perso/indien/barreredcenter");
+            indien.barreredright = Content.Load<Texture2D>("Perso/indien/barreredright");
+            indien.font = Content.Load<SpriteFont>("Perso/indien/Font");
+
+            //ennemi
+            indien.ennemiTexture = Content.Load<Texture2D>("Perso/indien/ennemiTexture");
+            indien.ennemiTextureAnime = Content.Load<Texture2D>("Perso/indien/ennemiTextureAnime");
+            indien.ennemiAnime = new Animate(indien.ennemiTextureAnime, 1, 12);
+
+            #endregion
         }
 
         public static void LoadLangue()
@@ -276,8 +322,10 @@ namespace ForeignJump
                 return renoi;
             else if (perso == "roumain")
                 return roumain;
-            else
+            else if (perso == "reunionnais")
                 return reunionnais;
+            else
+                return indien;
             
         }
 

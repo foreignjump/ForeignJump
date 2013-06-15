@@ -60,13 +60,11 @@ namespace ForeignJump
             if (selection == -1) //pour que la selection ne dépasse pas les negatifs
                 selection = 1;
             else
-                selection = selection % 3; //pour que la selection ne dépasse pas 2
+                selection = selection % 4; //pour que la selection ne dépasse pas 4
 
             if (KB.New.IsKeyDown(Keys.Right) && !KB.Old.IsKeyDown(Keys.Right))
                 selection++;
 
-            if (KB.New.IsKeyDown(Keys.Left) && !KB.Old.IsKeyDown(Keys.Left))
-                selection--;
 
             #endregion
 
@@ -97,6 +95,16 @@ namespace ForeignJump
                 description = Ressources.GetPerso("reunionnais").description;
 
                 Perso.Choisi = "reunionnais";
+            }
+
+            else if (selection == 4)
+            {
+                drapeau = Ressources.GetPerso("indien").drapeauMenu;
+                perso = Ressources.GetPerso("indien").persoMenu;
+                name = Ressources.GetPerso("indien").nameMenu;
+                description = Ressources.GetPerso("indien").description;
+
+                Perso.Choisi = "indien";
             }
 
         }
