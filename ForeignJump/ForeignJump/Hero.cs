@@ -179,7 +179,10 @@ namespace ForeignJump
                 t1 = Convert.ToInt32(gameTime.TotalGameTime.TotalSeconds);
                 AudioRessources.wingold.Play(AudioRessources.volume, 0f, 0f);
                 positionGlobale.X += 10;
+                
+                if (ennemi != null)
                 ennemi.positionGlobale.X += 9;
+                
                 if (t1 - t0 > 10)
                     bonusVitesse = false;
             }
