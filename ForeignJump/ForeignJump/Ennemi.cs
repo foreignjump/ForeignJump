@@ -25,6 +25,8 @@ namespace ForeignJump
 
         private Rectangle ACDC;
 
+        private bool dead;
+
         //particules
         ParticleComponent particleComponent;
 
@@ -49,6 +51,7 @@ namespace ForeignJump
             ACDC = new Rectangle(0, 0, texture.Width, texture.Height);
 
             animate = true;
+            dead = false;
 
             font = Ressources.GetPerso(Perso.Choisi).font;
 
@@ -94,7 +97,7 @@ namespace ForeignJump
             container = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y, texture.Width, texture.Height);
 
             force.Y = 600;
-            
+
             if (hero.acdc)
             {
                 if (container.Intersects(hero.containerACDC))
@@ -153,9 +156,9 @@ namespace ForeignJump
 
         private void testCollision(Objet objet)
         {
-            if (container.Intersects(hero.container))
+            if (!dead && container.Intersects(hero.container))
             {
-                GameState.State = "GameOver";
+                dead = true;
                 GameOver.Die();
             }
             //création nouvelle particule

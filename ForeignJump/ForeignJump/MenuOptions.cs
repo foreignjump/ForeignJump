@@ -118,7 +118,7 @@ namespace ForeignJump
             nomButton = Ressources.GetLangue(Langue.Choisie).nomButton;
         }
 
-        public void Update(GameTime gameTime, int vitesse, GraphicsDeviceManager graphics)
+        public void Update(GameTime gameTime, int vitesse, GraphicsDeviceManager graphics, MultiMenuChoose multimenuchoose)
         {
             if (KB.New.IsKeyDown(Keys.Escape) && !KB.Old.IsKeyDown(Keys.Escape))
             {
@@ -218,6 +218,7 @@ namespace ForeignJump
                     menu.LoadContent();
                     menuaide.LoadContent();
                     menuchoose.LoadContent();
+                    multimenuchoose.LoadContent();
                     langueToggle = langueToggleFR;
                 }
 

@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("ForeignJump")]
 [assembly: AssemblyProduct("ForeignJump")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Video game about 4 foreigners wanting to go work in France.")]
 [assembly: AssemblyCompany("Underscore")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("EPITA")]

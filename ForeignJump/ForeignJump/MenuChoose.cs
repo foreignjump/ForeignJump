@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.Threading;
 
 namespace ForeignJump
 {
@@ -35,18 +36,24 @@ namespace ForeignJump
         {
             //initialiser la selection à 1 sur renoi
             selection = 1;
+            Perso.Choisi = "renoi";
         }
 
         public void LoadContent()
         {
             menubg = Ressources.GetLangue(Langue.Choisie).menuChoose;
-            fontmenuchoose = Content.Load<SpriteFont>("Menu/Choose/FontMenuChoose");
+            fontmenuchoose = Ressources.Pericles25;
+
+            drapeau = Ressources.GetPerso("renoi").drapeauMenu;
+            perso = Ressources.GetPerso("renoi").persoMenu;
+            name = Ressources.GetPerso("renoi").nameMenu;
+            description = Ressources.GetPerso("renoi").description;
         }
 
         public void Update(GameTime gameTime, int vitesse)
         {
             if (KB.New.IsKeyDown(Keys.Escape) && !KB.Old.IsKeyDown(Keys.Escape))
-                GameState.State = "initial"; //retour au menu
+                GameState.State = "menuMode"; //retour au menu
 
             if (KB.New.IsKeyDown(Keys.Enter) && !KB.Old.IsKeyDown(Keys.Enter))
             {
@@ -57,13 +64,16 @@ namespace ForeignJump
 
             #region selection
 
-            if (selection == -1) //pour que la selection ne dépasse pas les negatifs
+            if (selection == 5)
                 selection = 1;
-            else
-                selection = selection % 4; //pour que la selection ne dépasse pas 4
+            if (selection == 0)
+                selection = 4;
 
             if (KB.New.IsKeyDown(Keys.Right) && !KB.Old.IsKeyDown(Keys.Right))
                 selection++;
+
+            if (KB.New.IsKeyDown(Keys.Left) && !KB.Old.IsKeyDown(Keys.Left))
+                selection--;
 
 
             #endregion

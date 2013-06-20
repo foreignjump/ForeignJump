@@ -42,7 +42,7 @@ namespace ForeignJump
             wingold = Content.Load<SoundEffect>("Sound/wingold");
 //            winbonus = Content.Load<SoundEffect>("Sound/winbonus");
             getbomb = Content.Load<SoundEffect>("Sound/getbomb");
-            volume = 0f;
+            volume = 1f;
         }
 
 

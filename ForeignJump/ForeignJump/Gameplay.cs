@@ -39,12 +39,13 @@ namespace ForeignJump
         float a;
         float b;
         float speed;
+
         public Gameplay()
         { }
 
         public void Initialize()
         {
-            map = new Map("map.txt");
+            map = new Map(Ressources.GetPerso(Perso.Choisi).path);
             hero = new Hero(Ressources.GetPerso(Perso.Choisi).heroAnime, new Vector2(450, 500), new Vector2(200, 0), 90, map);
             ennemi = new Ennemi(Ressources.GetPerso(Perso.Choisi).ennemiAnime, new Vector2(250, 500), hero, map);
             hero.ennemi = ennemi;
@@ -114,6 +115,7 @@ namespace ForeignJump
                 spriteBatch.DrawString(font, "Nombre de Pieces :" + Convert.ToString(Statistiques.Score), new Vector2(60, 100), Color.Black);
             else
                 spriteBatch.DrawString(font, "Gold :" + Convert.ToString(Statistiques.Score), new Vector2(60, 100), Color.Black);
+
 
             //afficher la barre en rouge si distance en danger
             if (distance < 80)

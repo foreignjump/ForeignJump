@@ -59,6 +59,9 @@
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Hammock">
       <HintPath>..\..\packages\Hammock.1.3.1\lib\4.0\Hammock.dll</HintPath>
@@ -125,6 +128,9 @@
     <Compile Include="Bonus.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="gameFini.cs" />
+    <Compile Include="MenuConnection.cs" />
+    <Compile Include="MenuMode.cs" />
     <Compile Include="MenuName.cs" />
     <Compile Include="Ennemi.cs" />
     <Compile Include="GameOver.cs" />
@@ -140,16 +146,24 @@
     <Compile Include="MenuOptions.cs" />
     <Compile Include="Menupause.cs" />
     <Compile Include="MenuPauseAide.cs" />
+    <Compile Include="MultiCamera.cs" />
+    <Compile Include="MultiGameOver.cs" />
+    <Compile Include="MultiGameplay.cs" />
+    <Compile Include="MultiGameWin.cs" />
+    <Compile Include="MultiMenuChoose.cs" />
+    <Compile Include="MultiMenupause.cs" />
     <Compile Include="Niveau.cs" />
     <Compile Include="Objet.cs" />
     <Compile Include="Perso.cs" />
     <Compile Include="Personnage.cs" />
+    <Compile Include="Player2.cs" />
     <Compile Include="Pong\Player.cs" />
     <Compile Include="Pong\Pong.cs" />
     <Compile Include="Pong\PongObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Reseau.cs" />
     <Compile Include="Ressources.cs" />
     <Compile Include="Resultat.cs" />
     <Compile Include="Score.cs" />
@@ -159,6 +173,12 @@
     <Content Include="Game.ico" />
     <Compile Include="Gameplay.cs" />
     <Content Include="GameThumbnail.png" />
+    <None Include="mapMulti.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="map.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Particles\Particles\Particles\Particles.csproj">

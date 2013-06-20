@@ -42,11 +42,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameOver.png">
-      <Name>GameOver</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Menu\Choose\Renoi\drapeau.PNG">
       <Name>drapeau</Name>
       <Importer>TextureImporter</Importer>
@@ -221,23 +216,6 @@
       <Name>wingold</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Menu\Choose\FontMenuChoose.spritefont">
-      <Name>FontMenuChoose</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-    <Compile Include="Perso\renoi\Font.spritefont">
-      <Name>Font</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-    <Compile Include="Perso\roumain\Font.spritefont">
-      <Name>Font</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -805,13 +783,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generique.wmv">
-      <Name>Generique</Name>
-      <Importer>WmvImporter</Importer>
-      <Processor>VideoProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sound\MenuMusic.mp3">
       <Name>MenuMusic</Name>
       <Importer>Mp3Importer</Importer>
@@ -943,13 +914,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Perso\reunionnais\Font.spritefont">
-      <Name>Font</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="ACDC.PNG">
       <Name>ACDC</Name>
       <Importer>TextureImporter</Importer>
@@ -985,13 +949,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Menu\FontMenuName.spritefont">
-      <Name>FontMenuName</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Menu\menuNameBG.png">
       <Name>menuNameBG</Name>
       <Importer>TextureImporter</Importer>
@@ -1003,13 +960,6 @@
       <Name>Classement</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Menu\FontGameOver.spritefont">
-      <Name>FontGameOver</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -1088,11 +1038,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Perso\indien\bombe.jpg">
-      <Name>bombe</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Perso\indien\bonus.png">
       <Name>bonus</Name>
       <Importer>TextureImporter</Importer>
@@ -1160,13 +1105,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Perso\indien\Font.spritefont">
-      <Name>Font</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Menu\Choose\Indien\drapeau.PNG">
       <Name>drapeau</Name>
       <Importer>TextureImporter</Importer>
@@ -1179,6 +1117,163 @@
     </Compile>
     <Compile Include="Menu\Choose\Indien\perso.PNG">
       <Name>perso</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Menu\Mode\menuMode.png">
+      <Name>menuMode</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Menu\Mode\multiplayerH.PNG">
+      <Name>multiplayerH</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Menu\Mode\multiplayerN.PNG">
+      <Name>multiplayerN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Menu\Mode\singleplayerH.PNG">
+      <Name>singleplayerH</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Menu\Mode\singleplayerN.PNG">
+      <Name>singleplayerN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Menu\Connection\menuConnection.PNG">
+      <Name>menuConnection</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Generique.wmv">
+      <Name>Generique</Name>
+      <Importer>WmvImporter</Importer>
+      <Processor>VideoProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="raindrop.png">
+      <Name>raindrop</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameWin.png">
+      <Name>GameWin</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Langue\fr\Menu\createH.PNG">
+      <Name>createH</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Langue\fr\Menu\createN.PNG">
+      <Name>createN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Langue\fr\Menu\joinH.PNG">
+      <Name>joinH</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Langue\fr\Menu\joinN.PNG">
+      <Name>joinN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Langue\en\Menu\createH.PNG">
+      <Name>createH</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Langue\en\Menu\createN.PNG">
+      <Name>createN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Langue\en\Menu\joinH.PNG">
+      <Name>joinH</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Langue\en\Menu\joinN.PNG">
+      <Name>joinN</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Menu\Mode\xboxlive.PNG">
+      <Name>xboxlive</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Langue\en\Menu\loading.PNG">
+      <Name>loading</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Langue\fr\Menu\loading.PNG">
+      <Name>loading</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fonts\Pericles25.spritefont">
+      <Name>Pericles25</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fonts\Scratch27.spritefont">
+      <Name>Scratch27</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fonts\Pericles30.spritefont">
+      <Name>Pericles30</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fonts\Scratch26.spritefont">
+      <Name>Scratch26</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Perso\indien\bombe.png">
+      <Name>bombe</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

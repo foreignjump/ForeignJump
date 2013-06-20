@@ -45,20 +45,10 @@ namespace ForeignJump
                     piece.Update(0.3f);
                     piece.Draw(spriteBatch, new Vector2(objet.position.X - position.X, objet.position.Y), 3);
                 }
-//                spriteBatch.DrawString(hero.font, Convert.ToString(objet.container.X + ";" + objet.container.Y), new Vector2(objet.position.X - position.X, objet.position.Y), Color.Green);
             }
-
- //           spriteBatch.DrawString(hero.font, "Rectangle: (" + Convert.ToString(hero.currentObjet.container.X) + " , " + Convert.ToString(hero.currentObjet.container.Y) + ")", new Vector2(20, 135), Color.Red);
 
             hero.Draw(spriteBatch, position);
             ennemi.Draw(spriteBatch, position);
-
-   //         spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barre, new Rectangle((int)(hero.currentObjet.container.X - position.X), hero.currentObjet.container.Y, hero.currentObjet.container.Width, hero.currentObjet.container.Height), Color.Green);
-
-            //spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).barre, new Rectangle((int)hero.positionLocale.X, (int)hero.positionLocale.Y, hero.texture.Width, hero.texture.Height), Color.White);
-
-            
-            
         }
     }
 }

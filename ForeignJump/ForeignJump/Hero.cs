@@ -10,46 +10,40 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using X2DPE;
 using X2DPE.Helpers;
-
 namespace ForeignJump
 {
     class Hero : Personnage
     {
         public SpriteFont font;
-
         //map actuelle
         private Map map;
-
         //objet en collision
         private Objet currentObjet;
-
         //ennemi
         public Ennemi ennemi;
-
         //random pour bonus
         private Random random;
-
         //l'abaissement du personnage
-        private bool down;
+        public bool down;
         private Rectangle containerDown;
         private Rectangle containerUp;
-        
         //ACDC
         public Rectangle containerACDC;
         public bool acdc;
         private Texture2D acdcTexture;
-
         //superman
         public bool bonusVitesse;
         private Texture2D superman;
         int t0, t1;
-
         //particules bombe
         double tfloat1, tfloat2;
         ParticleComponent particleComponent;
         bool explosion;
+        private bool dead;
         Emitter bombe = new Emitter();
+
         public static Emitter smokeEmitter = new Emitter();
+        public static Emitter testEmitter2 = new Emitter();
 
         public Hero(Animate textureAnime, Vector2 position, Vector2 vitesse, float poids, Map map)
         {
@@ -66,29 +60,22 @@ namespace ForeignJump
             this.force = Vector2.Zero;
             this.reaction = Vector2.Zero;
             this.map = map;
-
             containerDown = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y + texture.Height - textureDown.Height, textureDown.Width, textureDown.Height);
             containerUp = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y, texture.Width, texture.Height);
             this.container = containerUp;
             down = false;
-
             acdcTexture = Ressources.Content.Load<Texture2D>("ACDC");
             containerACDC = new Rectangle((int)positionGlobale.X - acdcTexture.Width, (int)positionGlobale.Y, acdcTexture.Width, acdcTexture.Height);
             acdc = false;
-
             currentObjet = new Objet();
-
             animate = true;
-
             random = new Random();
             bonusVitesse = false;
+            dead = false;
             superman = Ressources.Content.Load<Texture2D>("superman");
-
             font = Ressources.GetPerso(Perso.Choisi).font;
-
             //moteur à particule pour la bombe
             #region Moteur a particules
-
             Emitter.statut = true;
             particleComponent = new ParticleComponent(Ressources.Game);
             Ressources.Game.Components.Add(particleComponent);
@@ -105,7 +92,6 @@ namespace ForeignJump
             bombe.Position = new Vector2(400, 400);
             particleComponent.particleEmitterList.Add(bombe);
             //***************fumée**************************
-
             smokeEmitter.Active = false;
             smokeEmitter.TextureList.Add(Ressources.Content.Load<Texture2D>("smoke"));
             smokeEmitter.RandomEmissionInterval = new RandomMinMax(100);
@@ -118,20 +104,34 @@ namespace ForeignJump
             smokeEmitter.ParticleScaler = new ParticleScaler(0.15f, 0.7f, 400, smokeEmitter.ParticleLifeTime);
             smokeEmitter.Position = new Vector2(0, 0);
             particleComponent.particleEmitterList.Add(smokeEmitter);
-
             //*********************************************
             //*******************************************
 
+            // **** neige*****************
+            testEmitter2.Active = false;
+            testEmitter2.TextureList.Add(Ressources.Content.Load<Texture2D>("raindrop"));
+            testEmitter2.RandomEmissionInterval = new RandomMinMax(9.0d);
+            testEmitter2.ParticleLifeTime = 1000;
+            testEmitter2.ParticleDirection = new RandomMinMax(170);
+            testEmitter2.ParticleSpeed = new RandomMinMax(5.0f);
+            testEmitter2.ParticleRotation = new RandomMinMax(0);
+            testEmitter2.RotationSpeed = new RandomMinMax(0f);
+            testEmitter2.ParticleFader = new ParticleFader(false, true, 800);
+            testEmitter2.ParticleScaler = new ParticleScaler(false, 1.0f);
+            testEmitter2.Opacity = 255;
+            particleComponent.particleEmitterList.Add(testEmitter2);
+            //**************************
             #endregion
         }
 
-
         public void Update(GameTime gameTime, float speed)
         {
+            if (Perso.Choisi == "roumain")//&& particleComponent.particleEmitterList.Count != 0)
+               particleComponent.particleEmitterList[2].Active = true;
+            
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
+            
             personnageAnime.Update(speed); //Animation
-
             //container pour le personnage a l'horisontale
             containerDown = new Rectangle((int)positionGlobale.X, (int)positionGlobale.Y + texture.Height - textureDown.Height, textureDown.Width, textureDown.Height);
             //container pour le personnage debout
@@ -141,10 +141,9 @@ namespace ForeignJump
                 container = containerDown;
             else
                 container = containerUp;
-
             //force pour equilibre
             force.Y = 500;
-
+            
             containerACDC = new Rectangle((int)positionGlobale.X - acdcTexture.Width + 20, (int)positionGlobale.Y - 10, acdcTexture.Width, acdcTexture.Height);
 
             #region Test collision ACDC
@@ -158,7 +157,7 @@ namespace ForeignJump
                 }
             }
             #endregion
-
+            
             #region Test collision Bonus
             for (int i = 0; i < Map.ListBonus.Count; i++)
             {
@@ -179,10 +178,8 @@ namespace ForeignJump
             {
                 t1 = Convert.ToInt32(gameTime.TotalGameTime.TotalSeconds);
                 AudioRessources.wingold.Play(AudioRessources.volume, 0f, 0f);
-
                 positionGlobale.X += 10;
                 ennemi.positionGlobale.X += 9;
-
                 if (t1 - t0 > 10)
                     bonusVitesse = false;
             }
@@ -206,7 +203,6 @@ namespace ForeignJump
             currentObjet = new Objet();
             currentObjet.container.Width = 45;
             currentObjet.container.Height = 45;
-
             int posY = (int)(container.Y / 45);
             int posX = (int)(container.X / 45);
 
@@ -219,16 +215,13 @@ namespace ForeignJump
                     {
                         int currentX = posX + i;
                         int currentY = posY + j;
-
                         if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
                         {
                             currentObjet.container.X = currentX * 45;
                             currentObjet.container.Y = currentY * 45;
                             testCollision(currentObjet);
-
                             //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barregreencenter;
                         }
-
                     }
                 }
                 #endregion
@@ -242,13 +235,11 @@ namespace ForeignJump
                     {
                         int currentX = posX + i;
                         int currentY = posY + j;
-
                         if (map.Valid(currentX, currentY) && map.Objets[currentX, currentY].type == TypeCase.Terre)
                         {
                             currentObjet.container.X = currentX * 45;
                             currentObjet.container.Y = currentY * 45;
                             testCollision(currentObjet);
-
                             //map.Objets[currentX, currentY].texture = Ressources.GetPerso(Perso.Choisi).barregreencenter;
                         }
                     }
@@ -259,7 +250,6 @@ namespace ForeignJump
             #region Test Bombe + Moteur à particules
             Emitter bomb = particleComponent.particleEmitterList[0];
             Emitter fum = particleComponent.particleEmitterList[1];
-
             if (!explosion)
             {
                 for (int i = 0; i < Map.ListBombe.Count; i++)
@@ -277,7 +267,6 @@ namespace ForeignJump
                         vitesse.X = 0;
                         ennemi.vitesse.X = 0;
                         explosion = true;
-
                         //t3.Active = false;
                     }
                     else
@@ -286,7 +275,6 @@ namespace ForeignJump
                         bomb.Active = false;
                         // activpart = false;
                     }
-
                 }
             }
             else
@@ -295,9 +283,13 @@ namespace ForeignJump
                 if (tfloat2 - tfloat1 > 0.8f)
                 {
                     bomb.Active = false;
-                    GameState.State = "GameOver";
-                    GameOver.Die();
-                    fum.Active = true;
+
+                    if (!dead)
+                    {
+                        dead = true;
+                        GameOver.Die();
+                    }
+                        fum.Active = true;
                     fum.Position = new Vector2(positionGlobale.X - ennemi.camera.Position.X + 50, positionGlobale.Y + 20);
                     if (fum.EmittedNewParticle)
                     {
@@ -318,58 +310,79 @@ namespace ForeignJump
             }
             #endregion
 
-            #region Keyboard Input
+            #region moteur à particules Neige
+            if (Perso.Choisi == "roumain")
+            {
+                particleComponent.particleEmitterList[2].Active = true;
+                Emitter t2 = particleComponent.particleEmitterList[2];
+                t2.Position = new Vector2((float)random.NextDouble() * (1280), 0);
+                if (t2.EmittedNewParticle)
+                {
+                    float f = MathHelper.ToRadians(t2.LastEmittedParticle.Direction + 180);
+                    t2.LastEmittedParticle.Rotation = f;
+                }
+            }
+            #endregion
 
+            #region Keyboard Input
+            /*
             if (KB.New.IsKeyDown(Keys.Left))
                 positionGlobale.X -= 5;
-
             if (KB.New.IsKeyDown(Keys.Right))
                 positionGlobale.X += 5;
-            /*
             if (KB.New.IsKeyDown(Keys.Up))
                 positionGlobale.Y -= 1;
-
             if (KB.New.IsKeyDown(Keys.Down))
                 positionGlobale.Y += 1;
-            */
+             */
 
             if (KB.New.IsKeyDown(Keys.Up) && vitesse.Y == 0)
             {
                 force.Y -= 26000;
                 animate = false;
             }
-
             if (KB.New.IsKeyDown(Keys.Down) && vitesse.Y == 0)
             {
                 down = true;
             }
-
             if (KB.New.IsKeyUp(Keys.Down))
             {
                 down = false;
             }
-
             #endregion
 
             Vector2 acceleration = poids + force; //somme des forces = masse * acceleration
-
             vitesse += acceleration * dt;
             positionGlobale += vitesse * dt;
-
             //mise à jour de la position d'avant
             lastPos.X = container.X;
             lastPos.Y = container.Y;
 
-            //si il tombe dans le vide
             if (positionGlobale.Y >= 800)
             {
-                GameState.State = "GameOver";
-                GameOver.Die();
-            } 
+                particleComponent.particleEmitterList[2].Active = false;
+                
+                if (!dead && GameState.State == "inGame")
+                {
+                    dead = true;
+                    GameOver.Die();
+                }
+                else if (GameState.State == "multiInGame")
+                {
+                    GameState.State = "multiGameOver";
+                }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 positionCam)
         {
+            int activeParticles = 0;
+
+            foreach (Emitter activeEmitters in particleComponent.particleEmitterList)
+            {
+                activeParticles += activeEmitters.ParticleList.Count();
+            }
+
             if (!animate)
             {
                 spriteBatch.Draw(Ressources.GetPerso(Perso.Choisi).heroTexture, new Rectangle((int)(container.X - positionCam.X), (int)container.Y, texture.Width, texture.Height), Color.White);
@@ -381,7 +394,6 @@ namespace ForeignJump
                 else
                     personnageAnime.Draw(spriteBatch, new Vector2(containerUp.X - positionCam.X - 14f, containerUp.Y - 14f), 3);
             }
-
             if (acdc)
                 spriteBatch.Draw(acdcTexture, new Rectangle((int)(containerACDC.X - positionCam.X), containerACDC.Y, acdcTexture.Width, acdcTexture.Height), Color.White);
 
@@ -398,32 +410,30 @@ namespace ForeignJump
             {
                 //collision haut hero
                 if (lastPos.Y > objet.container.Y + objet.container.Height &&
-                    (container.X >= objet.container.X ||
-                    container.X <= objet.container.X + objet.container.Width) &&
-                    container.Y <= objet.container.Y + objet.container.Height)
+                (container.X >= objet.container.X ||
+                container.X <= objet.container.X + objet.container.Width) &&
+                container.Y <= objet.container.Y + objet.container.Height)
                 {
                     vitesse.Y = 150;
                     positionGlobale.Y = objet.container.Y + objet.container.Height;//à revoir.
                 }
+                else if (lastPos.Y + container.Height > objet.container.Y &&
+                container.X + container.Width >= objet.container.X &&
+                lastPos.X + container.Width > objet.container.X)
+                {
+                    bonusVitesse = false;
+                    positionGlobale.X = objet.container.X - container.Width;
+                }
 
                 //collision bas hero
                 if (lastPos.Y + container.Height <= objet.container.Y &&
-                    (container.X >= objet.container.X ||
-                    container.X <= objet.container.X + objet.container.Width) &&
-                    container.Y + container.Height >= objet.container.Y)
+                (container.X >= objet.container.X ||
+                container.X <= objet.container.X + objet.container.Width) &&
+                container.Y + container.Height >= objet.container.Y)
                 {
                     vitesse.Y = 0;
                     positionGlobale.Y = objet.container.Y - containerUp.Height;
                     animate = true;
-                }
-
-                //collision côté droit hero
-                if (lastPos.Y + container.Height > objet.container.Y &&
-                    container.X + container.Width >= objet.container.X &&
-                    lastPos.X + container.Width > objet.container.X)
-                {
-                    bonusVitesse = false;
-                    positionGlobale.X = objet.container.X - container.Width;
                 }
             }
         }

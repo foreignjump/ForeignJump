@@ -14,9 +14,8 @@ namespace ForeignJump
     class GameOver
     {
         private Texture2D classementBG;
-        private SpriteFont font;
         private TwitterService twitterService; //connection Twitter
-        
+
         public static string[] top; //tableau servant à l'affichage des résultats
 
         public static void Die() //fonction appliquée avant de rentrer dans le GameOver State
@@ -24,43 +23,40 @@ namespace ForeignJump
             List<Resultat> resultats = new List<Resultat>(); //création d'une nouvelle liste de résultats
             Resultat NewResultat = new Resultat(Statistiques.Name, Statistiques.Score, Perso.Choisi); //stockage du résultat actuel
 
-            //Lecture du fichier texte
-            StreamReader reader;
-            reader = new StreamReader("score.txt");
+            if (File.Exists("score.txt"))
+            {
+                //Lecture du fichier texte
+                StreamReader reader;
+                reader = new StreamReader("score.txt");
 
-            //Transfert du fichier dans une liste
-            for (int i = 0; i < 5; i++)
-            {
-                string str = reader.ReadLine();
-                if (str != null)
+                //Transfert du fichier dans une liste
+                for (int i = 0; i < 5; i++)
                 {
-                    string[] tableau = str.Split(','); //séparation des virgules
-                    resultats.Add(new Resultat(tableau[0], Convert.ToInt32(tableau[1]), tableau[2])); //création d'un nouveau resultat et ajout dans la liste
+                    string str = reader.ReadLine();
+                    if (str != null)
+                    {
+                        string[] tableau = str.Split(','); //séparation des virgules
+                        resultats.Add(new Resultat(tableau[0], Convert.ToInt32(tableau[1]), tableau[2])); //création d'un nouveau resultat et ajout dans la liste
+                    }
+                    else
+                    {
+                        resultats.Add(null);
+                    }
                 }
-                else
-                {
-                    resultats.Add(null);
-                }
-            }
-            reader.Close();
+                reader.Close();
 
-            if (resultats[0] == null)
-            {
-                resultats.Insert(0, NewResultat); //insertion en tête pour la liste vide
-            }
-            else
-            {
-                int i = 0;
-                while (i < resultats.Count && resultats[i] != null && resultats[i].Amount > NewResultat.Amount)
-                {
-                    i++; //avance jusqu'à trouver la place
-                }
-                resultats.Insert(i, NewResultat); //insere le nouveau resultat à la bonne place
             }
 
-            if (resultats[5] != null)
+            int n = 0;
+            while (n < resultats.Count && resultats[n] != null && resultats[n].Amount > NewResultat.Amount)
+            {
+                n++; //avance jusqu'à trouver la place
+            }
+            resultats.Insert(n, NewResultat); //insere le nouveau resultat à la bonne place
+
+            if (resultats.Count >= 6)
                 resultats.RemoveAt(5); //efface le dernier résultat
-            
+
             StreamWriter writer;
 
             writer = new StreamWriter("score.txt");
@@ -70,7 +66,7 @@ namespace ForeignJump
             //Ecriture des resultats dans un fichier
             for (int i = 0; i < 5; i++)
             {
-                if (resultats[i] != null)
+                if (i < resultats.Count && resultats[i] != null)
                     newStr += resultats[i].Name + "," + Convert.ToInt32(resultats[i].Amount) + "," + resultats[i].Perso + Environment.NewLine;
             }
 
@@ -82,19 +78,20 @@ namespace ForeignJump
 
             for (int i = 0; i < 5; i++)
             {
-                if (resultats[i] != null)
+                if (i < resultats.Count && resultats[i] != null)
                     top[i] = resultats[i].Name + " : " + resultats[i].Amount; //si il y a valeur, on affiche Nom : Valeur
                 else
                     top[i] = "NONE";
             }
+
+            GameState.State = "GameOver";
         }
 
 
         public GameOver()
         {
             classementBG = Ressources.Content.Load<Texture2D>("Menu/Classement");
-            font = Ressources.Content.Load<SpriteFont>("Menu/FontGameOver");
-
+            
             #region Authentification Twitter
 
             TwitterClientInfo twitterClientInfo = new TwitterClientInfo();
@@ -144,11 +141,11 @@ namespace ForeignJump
         {
             spriteBatch.Draw(Ressources.GetLangue(Langue.Choisie).gameOver, new Rectangle(440, 185, 400, 431), Color.White);
             spriteBatch.Draw(classementBG, new Rectangle(10, 185, classementBG.Width, classementBG.Height), Color.White);
-            spriteBatch.DrawString(font, top[0], new Vector2(125, 320), Color.White);
-            spriteBatch.DrawString(font, top[1], new Vector2(125, 415), Color.White);
-            spriteBatch.DrawString(font, top[2], new Vector2(125, 508), Color.White);
-            spriteBatch.DrawString(font, top[3], new Vector2(125, 604), Color.White);
-            spriteBatch.DrawString(font, top[4], new Vector2(125, 700), Color.White);
+            spriteBatch.DrawString(Ressources.Scratch27, top[0], new Vector2(125, 320), Color.White);
+            spriteBatch.DrawString(Ressources.Scratch27, top[1], new Vector2(125, 415), Color.White);
+            spriteBatch.DrawString(Ressources.Scratch27, top[2], new Vector2(125, 508), Color.White);
+            spriteBatch.DrawString(Ressources.Scratch27, top[3], new Vector2(125, 604), Color.White);
+            spriteBatch.DrawString(Ressources.Scratch27, top[4], new Vector2(125, 700), Color.White);
         }
 
         private string Hero2Map(string perso)

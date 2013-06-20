@@ -218,7 +218,7 @@ namespace ForeignJump
             {
                 if (selection == 0) //play
                 {
-                    GameState.State = "menuChoose";
+                    GameState.State = "menuMode";
                     //initialiser la selection à 0 donc sur start
                     selection = 0;
 

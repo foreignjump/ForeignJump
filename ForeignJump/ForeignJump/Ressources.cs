@@ -25,8 +25,18 @@ namespace ForeignJump
 
         public static Game Game;
 
+        public static SpriteFont Pericles25;
+        public static SpriteFont Pericles30;
+        public static SpriteFont Scratch26;
+        public static SpriteFont Scratch27;
+
         public static void LoadPerso()
         {
+            Pericles25 = Content.Load<SpriteFont>("Fonts/Pericles25");
+            Pericles30 = Content.Load<SpriteFont>("Fonts/Pericles30");
+            Scratch26 = Content.Load<SpriteFont>("Fonts/Scratch26");
+            Scratch27 = Content.Load<SpriteFont>("Fonts/Scratch27");
+
             #region renoi
 
             renoi = new Niveau();
@@ -34,7 +44,7 @@ namespace ForeignJump
             renoi.persoMenu = Content.Load<Texture2D>("Menu/Choose/renoi/perso");
             renoi.drapeauMenu = Content.Load<Texture2D>("Menu/Choose/renoi/drapeau");
             renoi.nameMenu = Content.Load<Texture2D>("Menu/Choose/renoi/name");
-            renoi.description = "       Moussa, le renoi. \n \n    Donec urna sem, semper \n ut bibendum in, malesuada \n sit amet diam. Vivamus id  \n convallis mi. Mauris con \n    Donec urna sem, semper \n ut bibendum in, malesuada \n sit amet diam. Vivamus id  \n convallis mi. Mauris con";
+            renoi.description = "       Moussa, the beninese. \n \n    \" I want to join the French \n team of athletism  to become \n famous and rich.";
 
             //map
             renoi.objets = new Objet[1000, 19];
@@ -64,7 +74,7 @@ namespace ForeignJump
             renoi.barreredleft = Content.Load<Texture2D>("Perso/renoi/barreredleft");
             renoi.barreredcenter = Content.Load<Texture2D>("Perso/renoi/barreredcenter");
             renoi.barreredright = Content.Load<Texture2D>("Perso/renoi/barreredright");
-            renoi.font = Content.Load<SpriteFont>("Perso/renoi/Font");
+            renoi.font = Scratch26;
 
             //ennemi
             renoi.ennemiTexture = Content.Load<Texture2D>("Perso/renoi/ennemiTexture");
@@ -79,7 +89,7 @@ namespace ForeignJump
             roumain.persoMenu = Content.Load<Texture2D>("Menu/Choose/roumain/perso");
             roumain.drapeauMenu = Content.Load<Texture2D>("Menu/Choose/roumain/drapeau");
             roumain.nameMenu = Content.Load<Texture2D>("Menu/Choose/roumain/name");
-            roumain.description = "       Andrei, le roumain. \n \n    Donec urna sem, semper \n ut bibendum in, malesuada \n sit amet diam. Vivamus id  \n convallis mi. Mauris con \n    Donec urna sem, semper \n ut bibendum in, malesuada \n sit amet diam. Vivamus id  \n convallis mi. Mauris con";
+            roumain.description = "       Andrei, the romanian. \n \n    \"I was told that France is \n a good country to do business \n so I'm coming to rule it. \"";
 
             //map
             roumain.objets = new Objet[1000, 19];
@@ -92,7 +102,7 @@ namespace ForeignJump
             roumain.piece = Content.Load<Texture2D>("Perso/roumain/piece");
             roumain.bombe = Content.Load<Texture2D>("Perso/roumain/bombe");
             roumain.bonus = Content.Load<Texture2D>("Perso/roumain/bonus");
-            roumain.path = "map2.txt";
+            roumain.path = "map.txt";
 
             //hero
             roumain.heroTexture = Content.Load<Texture2D>("Perso/roumain/hero");
@@ -109,7 +119,7 @@ namespace ForeignJump
             roumain.barreredleft = Content.Load<Texture2D>("Perso/roumain/barreredleft");
             roumain.barreredcenter = Content.Load<Texture2D>("Perso/roumain/barreredcenter");
             roumain.barreredright = Content.Load<Texture2D>("Perso/roumain/barreredright");
-            roumain.font = Content.Load<SpriteFont>("Perso/roumain/Font");
+            roumain.font = Scratch26;
 
             //ennemi
             roumain.ennemiTexture = Content.Load<Texture2D>("Perso/roumain/ennemiTexture");
@@ -125,7 +135,7 @@ namespace ForeignJump
             reunionnais.persoMenu = Content.Load<Texture2D>("Menu/Choose/reunionnais/perso");
             reunionnais.drapeauMenu = Content.Load<Texture2D>("Menu/Choose/reunionnais/drapeau");
             reunionnais.nameMenu = Content.Load<Texture2D>("Menu/Choose/reunionnais/name");
-            reunionnais.description = "       Moussa, le reunionnais. \n \n    Donec urna sem, semper \n ut bibendum in, malesuada \n sit amet diam. Vivamus id  \n convallis mi. Mauris con \n    Donec urna sem, semper \n ut bibendum in, malesuada \n sit amet diam. Vivamus id  \n convallis mi. Mauris con";
+            reunionnais.description = "       Moussa, le reunionnais. \n \n    \" Going to France is a great \n oportunity for every reunionese. \n I want to get away from the sun \n and my beautiful island. \n You must wonder why? \n Because it makes me lazy. \"";
 
             //map
             reunionnais.objets = new Objet[1000, 19];
@@ -155,7 +165,7 @@ namespace ForeignJump
             reunionnais.barreredleft = Content.Load<Texture2D>("Perso/reunionnais/barreredleft");
             reunionnais.barreredcenter = Content.Load<Texture2D>("Perso/reunionnais/barreredcenter");
             reunionnais.barreredright = Content.Load<Texture2D>("Perso/reunionnais/barreredright");
-            reunionnais.font = Content.Load<SpriteFont>("Perso/reunionnais/Font");
+            reunionnais.font = Scratch26;
 
             //ennemi
             reunionnais.ennemiTexture = Content.Load<Texture2D>("Perso/reunionnais/ennemiTexture");
@@ -171,7 +181,7 @@ namespace ForeignJump
             indien.persoMenu = Content.Load<Texture2D>("Menu/Choose/indien/perso");
             indien.drapeauMenu = Content.Load<Texture2D>("Menu/Choose/indien/drapeau");
             indien.nameMenu = Content.Load<Texture2D>("Menu/Choose/indien/name");
-            indien.description = "       Rajesh, l'indien. \n \n    Donec urna sem, semper \n ut bibendum in, malesuada \n sit amet diam. Vivamus id  \n convallis mi. Mauris con \n    Donec urna sem, semper \n ut bibendum in, malesuada \n sit amet diam. Vivamus id  \n convallis mi. Mauris con";
+            indien.description = "       Rajesh, l'indien. \n \n    \" I want to open up an Indian \n restaurant in France \n to sell my own brand of Curry. \n It is unique in the entire world.\"";
 
             //map
             indien.objets = new Objet[1000, 19];
@@ -201,7 +211,7 @@ namespace ForeignJump
             indien.barreredleft = Content.Load<Texture2D>("Perso/indien/barreredleft");
             indien.barreredcenter = Content.Load<Texture2D>("Perso/indien/barreredcenter");
             indien.barreredright = Content.Load<Texture2D>("Perso/indien/barreredright");
-            indien.font = Content.Load<SpriteFont>("Perso/indien/Font");
+            indien.font = Scratch26;
 
             //ennemi
             indien.ennemiTexture = Content.Load<Texture2D>("Perso/indien/ennemiTexture");
@@ -215,6 +225,13 @@ namespace ForeignJump
         {
             #region en
             en = new Langue();
+
+            en.loading = Content.Load<Texture2D>("Langue/en/Menu/loading");
+            en.joinH = Content.Load<Texture2D>("Langue/en/Menu/joinH");
+            en.joinN = Content.Load<Texture2D>("Langue/en/Menu/joinN");
+
+            en.createH = Content.Load<Texture2D>("Langue/en/Menu/createH");
+            en.createN = Content.Load<Texture2D>("Langue/en/Menu/createN");
 
             //menu buttons
             en.buttonTextureStartH = Content.Load<Texture2D>("Langue/en/Menu/ButtonStartH");
@@ -266,6 +283,13 @@ namespace ForeignJump
 
             #region fr
             fr = new Langue();
+
+            fr.loading = Content.Load<Texture2D>("Langue/fr/Menu/loading");
+            fr.joinH = Content.Load<Texture2D>("Langue/fr/Menu/joinH");
+            fr.joinN = Content.Load<Texture2D>("Langue/fr/Menu/joinN");
+
+            fr.createH = Content.Load<Texture2D>("Langue/fr/Menu/createH");
+            fr.createN = Content.Load<Texture2D>("Langue/fr/Menu/createN");
 
             //menu buttons
             fr.buttonTextureStartH = Content.Load<Texture2D>("Langue/fr/Menu/ButtonStartH");

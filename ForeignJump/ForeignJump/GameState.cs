@@ -14,11 +14,11 @@ namespace ForeignJump
     public static class GameState
     {
         static string gameState;
-        
+
         public static string State
-        { 
-          get {return gameState;}
-          set {gameState = value;}
+        {
+            get { return gameState; }
+            set { gameState = value; }
         }
     }
 }

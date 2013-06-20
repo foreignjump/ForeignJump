@@ -32,7 +32,7 @@ namespace ForeignJump
         public void LoadContent()
         {
             menubg = Ressources.Content.Load<Texture2D>("Menu/menuNameBG");
-            font = Ressources.Content.Load<SpriteFont>("Menu/FontMenuName");
+            font = Ressources.Pericles30;
         }
 
         public void Update()
@@ -61,7 +61,7 @@ namespace ForeignJump
         {
             spriteBatch.Draw(menubg, new Rectangle(0, 0, 1280, 800), Color.White);
             spriteBatch.DrawString(font, "Please enter your name: ", new Vector2(50, 250), Color.White);
-            spriteBatch.DrawString(Ressources.GetPerso("renoi").font, name, new Vector2(100, 350), Color.White);
+            spriteBatch.DrawString(Ressources.Scratch26, name, new Vector2(100, 350), Color.White);
         }
 
         private char KeyToChar()

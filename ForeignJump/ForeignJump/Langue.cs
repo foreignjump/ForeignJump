@@ -59,6 +59,13 @@ namespace ForeignJump
 
         public Texture2D menuPauseAide;
 
+        public Texture2D loading;
+        public Texture2D createH;
+        public Texture2D createN;
+
+        public Texture2D joinH;
+        public Texture2D joinN;
+
         //keys bonus
         public Texture2D keysStart;
         public Texture2D keysOver;

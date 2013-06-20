@@ -30,6 +30,13 @@ namespace ForeignJump
         private GameOver gameover; //déclaration du gameover
         private Pong pong; //déclaration du popup du nouveau jeu
         private KeyBonusGame keybonusgame; //déclaration du popup du jeu de touches
+        private MenuMode menumode;
+        private MenuConnection menuconnection;
+        private MultiGameplay multigame;
+        private MultiMenuChoose multimenuchoose;
+        private MultiGameOver multigameover;
+        private MultiMenuPause multimenupause;
+        private MultiGameWin multigamewin;
 
         private AudioPlay audioPlay;
 
@@ -51,8 +58,6 @@ namespace ForeignJump
             graphics.PreferredBackBufferHeight = 800;
             graphics.ApplyChanges();
 
-            Components.Add(new GamerServicesComponent(this)); //Live
-
             Ressources.Content = Content;
             Ressources.Game = this;
         }
@@ -70,6 +75,8 @@ namespace ForeignJump
 
             game = new Gameplay();
 
+            multigame = new MultiGameplay();
+
             menupauseaide = new MenuPauseAide();
 
             menuaide = new MenuAide();
@@ -78,6 +85,12 @@ namespace ForeignJump
             menuchoose = new MenuChoose(game, Content);
             menuchoose.Initialize(); //initialisation menu options
 
+            menuconnection = new MenuConnection(multigame);
+            menuconnection.Initialize();
+
+            multimenuchoose = new MultiMenuChoose(multigame, Components);
+            multimenuchoose.Initialize();
+
             menuname = new MenuName();
             menuname.Initialize(); //initialisation menu options
 
@@ -85,6 +98,8 @@ namespace ForeignJump
             menuoptions.Initialize(); //initialisation menu options
 
             gameover = new GameOver();
+            multigameover = new MultiGameOver();
+            multigamewin = new MultiGameWin();
 
             pong = new Pong();
             pong.Initialize();
@@ -94,6 +109,12 @@ namespace ForeignJump
 
             menupause = new MenuPause(pong, keybonusgame);
             menupause.Initialize(450, 0); //initialisation menu pause
+
+            multimenupause = new MultiMenuPause();
+            multimenupause.Initialize(450, 0); //initialisation menu pause
+
+            menumode = new MenuMode();
+            menumode.Initialize();
 
             audioPlay = new AudioPlay(1f);
             GameState.State = "Generique"; //mise à l'état initial
@@ -112,10 +133,15 @@ namespace ForeignJump
             menupause.LoadContent(Content); //charger menu pause
             menupauseaide.LoadContent(Content); //charger menu pause aide
             menuaide.LoadContent(); //charger menu aide
+            multimenupause.LoadContent(Content);
             menuoptions.LoadContent(); //charger menu options
             menuchoose.LoadContent(); //charger menu choix de personnage
+            multimenuchoose.LoadContent();
+            menuconnection.LoadContent();
             menuname.LoadContent();
+            menumode.LoadContent();
             pong.LoadContent();
+
             keybonusgame.LoadContent();
             gen = Content.Load<Video>("Generique");
             MenuMusic = Content.Load<Song>("Sound/MenuMusic");
@@ -134,10 +160,21 @@ namespace ForeignJump
             {
                 Hero.smokeEmitter.Active = false;
                 Emitter.statut = false;
+                if ((GameState.State == "GameOver" || GameState.State == "initial") && Reseau.session != null)
+                {
+                    menuconnection.Initialize();
+                    try
+                    {
+                        Reseau.session = null;
+                        Reseau.session.Dispose();
+                        Reseau.session = null;
+                        Reseau.asessions = null;
+                    }
+                    catch
+                    {
+                    }
+                }
             }
-
-            if (KB.New.IsKeyDown(Keys.Tab) && !KB.Old.IsKeyDown(Keys.Tab))
-                System.Environment.Exit(0);
 
             if (GameState.State == "Generique")
             {
@@ -181,28 +218,63 @@ namespace ForeignJump
                 play = false;
             }
 
-            //menus
-            if (GameState.State == "menuPause") //mise à jour menu pause
-                menupause.Update(gameTime, 3);
+            if (GameState.State == "multiInGame") //mise à jour game
+            {
+                multigame.Update(gameTime);
+                MediaPlayer.Stop();
+                play = false;
+            }
 
-            if (GameState.State == "menuPauseAide") //mise à jour menu pause aide
-                menupauseaide.Update();
+            //menus
+            if (GameState.State == "menuName") //mise à jour menu aide
+                menuname.Update();
 
             if (GameState.State == "menuAide") //mise à jour menu aide
                 menuaide.Update(gameTime, 5);
 
             if (GameState.State == "menuOptions") //mise à jour menu aide
-                menuoptions.Update(gameTime, 5, graphics);
+                menuoptions.Update(gameTime, 5, graphics, multimenuchoose);
+
+            if (GameState.State == "menuConnection") //mise à jour de la selection du mode
+                menuconnection.Update();
 
             if (GameState.State == "menuChoose") //mise à jour menu aide
                 menuchoose.Update(gameTime, 5);
 
-            if (GameState.State == "menuName") //mise à jour menu aide
-                menuname.Update();
+            if (GameState.State == "multiMenuChoose") //mise à jour menu aide
+                multimenuchoose.Update(gameTime, 5);
+
+            if (GameState.State == "menuMode") //mise à jour de la selection du mode
+                menumode.Update();
+
+            if (GameState.State == "menuPause") //mise à jour menu pause
+                menupause.Update(gameTime, 3);
+
+            if (GameState.State == "multiMenuPause") //mise à jour menu pause
+            {
+                multigame.reseau.Update(gameTime);
+                multimenupause.Update(gameTime, 3);
+            }
+
+            if (GameState.State == "menuPauseAide") //mise à jour menu pause aide
+                menupauseaide.Update();
+
             //menus fin
 
             if (GameState.State == "GameOver") //game over
                 gameover.Update();
+
+            if (GameState.State == "multiGameOver") //game over
+            {
+                multigame.reseau.Update(gameTime);
+                multigameover.Update();
+            }
+
+            if (GameState.State == "multiGameWin") //game over
+            {
+                multigame.reseau.Update(gameTime);
+                multigamewin.Update();
+            }
 
             if (GameState.State == "newGame")
                 pong.Update(gameTime, game);
@@ -236,8 +308,20 @@ namespace ForeignJump
             if (GameState.State == "menuOptions") //afficher menu pause
                 menuoptions.Draw(spriteBatch, gameTime);
 
+            if (GameState.State == "multiInGame")
+                multigame.Draw(spriteBatch);
+
+            if (GameState.State == "menuMode") //mise à jour de la selection du mode
+                menumode.Draw(spriteBatch);
+
             if (GameState.State == "menuChoose") //afficher menu pause
                 menuchoose.Draw(spriteBatch, gameTime);
+
+            if (GameState.State == "multiMenuChoose") //mise à jour menu aide
+                multimenuchoose.Draw(spriteBatch, gameTime);
+
+            if (GameState.State == "menuConnection") //mise à jour de la selection du mode
+                menuconnection.Draw(spriteBatch);
 
             if (GameState.State == "menuName") //afficher menu name
                 menuname.Draw(spriteBatch);
@@ -245,6 +329,18 @@ namespace ForeignJump
             if (GameState.State == "GameOver") //afficher lepen
                 gameover.Draw(spriteBatch);
 
+            if (GameState.State == "multiGameOver") //game over
+            {
+                multigame.Draw(spriteBatch);
+                multigameover.Draw(spriteBatch);
+            }
+
+            if (GameState.State == "multiGameWin") //game over
+            {
+                multigame.Draw(spriteBatch);
+                multigamewin.Draw(spriteBatch);
+            }
+            
             if (GameState.State == "newGame")
                 pong.Draw(spriteBatch);
 
@@ -260,6 +356,12 @@ namespace ForeignJump
                     keybonusgame.Draw(spriteBatch);
 
                 menupause.Draw(spriteBatch);
+            }
+
+            if (GameState.State == "multiMenuPause") //afficher menu pause
+            {
+                multigame.Draw(spriteBatch);
+                multimenupause.Draw(spriteBatch);
             }
 
             if (GameState.State == "menuPauseAide") //afficher menu pause
