@@ -42,6 +42,8 @@ namespace ForeignJump
         private bool dead;
         Emitter bombe = new Emitter();
 
+        public static bool win;
+
         public static Emitter smokeEmitter = new Emitter();
         public static Emitter testEmitter2 = new Emitter();
 
@@ -72,6 +74,7 @@ namespace ForeignJump
             random = new Random();
             bonusVitesse = false;
             dead = false;
+            win = false;
             superman = Ressources.Content.Load<Texture2D>("superman");
             font = Ressources.GetPerso(Perso.Choisi).font;
             //moteur à particule pour la bombe
@@ -179,10 +182,9 @@ namespace ForeignJump
                 t1 = Convert.ToInt32(gameTime.TotalGameTime.TotalSeconds);
                 AudioRessources.wingold.Play(AudioRessources.volume, 0f, 0f);
                 positionGlobale.X += 10;
-                
                 if (ennemi != null)
                 ennemi.positionGlobale.X += 9;
-                
+
                 if (t1 - t0 > 10)
                     bonusVitesse = false;
             }
@@ -360,6 +362,20 @@ namespace ForeignJump
             //mise à jour de la position d'avant
             lastPos.X = container.X;
             lastPos.Y = container.Y;
+
+            if (positionGlobale.X >= 42345)
+            {
+                if (!dead && GameState.State == "inGame")
+                {
+                    dead = true;
+                    win = true;
+                    GameOver.Die();
+                }
+                else if (GameState.State == "multiInGame")
+                {
+                    GameState.State = "multiGameOver";
+                }
+            }
 
             if (positionGlobale.Y >= 800)
             {

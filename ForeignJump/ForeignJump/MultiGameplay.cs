@@ -60,7 +60,7 @@ namespace ForeignJump
             barreredcenter = Ressources.GetPerso(Perso.Choisi).barreredcenter;
             barreredleft = Ressources.GetPerso(Perso.Choisi).barreredleft;
             barreredright = Ressources.GetPerso(Perso.Choisi).barreredright;
-            map.Load();
+            map.LoadMulti();
         }
         public void Update(GameTime gameTime)
         {

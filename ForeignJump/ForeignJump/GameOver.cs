@@ -14,6 +14,7 @@ namespace ForeignJump
     class GameOver
     {
         private Texture2D classementBG;
+        private Texture2D gamewin;
         private TwitterService twitterService; //connection Twitter
 
         public static string[] top; //tableau servant à l'affichage des résultats
@@ -87,11 +88,11 @@ namespace ForeignJump
             GameState.State = "GameOver";
         }
 
-
         public GameOver()
         {
             classementBG = Ressources.Content.Load<Texture2D>("Menu/Classement");
-            
+            gamewin = Ressources.Content.Load<Texture2D>("GameWin");
+
             #region Authentification Twitter
 
             TwitterClientInfo twitterClientInfo = new TwitterClientInfo();
@@ -139,7 +140,11 @@ namespace ForeignJump
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
+            if (Hero.win)
+            spriteBatch.Draw(gamewin, new Rectangle(440, 185, 400, 431), Color.White);
+            else
             spriteBatch.Draw(Ressources.GetLangue(Langue.Choisie).gameOver, new Rectangle(440, 185, 400, 431), Color.White);
+            
             spriteBatch.Draw(classementBG, new Rectangle(10, 185, classementBG.Width, classementBG.Height), Color.White);
             spriteBatch.DrawString(Ressources.Scratch27, top[0], new Vector2(125, 320), Color.White);
             spriteBatch.DrawString(Ressources.Scratch27, top[1], new Vector2(125, 415), Color.White);
