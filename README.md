@@ -2,6 +2,7 @@
 Project for EPITA. A little platform game created using C# and XNA.
 
 [Official website](http://foreignjump.com/)
+![Cover](http://francisvm.com/images/foreignjump/cover.png)
 
 # The goal
 The goal of this project was to manage a big project, with few knowledge on a framework (XNA).
