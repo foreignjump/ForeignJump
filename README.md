@@ -1,7 +1,7 @@
 # ForeignJump
 Project for EPITA. A little platform game created using C# and XNA.
 
-[Official website](http://francisvm.foreignjump.com/)
+[Official website](http://foreignjump.francisvm.com/)
 
 ![Cover](http://francisvm.com/images/foreignjump/cover.png)
 
